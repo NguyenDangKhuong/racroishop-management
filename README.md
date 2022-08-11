@@ -1,7 +1,5 @@
-## CLIENT
-
 **run development**
-1.terminal 1: 
+1.terminal: 
 
 > yarn dev
 
