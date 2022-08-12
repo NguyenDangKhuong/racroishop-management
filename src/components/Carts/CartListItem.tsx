@@ -62,10 +62,10 @@ const CartListItem: React.FC<{
                   setCartList(
                     currProduct?.quantity > 1
                       ? cartList.map(item =>
-                          item._id === _id
-                            ? { ...item, quantity: item.quantity - 1 }
-                            : item
-                        )
+                        item._id === _id
+                          ? { ...item, quantity: item.quantity - 1 }
+                          : item
+                      )
                       : cartList.filter(item => _id !== item._id)
                   )
                 }
@@ -104,79 +104,6 @@ const CartListItem: React.FC<{
           </div>
         )
       })}
-      <form className='flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 relative'>
-        <div className='flex w-2/5'>
-          <div className='w-20'>
-            <Image
-              className='h-24'
-              src={'/image/product-placeholder.png'}
-              width={100}
-              height={100}
-              alt=''
-            />
-          </div>
-          <div className='flex flex-col justify-center space ml-4 flex-grow'>
-            <input
-              className='text-sm border w-30'
-              placeholder='Tên sản phẩm'
-              value={''}
-            />
-            {/* <span className='text-red-500 text-xs'>Apple</span> */}
-            <div
-              // onClick={() => {
-              //   setCartList(cartList.filter(item => _id !== item._id))
-              // }}
-              className='font-semibold hover:text-red-500 text-red-500 text-xs cursor-pointer'>
-              Xóa nhập lại
-            </div>
-          </div>
-        </div>
-        <div className='flex justify-center w-1/5'>
-          <svg
-            // onClick={() =>
-            //   currProduct &&
-            //   setCartList(
-            //     currProduct?.quantity > 1
-            //       ? cartList.map(item =>
-            //         item._id === _id
-            //           ? { ...item, quantity: item.quantity - 1 }
-            //           : item
-            //       )
-            //       : cartList.filter(item => _id !== item._id)
-            //   )
-            // }
-            className='fill-current text-gray-600 w-3 cursor-pointer hover:text-blue-500'
-            viewBox='0 0 448 512'>
-            <path d='M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z' />
-          </svg>
-          <input
-            className='mx-2 border text-center w-8'
-            type='text'
-            value={1}
-            readOnly
-          />
-          <svg
-            // onClick={() => {
-            //   currProduct &&
-            //     setCartList(
-            //       cartList.map(item =>
-            //         item._id === _id
-            //           ? { ...item, quantity: item.quantity + 1 }
-            //           : item
-            //       )
-            //     )
-            // }}
-            className='fill-current text-gray-600 w-3 cursor-pointer hover:text-blue-500'
-            viewBox='0 0 448 512'>
-            <path d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z' />
-          </svg>
-        </div>
-        <input className='text-center m-auto w-20 border font-semibold text-sm' />
-        <span className='text-center w-1/5 font-semibold text-sm'>
-          {currencyFormat(100000)}
-          <div className='absolute right-5 top-5'>+ Thêm</div>
-        </span>
-      </form>
       <Link href='/'>
         <a className='flex font-semibold text-indigo-600 text-sm mt-10 uppercase'>
           <svg

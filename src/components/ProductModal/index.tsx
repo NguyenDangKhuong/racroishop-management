@@ -26,13 +26,13 @@ export default function ProductModal({
   setShowModal,
   editingProduct,
   setEditingProduct,
-  dataCategories
+  categories
 }: {
   showModal: boolean
   setShowModal: any
   editingProduct: Product
   setEditingProduct: any
-  dataCategories: Category[]
+  categories: Category[]
 }) {
   const isEditing = editingProduct._id
 
@@ -210,7 +210,7 @@ export default function ProductModal({
                           Danh mục
                         </option>
                         {
-                          dataCategories.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
+                          categories.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
                         }
                       </select>
                     </div>

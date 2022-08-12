@@ -22,9 +22,9 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
       }
     }
   )
-  const { isLoading, isError, isSuccess, data } = useQuery(
+  const { isLoading, isError, isSuccess, data: categories } = useQuery(
     ['fetchCategories'],
-    () => get(`/api/categories/`)
+    () => get(`/api/categories/`).then(res => res.data.categories)
   )
   const renderResult = () => {
     if (isLoading) {
@@ -68,7 +68,7 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
             </tr>
           </thead>
           <tbody>
-            {data?.data.categories.map((item: Category) => (
+            {categories?.map((item: Category) => (
               <tr key={item._id} className='border-t'>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
                   <span>{item.name}</span>

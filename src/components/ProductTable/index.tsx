@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import useDebounce from '../../hooks/useDebounce'
 import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
 import { get, put, remove } from '../../utils/api'
@@ -24,6 +25,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
   const [searchValue, setSearchValue] = useState('')
+  const [products, setProducts] = useState<Product[]>([])
 
   const queryClient = useQueryClient()
 
@@ -36,24 +38,28 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     }
   )
 
-  const { isLoading, isError, isSuccess, data } = useQuery(
+  const { isLoading, isError, isSuccess, data: dataProducts } = useQuery(
     ['fetchProducts'],
-    () => get(`/api/products/`)
+    () => get(`/api/products/`).then(res => res.data.products)
   )
 
-  const { data: dataCategories } = useQuery(
+  const { data: categories } = useQuery(
     ['fetchCategories'],
     () => get(`/api/categories/`).then(res => res.data.categories)
   )
 
-  // const debounedSearchValue = useDebounce(searchValue, 1000)
-  // const { dataProduct } = useQuery(
-  //   ['searchProduct', debounedSearchValue],
-  //   () => get(`/api/product/`, ${debounedSearchValue}),
-  //   {
-  //     enabled: debounedSearchValue.length > 0
-  //   }
-  // )
+  const debounedSearchValue = useDebounce(searchValue, 2000)
+  const { data: dataSearchProducts = [] } = useQuery(
+    ['searchProduct', debounedSearchValue],
+    () => get(`/api/product?name=${debounedSearchValue}`).then(res => res.data),
+    {
+      enabled: debounedSearchValue.length > 0
+    }
+  )
+
+  useEffect(() => {
+    dataSearchProducts.length > 0 ? setProducts(dataSearchProducts) : setProducts(dataProducts)
+  }, [dataSearchProducts])
 
   const mutationPutProduct = useMutation(
     (updatedProduct: Product) => put('/api/product', updatedProduct),
@@ -151,7 +157,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
             </tr>
           </thead>
           <tbody>
-            {data?.data.products.map((item: Product) => (
+            {products?.map((item: Product) => (
               <tr key={item.sku} className='border-t'>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
                   <Image
@@ -193,7 +199,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     }></i>
                 </td>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
-                  {String(dataCategories?.find((category: Category) => item.categoryId === category._id)?.name)}
+                  {String(categories?.find((category: Category) => item.categoryId === category._id)?.name)}
                 </td>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   <div
@@ -270,7 +276,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           showModal={showModal}
           setShowModal={(val: boolean) => setShowModal(val)}
           editingProduct={editingProduct}
-          dataCategories={dataCategories}
+          categories={categories}
           setEditingProduct={(val: any) => setEditingProduct(val)}
         />
         <BarcodeModal
