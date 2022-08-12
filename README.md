@@ -1,39 +1,62 @@
+## Usage
+
 **run development**
-1.terminal: 
 
-> yarn dev
+- run cmd: 
 
+> `yarn dev`
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Sync
-auto sync with github and gitlab(done):
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-#### Sync Gitlab to Github (easy)
+The `pages/api` directory is mapped to `/api/*`. 
+
+**deploy production**
+
+- before deploy run cmd: 
+
+> `yarn build`
+
+#### Auto deploy with `vecel` when push on branch `master`
+
+## Sync gitlab and github
+auto sync with github and gitlab (done):
+
+#### Sync Gitlab to Github
 This one is simple. You could set up some CI/CD yourself. But Gitlab will automatically do this for you.
 
 Go to "Settings > Repository > Mirroring repositories"
-Enter your Github repo with your username in front `https://<github username>@github.com/path/to/your/repo.git`
+
+Enter your Github repo with your username in front `https://NguyenDangKhuong@github.com/NguyenDangKhuong/racroishop-management.git`
+
 In the password field, enter your Github token
+
 Select push (this requires a subscription)
+
 Press Mirror repository
+
 From now on, changes to Gitlab will be mirrored to Github
 
-#### Sync Github to Gitlab (intermediate unless you pay)
+#### Sync Github to Gitlab
 
-Method 1 Github CI/CD
+Add Github CI/CD:
+
 Create the following secrets in your Github repository
+
 `TARGET_URL` value: the URL of the Gitlab repository
+
 `TARGET_TOKEN` value: Gitlab token
+
 `TARGET_USERNAME` value: Gitlab username
+
 Create a Github action for your repository with the following code:
+
 ```
 name: GitlabSync
-
 on:
   - push
   - delete
-
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -48,27 +71,10 @@ jobs:
         target-url: ${{ secrets.TARGET_URL }}
         # Such as wangchucheng
         target-username: ${{ secrets.TARGET_USERNAME }}
-          # You can store token in your project's 'Setting > Secrets' and reference the name here. Such as ${{ secrets.ACCESS\_TOKEN }}
+          # You can store token in your project's 'Setting > Secrets' and reference the name here. Such as ${{ secrets.TARGET_TOKEN }}
         target-token: ${{ secrets.TARGET_TOKEN }}
 ```
 **Make sure the branch you are pushing to in Gitlab is not protected or allows for force push**
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ## Learn More
 
