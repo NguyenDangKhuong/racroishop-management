@@ -1,4 +1,4 @@
-import { prop, getModelForClass } from '@typegoose/typegoose'
+import { getModelForClass, prop } from '@typegoose/typegoose'
 
 export class User {
   _id!: string
@@ -11,6 +11,9 @@ export class User {
 
   @prop({ type: () => Number, required: true })
   password!: number
+
+  @prop({ type: () => Number, required: true })
+  role!: number
 
   @prop({ type: () => Date })
   createAt?: Date
