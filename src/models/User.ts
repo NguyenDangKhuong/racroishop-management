@@ -9,8 +9,8 @@ export class User {
   @prop({ type: () => String, required: true, unique: true })
   email!: string
 
-  @prop({ type: () => Number, required: true })
-  password!: number
+  @prop({ type: () => String, required: true })
+  password!: string
 
   @prop({ type: () => Number, required: true })
   role!: number

@@ -10,6 +10,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
 import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.css'
 
@@ -39,6 +40,17 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <ReactQueryDevtools initialIsOpen={false} />
         </SessionProvider>
       </Hydrate>
+      <ToastContainer
+        position='top-right'
+        autoClose={10000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </QueryClientProvider>
   )
 }
