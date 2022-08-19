@@ -9,7 +9,7 @@ const UserDropdown = () => {
   const popoverDropdownRef: any = createRef()
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: 'bottom-start'
+      placement: 'bottom-end'
     })
     setDropdownPopoverShow(true)
   }
