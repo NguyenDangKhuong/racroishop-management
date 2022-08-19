@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import UserModel from '../../../models/User'
@@ -5,21 +6,44 @@ import connectDb from '../../../utils/connectDb'
 
 connectDb()
 
-export default NextAuth({
-  providers: [
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: {},
-        password: {}
-      },
-      authorize: async credentials => {
+// async function refreshAccessToken(tokenObject: any) {
+//   console.log('tokenObject', tokenObject)
+//   try {
+//     // Get a new set of tokens with a refreshToken
+//     const tokenResponse = await post('auth/refreshToken', {
+//       token: tokenObject.refreshToken
+//     })
+
+//     console.log('tokenResponse', tokenResponse)
+//     return {
+//       ...tokenObject,
+//       accessToken: tokenResponse.data.accessToken,
+//       accessTokenExpiry: tokenResponse.data.accessTokenExpiry,
+//       refreshToken: tokenResponse.data.refreshToken
+//     }
+//   } catch (error) {
+//     return {
+//       ...tokenObject,
+//       error: 'RefreshAccessTokenError'
+//     }
+//   }
+// }
+
+const providers = [
+  CredentialsProvider({
+    name: 'credentials',
+    credentials: {
+      email: {},
+      password: {}
+    },
+    authorize: async credentials => {
+      try {
         const user = await UserModel.findOne({ email: credentials?.email })
         if (!user) {
-          return { error: 'No user found with the email' }
+          throw new Error('No user found with the email')
         }
-        if (credentials?.password === user?.password) {
-          return { error: 'Invalid password' }
+        if (credentials?.password !== user?.password) {
+          throw new Error('Invalid password')
         }
         if (
           credentials?.email === user?.email &&
@@ -28,38 +52,59 @@ export default NextAuth({
           return user
         }
         return null
+      } catch (err: any) {
+        console.log(err)
+        return null
       }
-    })
-  ],
-  callbacks: {
-    jwt: async ({ token, user }) => {
-      if (user) {
-        token.accessToken = user.access_token
-      }
-      console.log('token', token)
-      console.log('token user', user)
-      return token
-    },
-    session: async ({ session, token }) => {
-      console.log('session', session)
-      console.log('session token', token)
-      if (token) {
-        session.id = token.id
-      }
-      return session // The return type will match the one returned in `useSession()`
     }
-  },
-  secret: 'loginSecret',
-  session: {
-    strategy: 'jwt',
-    // Seconds - How long until an idle session expires and is no longer valid.
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    // Seconds - Throttle how frequently to write to database to extend a session.
-    // Use it to limit write operations. Set to 0 to always update the database.
-    // Note: This option is ignored if using JSON Web Tokens
-    updateAge: 24 * 60 * 60 // 24 hours
-  },
-  pages: {
-    signIn: '/login' //Need to define custom login page (if using)
-  }
-})
+  })
+]
+
+// const callbacks = {
+//   // @ts-ignore: Unreachable code error
+//   jwt: async ({ token, user }) => {
+//     if (user) {
+//       // This will only be executed at login. Each next invocation will skip this part.
+//       token.accessToken = user.data.accessToken
+//       token.accessTokenExpiry = user.data.accessTokenExpiry
+//       token.refreshToken = user.data.refreshToken
+//     }
+
+//     // If accessTokenExpiry is 24 hours, we have to refresh token before 24 hours pass.
+//     const shouldRefreshTime = Math.round(
+//       token.accessTokenExpiry - 60 * 60 * 1000 - Date.now()
+//     )
+
+//     // If the token is still valid, just return it.
+//     if (shouldRefreshTime > 0) {
+//       return Promise.resolve(token)
+//     }
+
+//     // If the call arrives after 23 hours have passed, we allow to refresh the token.
+//     token = await refreshAccessToken(token)
+//     return Promise.resolve(token)
+//   },
+//   session: async ({ session, token }: { session: any; token: any }) => {
+//     // Here we pass accessToken to the client to be used in authentication with your API
+//     session.accessToken = token.accessToken
+//     session.accessTokenExpiry = token.accessTokenExpiry
+//     session.error = token.error
+
+//     return Promise.resolve(session)
+//   }
+// }
+
+const pages = {
+  signIn: '/login' //Need to define custom login page (if using)
+}
+
+export const options = {
+  providers,
+  // callbacks,
+  pages,
+  secret: 'my_secret'
+}
+
+const Auth = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, options)
+export default Auth

@@ -1,11 +1,12 @@
 import { createPopper } from '@popperjs/core'
-import React from 'react'
+import { signOut } from 'next-auth/react'
+import { createRef, useState } from 'react'
 
 const UserDropdown = () => {
   // dropdown props
-  const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false)
-  const btnDropdownRef: any = React.createRef()
-  const popoverDropdownRef: any = React.createRef()
+  const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false)
+  const btnDropdownRef: any = createRef()
+  const popoverDropdownRef: any = createRef()
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: 'bottom-start'
@@ -71,8 +72,8 @@ const UserDropdown = () => {
           className={
             'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700'
           }
-          onClick={e => e.preventDefault()}>
-          Seprated link
+          onClick={() => signOut()}>
+          Sign Out
         </a>
       </div>
     </>
