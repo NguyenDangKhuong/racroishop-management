@@ -36,8 +36,8 @@ export default function ProductModal({
 }) {
   const isEditing = editingProduct._id
 
-  const [imageUrl, setImageUrl] = useState('')
-  const [imagePublicId, setImagePublicId] = useState('')
+  const [imageUrl, setImageUrl] = useState(editingProduct.imageUrl || '')
+  const [imagePublicId, setImagePublicId] = useState(editingProduct.imagePublicId || '')
 
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => handleCloseModal())

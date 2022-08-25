@@ -4,9 +4,10 @@ import Layout from '../components/Layout'
 import LoadingPage from '../components/LoadingPage'
 
 export const renderPageWithLayout = (children: JSX.Element) => {
-  const { status } = useSession()
+  const { status, data: session } = useSession()
   const router = useRouter()
-  if (status === "loading") {
+
+  if (status === "loading" || session?.user.email !== 'admin@gmail.com') {
     return <LoadingPage />
   }
   if (status === 'unauthenticated') router.push('/login')

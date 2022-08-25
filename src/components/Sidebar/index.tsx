@@ -175,38 +175,6 @@ const Sidebar = () => {
           <hr className='my-4 md:min-w-full' />
           {/* Heading */}
           <h6 className='md:min-w-full text-gray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline'>
-            Auth Layout Pages
-          </h6>
-          {/* Navigation */}
-
-          <ul className='md:flex-col md:min-w-full flex flex-col list-none md:mb-4'>
-            <li className='items-center'>
-              <Link href='/auth/login'>
-                <a
-                  href='#'
-                  className='text-gray-700 hover:text-gray-500 text-xs uppercase py-3 font-bold block'>
-                  <i className='fas fa-fingerprint text-gray-400 mr-2 text-sm'></i>{' '}
-                  Login
-                </a>
-              </Link>
-            </li>
-
-            <li className='items-center'>
-              <Link href='/auth/register'>
-                <a
-                  href='#'
-                  className='text-gray-700 hover:text-gray-500 text-xs uppercase py-3 font-bold block'>
-                  <i className='fas fa-clipboard-list text-gray-300 mr-2 text-sm'></i>{' '}
-                  Register
-                </a>
-              </Link>
-            </li>
-          </ul>
-
-          {/* Divider */}
-          <hr className='my-4 md:min-w-full' />
-          {/* Heading */}
-          <h6 className='md:min-w-full text-gray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline'>
             No Layout Pages
           </h6>
           {/* Navigation */}

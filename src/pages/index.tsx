@@ -1,9 +1,8 @@
-import { getToken } from 'next-auth/jwt'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import LoadingPage from '../components/LoadingPage'
 
-const Home = () => {
+const Index = () => {
   const { status } = useSession()
   const router = useRouter()
   if (status === 'loading') {
@@ -13,4 +12,4 @@ const Home = () => {
   if (status === 'authenticated') router.push('/dashboard')
 }
 
-export default Home
+export default Index

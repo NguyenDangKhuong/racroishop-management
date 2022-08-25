@@ -7,7 +7,7 @@ export default function CardStats({
   statArrow,
   statPercent,
   statPercentColor,
-  statDescripiron,
+  statDescription: statDescripiron,
   statIconName,
   statIconColor
 }: {
@@ -16,7 +16,7 @@ export default function CardStats({
   statArrow: string
   statPercent: string
   statPercentColor: string
-  statDescripiron: string
+  statDescription: string
   statIconName: string
   statIconColor: string
 }) {
