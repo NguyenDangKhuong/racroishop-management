@@ -28,7 +28,7 @@ const CartListItem: React.FC<{
           Tổng
         </h3>
       </div>
-      {cartList.map(({ _id, name, price, imageUrl, quantity }, index) => {
+      {cartList.map(({ _id, name, price, imageUrl, cartQuantity }, index) => {
         const currProduct = cartList.find(item => item._id === _id)
         return (
           <div
@@ -60,10 +60,10 @@ const CartListItem: React.FC<{
                 onClick={() =>
                   currProduct &&
                   setCartList(
-                    currProduct?.quantity > 1
+                    currProduct.cartQuantity! > 1
                       ? cartList.map(item =>
                         item._id === _id
-                          ? { ...item, quantity: item.quantity - 1 }
+                          ? { ...item, cartQuantity: item.cartQuantity! - 1 }
                           : item
                       )
                       : cartList.filter(item => _id !== item._id)
@@ -76,7 +76,7 @@ const CartListItem: React.FC<{
               <input
                 className='mx-2 border text-center w-8'
                 type='text'
-                value={quantity || 0}
+                value={cartQuantity || 0}
                 readOnly
               />
               <svg
@@ -85,7 +85,7 @@ const CartListItem: React.FC<{
                     setCartList(
                       cartList.map(item =>
                         item._id === _id
-                          ? { ...item, quantity: item.quantity + 1 }
+                          ? { ...item, cartQuantity: item.cartQuantity! + 1 }
                           : item
                       )
                     )
@@ -99,7 +99,7 @@ const CartListItem: React.FC<{
               {currencyFormat(price)}
             </span>
             <span className='text-center w-1/5 font-semibold text-sm'>
-              {currencyFormat(price * quantity)}
+              {currencyFormat(price * cartQuantity!)}
             </span>
           </div>
         )

@@ -13,14 +13,14 @@ export const initialProduct = {
   name: '',
   price: 0,
   sku: '',
-  quantity: 0,
+  storage: 0,
   _id: '',
   image: ''
 }
 
 const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showModal, setShowModal] = useState(false)
-  const [productQuantity, setProductQuantity] = useState(0)
+  const [productStorage, setProductStorage] = useState(0)
   const [barcodeValue, setBarcodeValue] = useState('')
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
@@ -180,13 +180,13 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     onClick={() =>
                       mutationPutProduct.mutate({
                         ...item,
-                        quantity: item.quantity - 1
+                        storage: item.storage - 1
                       })
                     }></i>
                   <input
                     type='number'
                     className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
-                    value={item.quantity}
+                    value={item.storage}
                     onChange={() => { }}
                   />
                   <i
@@ -194,7 +194,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     onClick={() =>
                       mutationPutProduct.mutate({
                         ...item,
-                        quantity: item.quantity + 1
+                        storage: item.storage + 1
                       })
                     }></i>
                 </td>
@@ -207,7 +207,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     onClick={() => {
                       setBarcodeValue(item.sku)
                       setShowBarcodeModal(true)
-                      setProductQuantity(item.quantity)
+                      setProductStorage(item.storage)
                     }}>
                     {item.sku}
                   </div>
@@ -283,7 +283,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           barcodeValue={barcodeValue}
           showBarcodeModal={showBarcodeModal}
           setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
-          productQuantity={productQuantity}
+          productStorage={productStorage}
         />
       </div>
     </>

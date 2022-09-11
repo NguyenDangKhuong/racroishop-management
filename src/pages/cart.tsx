@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import CartInput from '../components/Carts/CartInput'
@@ -36,10 +36,10 @@ const Cart: NextPage = () => {
     const newProductList = existedProduct
       ? cartList.map(item =>
           item._id === data?.data._id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, cartQuantity: item.cartQuantity! + 1 }
             : item
         )
-      : [...cartList, { ...data?.data, quantity: 1 }]
+      : [...cartList, { ...data?.data, cartQuantity: 1 }]
     data?.data && setCartList(newProductList)
     setSearchValue('')
   }, [data?.data])
@@ -50,12 +50,12 @@ const Cart: NextPage = () => {
   )
 
   const totalCart: number = cartList.reduce(
-    (acc, { quantity }) => acc + quantity,
+    (acc, { cartQuantity }) => acc + cartQuantity!,
     0
   )
 
   const totalPrice: number = cartList.reduce(
-    (acc, curr) => acc + curr.price * curr.quantity,
+    (acc, curr) => acc + curr.price * curr.cartQuantity!,
     0
   )
 
@@ -145,12 +145,12 @@ const Cart: NextPage = () => {
               {cartList.map(item => (
                 <tr key={item._id}>
                   <td className='border text-left p-3'>{item.name}</td>
-                  <td className='border text-right p-3'>{item.quantity}</td>
+                  <td className='border text-right p-3'>{item.cartQuantity}</td>
                   <td className='border text-right p-3'>
                     {currencyFormat(item.price)}
                   </td>
                   <td className='border text-right p-3'>
-                    {currencyFormat(item.quantity * item.price)}
+                    {currencyFormat(item!.cartQuantity! * item.price)}
                   </td>
                 </tr>
               ))}

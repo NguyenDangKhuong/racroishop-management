@@ -14,7 +14,7 @@ type ProductFormData = {
   _id: string
   name: string
   price: string
-  quantity: string
+  storage: string
   categoryId: string
   sku: string
   imageUrl: string
@@ -123,10 +123,10 @@ export default function ProductModal({
   }
 
   useEffect(() => {
-    const { name, price, quantity, categoryId, imageUrl } = editingProduct
+    const { name, price, storage, categoryId, imageUrl } = editingProduct
     setValue('name', name)
     setValue('price', price ? String(price) : '')
-    setValue('quantity', quantity ? String(quantity) : '')
+    setValue('storage', storage ? String(storage) : '')
     setValue('categoryId', categoryId ? String(categoryId) : '')
     setValue('imageUrl', String(imageUrl))
     imageUrl && setImageUrl(imageUrl)
@@ -190,14 +190,14 @@ export default function ProductModal({
                         type='number'
                         placeholder='Số lượng'
                         className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        {...register('quantity', {
+                        {...register('storage', {
                           required: 'Vui lòng nhập số lượng'
                         })}
                       />
-                      {errors.quantity && (
+                      {errors.storage && (
                         <ErrorMessage
                           message={String(
-                            errors.quantity?.message
+                            errors.storage?.message
                           )}></ErrorMessage>
                       )}
                     </div>

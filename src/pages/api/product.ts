@@ -37,8 +37,8 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { name, price, quantity } = req.body
-    if (!name || !price || !quantity) {
+    const { name, price, storage } = req.body
+    if (!name || !price || !storage) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
     }
 
@@ -58,8 +58,8 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { _id, name, price, quantity, imagePublicId } = req.body
-    if (!name || !price || !quantity) {
+    const { _id, name, price, storage, imagePublicId } = req.body
+    if (!name || !price || !storage) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
     }
 

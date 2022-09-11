@@ -13,7 +13,10 @@ export class Product {
   price!: number
 
   @prop({ type: () => Number, required: true })
-  quantity!: number
+  storage!: number
+
+  @prop({ type: () => Number })
+  cartQuantity?: number
 
   @prop({ type: () => String })
   categoryId?: string
