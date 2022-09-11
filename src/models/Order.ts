@@ -1,4 +1,4 @@
-import { prop, getModelForClass } from '@typegoose/typegoose'
+import { getModelForClass, prop } from '@typegoose/typegoose'
 import ProductModel, { Product } from './Product'
 
 export class Order {
@@ -8,6 +8,8 @@ export class Order {
   @prop()
   products?: ProductList 
 
+
+
   @prop({ type: () => Date })
   createAt!: Date
 
@@ -15,7 +17,7 @@ export class Order {
   updateAt!: Date
 }
 
-const CartModel = getModelForClass(Order, {
+const OrderModel = getModelForClass(Order, {
   schemaOptions: { timestamps: true }
 })
 
@@ -27,4 +29,4 @@ class ProductList {
   public product?: Product;
 }
 
-export default CartModel
+export default OrderModel

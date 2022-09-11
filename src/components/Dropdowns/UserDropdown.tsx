@@ -1,8 +1,12 @@
 import { createPopper } from '@popperjs/core'
-import { signOut } from 'next-auth/react'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 import { createRef, useState } from 'react'
+import { toast } from 'react-toastify'
+import { get } from '../../utils/api'
 
 const UserDropdown = () => {
+  const router = useRouter()
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false)
   const btnDropdownRef: any = createRef()
@@ -16,6 +20,19 @@ const UserDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false)
   }
+
+  const mutationLogout = useMutation(
+    () => get('/api/logout').then(res => res.data),
+    {
+      onSuccess: res => {
+        if (!res.isLoggedIn) router.push(`/login`)
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
+      }
+    }
+  )
+
   return (
     <>
       <a
@@ -72,7 +89,7 @@ const UserDropdown = () => {
           className={
             'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700'
           }
-          onClick={() => signOut()}>
+          onClick={() => {mutationLogout.mutate()}}>
           Đăng xuất
         </a>
       </div>

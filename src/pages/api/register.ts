@@ -6,7 +6,7 @@ import { validateRegisterInput } from '../../utils/validateRegisterInput'
 
 connectDb()
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const register = async (req: NextApiRequest, res: NextApiResponse) => {
   const validateRegisterInputErrors = validateRegisterInput(req.body)
   if (validateRegisterInputErrors !== null)
     return res.status(400).send(validateRegisterInputErrors)
@@ -17,9 +17,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       email
     })
     if (existingUser)
-      return res.status(400).send(`${existingUser.email === email ? 'Email' : 'Tên'
-        } đã được đăng kí`)
-
+      return res
+        .status(400)
+        .send(
+          `${existingUser.email === email ? 'Email' : 'Tên'} đã được đăng kí`
+        )
 
     // không cài đc agron2 trên máy công ty, mai mốt fix lại sau
     // const hashedPassword = await argon2.hash(password)
@@ -44,3 +46,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }
+
+export default register

@@ -1,16 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import LoadingPage from '../components/LoadingPage'
+import useUser from '../hooks/useUser'
 
 export const renderPageWithLayout = (children: JSX.Element) => {
-  const { status, data: session } = useSession()
   const router = useRouter()
+  const { session, isLoading } = useUser()
 
-  if (status === "loading" || session?.user.email !== 'admin@gmail.com') {
+  if (session?.isLoading) {
     return <LoadingPage />
   }
-  if (status === 'unauthenticated') router.push('/login')
+  if (!session?.isAdmin) {
+    return <LoadingPage />
+  }
+  if (!session?.isLoggedIn) {
+    return router.push('/login')
+  }
   return <Layout>{children}</Layout>
 }

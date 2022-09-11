@@ -4,7 +4,7 @@ import connectDb from '../../utils/connectDb'
 
 connectDb()
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const products = async (req: NextApiRequest, res: NextApiResponse) => {
   const { page, size } = req.query
   // Convert querystring values to number
   const pageNum = Number(page)
@@ -21,3 +21,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
   res.status(200).json({ products, totalPages })
 }
+
+export default products

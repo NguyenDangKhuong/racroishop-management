@@ -4,7 +4,7 @@ import connectDb from '../../utils/connectDb'
 
 connectDb()
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const category = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'POST':
       await handlePostRequest(req, res)
@@ -17,6 +17,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break
   }
 }
+
+export default category
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   try {

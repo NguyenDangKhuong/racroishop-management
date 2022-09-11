@@ -1,8 +1,9 @@
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import RegisterFormData from '../../types/register/RegisterFormData'
+import { post } from '../../utils/api'
 
 const LoginForm = () => {
   const router = useRouter()
@@ -14,20 +15,30 @@ const LoginForm = () => {
     reset
   } = useForm<RegisterFormData>()
 
+  const mutationLogin = useMutation(
+    (user: RegisterFormData) => post('/api/login', user).then(res => res.data),
+    {
+      onSuccess: res => {
+        toast.success('Đăng nhập thành công!')
+        if (res) router.push(`/dashboard`)
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
+      }
+    }
+  )
+
+  //submit next-auth
   const onSubmit = handleSubmit(async data => {
     try {
-      const signInStatus = await signIn('credentials', {
-        redirect: false,
-        callbackUrl: `${window.location.origin}/dashboard`,
+      mutationLogin.mutate({
         ...data
       })
-      if (!signInStatus) return
-      signInStatus.error && toast.error('Invalid username or password')
-      if (signInStatus.ok) router.push(`${signInStatus.url}`)
     } catch (err) {
       console.log(err)
     }
   })
+
   return (
     <section className='relative w-full h-full py-40 min-h-screen'>
       <div

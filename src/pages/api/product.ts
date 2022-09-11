@@ -5,7 +5,7 @@ import removeImage from '../../utils/removeImage'
 
 connectDb()
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const product = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res)
@@ -21,6 +21,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break
   }
 }
+
+export default product
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
