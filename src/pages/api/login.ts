@@ -17,7 +17,8 @@ const loginRoute = async(req: NextApiRequest, res: NextApiResponse) => {
     }
     req.session.user = {
       user,
-      isAdmin: user.role === 0
+      isAdmin: user.role === 0,
+      isLoggedIn: true
     }
     await req.session.save()
     return res.status(200).json(user)

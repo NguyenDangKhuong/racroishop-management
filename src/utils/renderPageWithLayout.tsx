@@ -8,7 +8,7 @@ export const renderPageWithLayout = (children: JSX.Element) => {
   const router = useRouter()
   const { session, isLoading } = useUser()
 
-  if (session?.isLoading) {
+  if (isLoading) {
     return <LoadingPage />
   }
   if (!session?.isAdmin) {

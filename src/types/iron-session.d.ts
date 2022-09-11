@@ -7,6 +7,7 @@ declare module 'iron-session' {
     user?: {
       user: User
       isAdmin?: boolean
+      isLoggedIn: boolean
     }
   }
 }

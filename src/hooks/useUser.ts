@@ -7,7 +7,7 @@ export default function useUser({
   redirectIfFound = false
 } = {}) {
   const router = useRouter()
-  const { isLoading, isError, isSuccess, data: user } = useQuery(
+  const { isLoading, data: user } = useQuery(
     ['fetchUser'],
     () => get(`/api/user/`).then(res => res.data)
   )
