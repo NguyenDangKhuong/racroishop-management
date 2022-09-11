@@ -1,13 +1,12 @@
-import PublicFooter from '../components/PublicFooter'
-import PublicNavbar from '../components/PublicNavbar'
+import Layout from '../components/Layout'
 import RegisterForm from '../components/RegisterForm'
 
 const Register = () => {
   return (
     <>
-      <PublicNavbar />
-      <RegisterForm />
-      <PublicFooter />
+      <Layout>
+        <RegisterForm />
+      </Layout>
     </>
   )
 }

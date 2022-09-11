@@ -1,8 +1,8 @@
 import Header from '../components/Header'
-import { renderPageWithLayout } from '../utils/renderPageWithLayout'
+import checkAuthWithAdminLayout from '../utils/checkAuthWithAdminLayout'
 
 const Dashboard = () => {
-  return <>{renderPageWithLayout(<Header />)}</>
+  return <>{checkAuthWithAdminLayout(<Header />)}</>
 }
 
 export default Dashboard

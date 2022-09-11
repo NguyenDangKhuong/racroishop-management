@@ -1,10 +1,10 @@
 import CategoryTable from '../components/CategoryTable'
-import { renderPageWithLayout } from '../utils/renderPageWithLayout'
+import checkAuthWithAdminLayout from '../utils/checkAuthWithAdminLayout'
 
 const Category = () => {
   return (
     <>
-      {renderPageWithLayout(
+      {checkAuthWithAdminLayout(
         <div className='flex flex-wrap mt-4'>
           <div className='w-full mb-12 px-4'>
             <CategoryTable />

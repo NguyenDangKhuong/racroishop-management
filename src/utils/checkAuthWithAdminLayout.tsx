@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from 'next/router'
-import Layout from '../components/Layout'
+import DashboardLayout from '../components/DashboardLayout'
 import LoadingPage from '../components/LoadingPage'
 import useUser from '../hooks/useUser'
 
-export const renderPageWithLayout = (children: JSX.Element) => {
+const checkAuthWithAdminLayout = (children: JSX.Element) => {
   const router = useRouter()
   const { session, isLoading } = useUser()
 
@@ -17,5 +17,6 @@ export const renderPageWithLayout = (children: JSX.Element) => {
   if (!session?.isLoggedIn) {
     return router.push('/login')
   }
-  return <Layout>{children}</Layout>
+  return <DashboardLayout>{children}</DashboardLayout>
 }
+export default checkAuthWithAdminLayout

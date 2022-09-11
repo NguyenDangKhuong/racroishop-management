@@ -1,13 +1,12 @@
-import LoginForm from "../components/LoginForm"
-import PublicFooter from "../components/PublicFooter"
-import PublicNavbar from "../components/PublicNavbar"
+import Layout from '../components/Layout'
+import LoginForm from '../components/LoginForm'
 
 const Login = () => {
   return (
     <>
-      <PublicNavbar />
-      <LoginForm />
-      <PublicFooter />
+      <Layout>
+        <LoginForm />
+      </Layout>
     </>
   )
 }
