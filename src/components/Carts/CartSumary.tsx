@@ -1,16 +1,39 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
+import { Order } from '../../models/Order'
 import { Product } from '../../models/Product'
+import { post } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
+
+interface ProductCartType {
+  product: Product
+  quantity: number
+}
+
+
 
 const CartSumary: React.FC<{
   totalCart: number
-  cartList: Product[]
+  cartList: ProductCartType[]
   handlePrint: any
   totalPrice: number
 }> = ({ totalCart, cartList, handlePrint, totalPrice }) => {
-  const [customerCash, setCustomerCash] = useState(0)
 
+  const [customerCash, setCustomerCash] = useState(0)
   const exchange = customerCash > 0 ? customerCash - totalPrice : 0
+
+  const mutationPostOrder = useMutation(
+    (newOrder: Order) => post('/api/order', newOrder,
+    // {
+    //   onSuccess: res => {
+    //     toast.success(res.data)
+    //     handleCloseModal()
+    //   },
+    //   onError: (err: any) => {
+    //     toast.error(err.response.data)
+    //   }
+    // }
+  ))
 
   return (
     <div id='summary' className='w-1/4 px-8 py-10'>
@@ -96,7 +119,13 @@ const CartSumary: React.FC<{
         <button
           className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full'
           onClick={() => {
-            handlePrint()
+            // mutationPostOrder.mutate({
+            //   products,
+            //   totalPrice,
+            //   totalCart,
+            //   exchange
+            // })
+            // handlePrint()
           }}>
           Thanh toán
         </button>

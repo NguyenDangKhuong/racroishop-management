@@ -3,13 +3,9 @@ import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Category } from '../../models/Category'
+import CategoryFormData from '../../types/category/CategoryFormData'
 import { post, put } from '../../utils/api'
 import { initialCategory } from '../CategoryTable'
-
-type FormData = {
-  _id: string
-  name: string
-}
 
 export default function CategoryModal({
   showModal,
@@ -31,7 +27,7 @@ export default function CategoryModal({
 
   const queryClient = useQueryClient()
   const mutationPostCategory = useMutation(
-    (newCategory: FormData) => post('/api/category', newCategory),
+    (newCategory: CategoryFormData) => post('/api/category', newCategory),
     {
       onSuccess: () => {
         handleCloseModal()
@@ -40,7 +36,7 @@ export default function CategoryModal({
     }
   )
   const mutationPutCategory = useMutation(
-    (updatedCategory: FormData) => put('/api/category', updatedCategory),
+    (updatedCategory: CategoryFormData) => put('/api/category', updatedCategory),
     {
       onSuccess: () => {
         handleCloseModal()
@@ -55,7 +51,7 @@ export default function CategoryModal({
     reset,
     setValue,
     formState: { errors }
-  } = useForm<FormData>()
+  } = useForm<CategoryFormData>()
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutCategory.mutate({ ...data, _id: editingCategory._id })

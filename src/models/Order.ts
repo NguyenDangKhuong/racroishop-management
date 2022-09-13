@@ -8,7 +8,17 @@ export class Order {
   @prop()
   products?: ProductList 
 
+  @prop({ type: () => Number })
+  customerCash!: number
 
+  @prop({ type: () => Number })
+  totalPrice!: number
+  
+  @prop({ type: () => Number })
+  totalCart!: number
+
+  @prop({ type: () => Number })
+  exchange!: number
 
   @prop({ type: () => Date })
   createAt!: Date

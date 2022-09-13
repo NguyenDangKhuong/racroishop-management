@@ -6,20 +6,10 @@ import { toast } from 'react-toastify'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
+import ProductFormData from '../../types/product/ProductFormData'
 import { post, put } from '../../utils/api'
 import ErrorMessage from '../ErrorMessage'
 import { initialProduct } from '../ProductTable'
-
-type ProductFormData = {
-  _id: string
-  name: string
-  price: string
-  storage: string
-  categoryId: string
-  sku: string
-  imageUrl: string
-  imagePublicId: string
-}
 
 export default function ProductModal({
   showModal,
