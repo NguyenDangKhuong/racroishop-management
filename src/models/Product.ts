@@ -15,9 +15,6 @@ export class Product {
   @prop({ type: () => Number, required: true })
   storage!: number
 
-  @prop({ type: () => Number })
-  cartQuantity?: number
-
   @prop({ type: () => String })
   categoryId?: string
 

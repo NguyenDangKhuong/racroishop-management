@@ -1,8 +1,12 @@
+import DashboardLayout from '../components/DashboardLayout'
 import Header from '../components/Header'
-import checkAuthWithAdminLayout from '../utils/checkAuthWithAdminLayout'
 
 const Dashboard = () => {
-  return <>{checkAuthWithAdminLayout(<Header />)}</>
+  return (
+    <DashboardLayout>
+      <Header />
+    </DashboardLayout>
+  )
 }
 
 export default Dashboard

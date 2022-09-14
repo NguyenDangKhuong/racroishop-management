@@ -1,12 +1,11 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
-import ProductModel, { Product } from './Product'
+import { ProductCart } from './Cart'
 
 export class Order {
-  @prop({ type: () => String, required: true, unique: true })
-  _id!: string
+  _id?: string
 
   @prop()
-  products?: ProductList 
+  products?: ProductCart[]
 
   @prop({ type: () => Number })
   customerCash!: number
@@ -21,22 +20,14 @@ export class Order {
   exchange!: number
 
   @prop({ type: () => Date })
-  createAt!: Date
+  createAt?: Date
 
   @prop({ type: () => Date })
-  updateAt!: Date
+  updateAt?: Date
 }
 
 const OrderModel = getModelForClass(Order, {
   schemaOptions: { timestamps: true }
 })
-
-class ProductList {
-  @prop()
-  public quantity?: number;
-
-  @prop({ type: () => ProductModel })
-  public product?: Product;
-}
 
 export default OrderModel

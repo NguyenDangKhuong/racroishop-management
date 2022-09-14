@@ -1,13 +1,8 @@
-import { ReactNode } from 'react'
 import Footer from '../Footer'
 import Navbar from '../Navbar'
 import Sidebar from '../Sidebar'
 
-interface IWrapperProps {
-  children?: ReactNode
-}
-
-const DashboardLayout = ({ children }: IWrapperProps) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Sidebar />

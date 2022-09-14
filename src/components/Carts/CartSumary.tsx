@@ -1,39 +1,33 @@
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { ProductCart } from '../../models/Cart'
 import { Order } from '../../models/Order'
-import { Product } from '../../models/Product'
 import { post } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
-
-interface ProductCartType {
-  product: Product
-  quantity: number
-}
-
-
+import LoaderIcon from '../LoaderIcon'
 
 const CartSumary: React.FC<{
   totalCart: number
-  cartList: ProductCartType[]
+  cartList: ProductCart[]
   handlePrint: any
   totalPrice: number
 }> = ({ totalCart, cartList, handlePrint, totalPrice }) => {
-
   const [customerCash, setCustomerCash] = useState(0)
   const exchange = customerCash > 0 ? customerCash - totalPrice : 0
 
   const mutationPostOrder = useMutation(
-    (newOrder: Order) => post('/api/order', newOrder,
-    // {
-    //   onSuccess: res => {
-    //     toast.success(res.data)
-    //     handleCloseModal()
-    //   },
-    //   onError: (err: any) => {
-    //     toast.error(err.response.data)
-    //   }
-    // }
-  ))
+    (newOrder: Order) => post('/api/order', newOrder),
+    {
+      onSuccess: res => {
+        toast.success(res.data)
+        handlePrint()
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
+      }
+    }
+  )
 
   return (
     <div id='summary' className='w-1/4 px-8 py-10'>
@@ -117,16 +111,17 @@ const CartSumary: React.FC<{
           <span>{currencyFormat(totalPrice)}</span>
         </div>
         <button
-          className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full'
+          className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
           onClick={() => {
-            // mutationPostOrder.mutate({
-            //   products,
-            //   totalPrice,
-            //   totalCart,
-            //   exchange
-            // })
-            // handlePrint()
+            mutationPostOrder.mutate({
+              products: cartList,
+              totalPrice,
+              totalCart,
+              exchange,
+              customerCash
+            })
           }}>
+          {mutationPostOrder.isLoading && <LoaderIcon />}
           Thanh toán
         </button>
       </div>

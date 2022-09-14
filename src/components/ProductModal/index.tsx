@@ -67,6 +67,7 @@ export default function ProductModal({
     setValue,
     reset
   } = useForm<ProductFormData>()
+  
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutProduct.mutate({

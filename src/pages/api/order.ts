@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import CategoryModel, { Category } from '../../models/Category'
+import OrderModel, { Order } from '../../models/Order'
 import connectDb from '../../utils/connectDb'
 
 connectDb()
@@ -22,20 +22,13 @@ export default order
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { name } = req.body
-    if (!name) {
-      return res.status(422).send('Danh mục thiếu tên')
+    const { products } = req.body
+    if (products.length === 0) {
+      return res.status(422).send('Không có sản phẩm')
     }
 
-    const existedName = await CategoryModel.findOne({ name })
-    if (existedName) {
-      return res
-        .status(422)
-        .send(`Đã có danh mục tên này rồi, vui lòng đặt tên khác`)
-    }
-
-    const category: Category = await new CategoryModel({ ...req.body }).save()
-    return res.status(201).send('Danh mục đã được thêm!')
+    const order: Order = await new OrderModel({ ...req.body }).save()
+    return res.status(201).send('Đang in hóa đơn!')
   } catch (err) {
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
@@ -47,7 +40,7 @@ async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
     if (!name) {
       return res.status(422).send('Danh mục thiếu tên')
     }
-    await CategoryModel.findByIdAndUpdate(_id, req.body, { new: true })
+    await OrderModel.findByIdAndUpdate(_id, req.body, { new: true })
     res.status(200).send(`Danh mục đã được cập nhật!`)
   } catch (err) {
     console.log(err)

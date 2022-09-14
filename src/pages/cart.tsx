@@ -7,19 +7,19 @@ import CartInput from '../components/Carts/CartInput'
 import CartListItem from '../components/Carts/CartListItem'
 import CartSumary from '../components/Carts/CartSumary'
 import useDebounce from '../hooks/useDebounce'
-import { Product } from '../models/Product'
+import { ProductCart } from '../models/Cart'
 import { get } from '../utils/api'
 import { currencyFormat } from './../utils/currencyFormat'
 
 const Cart: NextPage = () => {
   const [searchValue, setSearchValue] = useState('')
-  const [cartList, setCartList] = useState<Product[]>([])
+  const [cartList, setCartList] = useState<ProductCart[]>([])
 
   const debounedSearchValue = useDebounce(searchValue, 2000)
 
   const { isLoading, isError, isSuccess, data } = useQuery(
     ['searchProduct', debounedSearchValue],
-    () => get(`/api/product/sku/${debounedSearchValue}`),
+    () => get(`/api/product/sku/${debounedSearchValue}`).then(res => res.data),
     {
       enabled: debounedSearchValue.length > 0
     }
@@ -28,21 +28,22 @@ const Cart: NextPage = () => {
   const existedProduct = useMemo(
     () =>
       cartList.length > 0 &&
-      data?.data &&
-      cartList.find(item => item._id === data?.data._id),
-    [cartList, data?.data]
+      data &&
+      cartList.find(item => item.product?._id === data._id),
+    [cartList, data]
   )
+
   useEffect(() => {
-    const newProductList = existedProduct
+    const newCartList = existedProduct
       ? cartList.map(item =>
-          item._id === data?.data._id
-            ? { ...item, cartQuantity: item.cartQuantity! + 1 }
+          item.product?._id === data._id
+            ? { ...item, quantity: item.quantity! + 1 }
             : item
         )
-      : [...cartList, { ...data?.data, cartQuantity: 1 }]
-    data?.data && setCartList(newProductList)
+      : [...cartList, { product: data, quantity: 1 }]
+    data && setCartList(newCartList)
     setSearchValue('')
-  }, [data?.data])
+  }, [data])
 
   const onChangeSearchInput = useCallback(
     (e: any) => setSearchValue(e.target.value),
@@ -50,12 +51,12 @@ const Cart: NextPage = () => {
   )
 
   const totalCart: number = cartList.reduce(
-    (acc, { cartQuantity }) => acc + cartQuantity!,
+    (acc, { quantity }) => acc + quantity!,
     0
   )
 
   const totalPrice: number = cartList.reduce(
-    (acc, curr) => acc + curr.price * curr.cartQuantity!,
+    (acc, curr) => acc + curr.product?.price! * curr.quantity!,
     0
   )
 
@@ -102,7 +103,7 @@ const Cart: NextPage = () => {
           <CartListItem
             totalCart={totalCart}
             cartList={cartList}
-            setCartList={(newProductList: Product[]) =>
+            setCartList={(newProductList: ProductCart[]) =>
               setCartList(newProductList)
             }
           />
@@ -143,14 +144,14 @@ const Cart: NextPage = () => {
             </thead>
             <tbody>
               {cartList.map(item => (
-                <tr key={item._id}>
-                  <td className='border text-left p-3'>{item.name}</td>
-                  <td className='border text-right p-3'>{item.cartQuantity}</td>
+                <tr key={item.product?._id}>
+                  <td className='border text-left p-3'>{item.product?.name}</td>
+                  <td className='border text-right p-3'>{item.quantity}</td>
                   <td className='border text-right p-3'>
-                    {currencyFormat(item.price)}
+                    {currencyFormat(item.product?.price!)}
                   </td>
                   <td className='border text-right p-3'>
-                    {currencyFormat(item!.cartQuantity! * item.price)}
+                    {currencyFormat(item!.quantity! * item.product?.price!)}
                   </td>
                 </tr>
               ))}

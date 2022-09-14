@@ -1,11 +1,20 @@
+import { useRouter } from 'next/router'
+import LoadingPage from '../components/LoadingPage'
+import useUser from '../hooks/useUser'
+
 const Index = () => {
-  // const { status } = useSession()
-  // const router = useRouter()
-  // if (status === 'loading') {
-  //   return <LoadingPage />
-  // }
-  // if (status === 'unauthenticated') router.push('/login')
-  // if (status === 'authenticated') router.push('/dashboard')
+  const router = useRouter()
+  const { session, isLoading } = useUser()
+
+  console.log(session)
+  console.log(isLoading)
+  if (isLoading) {
+    return <LoadingPage />
+  }
+  if (!session || !session?.isLoggedIn) {
+    return router.push('/login')
+  }
+  return session.isAdmin ? router.push('/dashboard') : router.push('/')
 }
 
 export default Index
