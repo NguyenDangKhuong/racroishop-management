@@ -7,7 +7,7 @@ export class Order {
   @prop({ type: () => String })
   orderId!: string
 
-  @prop()
+  @prop({ type: () => [ProductCart] })
   products?: ProductCart[]
 
   @prop({ type: () => Number })
@@ -22,8 +22,8 @@ export class Order {
   @prop({ type: () => Number })
   exchange!: number
 
-  @prop({ type: () => String })
-  createdAt?: String
+  @prop({ type: () => Date })
+  createdAt?: Date
 
   @prop({ type: () => Date })
   updatedAt?: Date

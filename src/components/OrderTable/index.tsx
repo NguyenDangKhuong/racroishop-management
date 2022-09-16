@@ -11,6 +11,7 @@ const ListTable = () => {
     get(`/api/orders/`).then(res => res.data.orders)
   )
 
+  console.log(orders)
   return (
     <table className='items-center w-full bg-transparent border-collapse'>
       <thead>

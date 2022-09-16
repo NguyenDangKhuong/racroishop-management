@@ -23,7 +23,6 @@ export default order
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
-    console.log(req.body)
     const { products } = req.body
     if (products.length === 0) {
       return res.status(422).send('Không có sản phẩm')
