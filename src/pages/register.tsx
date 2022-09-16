@@ -1,12 +1,12 @@
 import Layout from '../components/Layout'
 import RegisterForm from '../components/RegisterForm'
 
-const Register = () => {
+const RegisterPage = () => {
   return (
-      <Layout>
-        <RegisterForm />
-      </Layout>
+    <Layout>
+      <RegisterForm />
+    </Layout>
   )
 }
 
-export default Register
+export default RegisterPage

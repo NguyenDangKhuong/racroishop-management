@@ -33,9 +33,12 @@ const BarcodeModal = ({
               </button>
             </div>
             {/*body*/}
-            <div ref={componentRef} className='grid grid-cols-2 gap-x-0.5 gap-y-2 text-center m-auto'>
+            <div
+              ref={componentRef}
+              className='grid grid-cols-2 gap-x-0.5 gap-y-2 text-center m-auto'>
               {Array.from(Array(productStorage), (_, i) => (
                 <Barcode
+                  key={i}
                   width={1}
                   height={30}
                   fontSize={12}

@@ -7,10 +7,10 @@ export class Category {
   name!: string
 
   @prop({ type: () => Date })
-  createAt?: Date
+  createdAt?: Date
 
   @prop({ type: () => Date })
-  updateAt?: Date
+  updatedAt?: Date
 }
 
 const CategoryModel = getModelForClass(Category, {

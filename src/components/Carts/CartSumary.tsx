@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { ProductCart } from '../../models/Cart'
@@ -17,10 +18,11 @@ const CartSumary: React.FC<{
   const exchange = customerCash > 0 ? customerCash - totalPrice : 0
 
   const mutationPostOrder = useMutation(
-    (newOrder: Order) => post('/api/order', newOrder),
+    (newOrder: Order) => post('/api/order', newOrder).then(res => res.data.order),
     {
       onSuccess: res => {
-        toast.success(res.data)
+        console.log(res)
+        toast.success('Đang in hóa đơn!')
         handlePrint()
       },
       onError: (err: any) => {
@@ -114,6 +116,7 @@ const CartSumary: React.FC<{
           className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
           onClick={() => {
             mutationPostOrder.mutate({
+              orderId: nanoid(6),
               products: cartList,
               totalPrice,
               totalCart,

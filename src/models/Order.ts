@@ -4,6 +4,9 @@ import { ProductCart } from './Cart'
 export class Order {
   _id?: string
 
+  @prop({ type: () => String })
+  orderId!: string
+
   @prop()
   products?: ProductCart[]
 
@@ -19,11 +22,11 @@ export class Order {
   @prop({ type: () => Number })
   exchange!: number
 
-  @prop({ type: () => Date })
-  createAt?: Date
+  @prop({ type: () => String })
+  createdAt?: String
 
   @prop({ type: () => Date })
-  updateAt?: Date
+  updatedAt?: Date
 }
 
 const OrderModel = getModelForClass(Order, {

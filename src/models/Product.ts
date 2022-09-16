@@ -25,10 +25,10 @@ export class Product {
   imagePublicId?: string
 
   @prop({ type: () => Date })
-  createAt?: Date
+  createdAt?: Date
 
   @prop({ type: () => Date })
-  updateAt?: Date
+  updatedAt?: Date
 }
 
 const ProductModel = getModelForClass(Product, {
