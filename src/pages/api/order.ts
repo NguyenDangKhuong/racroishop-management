@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import OrderModel, { Order } from '../../models/Order'
-import ProductModel from '../../models/Product'
 import connectDb from '../../utils/connectDb'
 
 connectDb()
@@ -27,8 +26,17 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
     if (products.length === 0) {
       return res.status(422).send('Không có sản phẩm')
     }
+    console.log(req.body)
 
-    await Promise.all(products.map(async (item: any) => await ProductModel.findByIdAndUpdate(item.product._id, {...item.product, storage: item.product.storage - item.quantity}, { new: true })))
+    // await Promise.all(
+    //   products.map(
+    //     async (item: any) =>
+    //       await ProductModel.findByIdAndUpdate(
+    //         item.product._id,
+    //         { ...item.product, storage: item.product.storage - item.quantity }
+    //       )
+    //   )
+    // )
     const order: Order = await new OrderModel({ ...req.body }).save()
 
     return res.status(201).json(order)

@@ -15,7 +15,7 @@ const Cart: NextPage = () => {
   const [searchValue, setSearchValue] = useState('')
   const [cartList, setCartList] = useState<ProductCart[]>([])
 
-  const debounedSearchValue = useDebounce(searchValue, 2000)
+  const debounedSearchValue = useDebounce(searchValue, 1000)
 
   const { isLoading, isError, isSuccess, data } = useQuery(
     ['searchProduct', debounedSearchValue],

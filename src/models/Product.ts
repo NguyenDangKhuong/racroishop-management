@@ -1,5 +1,4 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
-
 export class Product {
   _id!: string
 
