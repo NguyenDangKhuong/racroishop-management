@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import RegisterFormData from '../../types/register/RegisterFormData'
+import { User } from '../../models/User'
 import { post } from '../../utils/api'
 
 const LoginForm = () => {
@@ -14,10 +14,10 @@ const LoginForm = () => {
     formState: { errors },
     setValue,
     reset
-  } = useForm<RegisterFormData>()
+  } = useForm<User>()
 
   const mutationLogin = useMutation(
-    (user: RegisterFormData) => post('/api/login', user).then(res => res.data),
+    (user: User) => post('/api/login', user).then(res => res.data),
     {
       onSuccess: res => {
         toast.success('Đăng nhập thành công!')

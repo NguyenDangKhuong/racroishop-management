@@ -6,7 +6,6 @@ import { toast } from 'react-toastify'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
-import ProductFormData from '../../types/product/ProductFormData'
 import { post, put } from '../../utils/api'
 import ErrorMessage from '../ErrorMessage'
 import { initialProduct } from '../ProductTable'
@@ -34,7 +33,7 @@ export default function ProductModal({
 
   const queryClient = useQueryClient()
   const mutationPostProduct = useMutation(
-    (newProduct: ProductFormData) => post('/api/product', newProduct),
+    (newProduct: Product) => post('/api/product', newProduct),
     {
       onSuccess: res => {
         toast.success(res.data)
@@ -47,7 +46,7 @@ export default function ProductModal({
     }
   )
   const mutationPutProduct = useMutation(
-    (updatedProduct: ProductFormData) => put('/api/product', updatedProduct),
+    (updatedProduct: Product) => put('/api/product', updatedProduct),
     {
       onSuccess: res => {
         toast.success(res.data)
@@ -66,19 +65,23 @@ export default function ProductModal({
     formState: { errors },
     setValue,
     reset
-  } = useForm<ProductFormData>()
+  } = useForm<Product>()
   
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutProduct.mutate({
         ...data,
         _id: editingProduct._id,
+        price: Number(data.price),
+        storage: Number(data.storage),
         imageUrl,
         imagePublicId
       })
       : mutationPostProduct.mutate({
         ...data,
         sku: nanoid(5),
+        price: Number(data.price),
+        storage: Number(data.storage),
         imageUrl,
         imagePublicId
       })
@@ -116,8 +119,8 @@ export default function ProductModal({
   useEffect(() => {
     const { name, price, storage, categoryId, imageUrl } = editingProduct
     setValue('name', name)
-    setValue('price', price ? String(price) : '')
-    setValue('storage', storage ? String(storage) : '')
+    setValue('price', price ? Number(price) : 0)
+    setValue('storage', storage ? Number(storage) : 0)
     setValue('categoryId', categoryId ? String(categoryId) : '')
     setValue('imageUrl', String(imageUrl))
     imageUrl && setImageUrl(imageUrl)

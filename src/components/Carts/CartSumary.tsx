@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { ProductCart } from '../../models/Cart'
 import { Order } from '../../models/Order'
@@ -18,11 +19,10 @@ const CartSumary: React.FC<{
   const exchange = customerCash > 0 ? customerCash - totalPrice : 0
 
   const mutationPostOrder = useMutation(
-    (newOrder: Order) => post('/api/order', newOrder).then(res => res.data.order),
+    (newOrder: Order) => post('/api/order', newOrder),
     {
       onSuccess: res => {
-        console.log(res)
-        toast.success('Đang in hóa đơn!')
+        toast.success(res.data)
         handlePrint()
       },
       onError: (err: any) => {
@@ -31,8 +31,23 @@ const CartSumary: React.FC<{
     }
   )
 
+  const {
+    handleSubmit,
+    formState: { errors }
+  } = useForm<Order>()
+  const onSubmit = handleSubmit(() =>
+    mutationPostOrder.mutate({
+      orderId: nanoid(6),
+      products: cartList,
+      totalPrice,
+      totalCart,
+      exchange,
+      customerCash
+    })
+  )
+
   return (
-    <div id='summary' className='w-1/4 px-8 py-10'>
+    <form onSubmit={onSubmit} id='summary' className='w-1/4 px-8 py-10'>
       <h1 className='font-semibold text-2xl border-b pb-8'>
         Tổng quan đơn hàng
       </h1>
@@ -114,16 +129,7 @@ const CartSumary: React.FC<{
         </div>
         <button
           className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
-          onClick={() => {
-            mutationPostOrder.mutate({
-              orderId: nanoid(6),
-              products: cartList,
-              totalPrice,
-              totalCart,
-              exchange,
-              customerCash
-            })
-          }}>
+          type='submit'>
           {mutationPostOrder.isLoading && <LoaderIcon />}
           Thanh toán
         </button>
@@ -134,7 +140,7 @@ const CartSumary: React.FC<{
           <span>{currencyFormat(exchange)}</span>
         </div>
       </div>
-    </div>
+    </form>
   )
 }
 

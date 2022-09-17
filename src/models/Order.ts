@@ -2,13 +2,11 @@ import { getModelForClass, prop } from '@typegoose/typegoose'
 import { ProductCart } from './Cart'
 
 export class Order {
-  _id?: string
-
-  @prop({ type: () => String })
+  @prop({ type: () => String, required: true, unique: true })
   orderId!: string
 
   @prop({ type: () => [ProductCart] })
-  products?: ProductCart[]
+  products!: ProductCart[]
 
   @prop({ type: () => Number })
   customerCash!: number

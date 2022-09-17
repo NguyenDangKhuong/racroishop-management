@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import RegisterForm from "../../types/register/RegisterFormData"
+import { User } from '../../models/User'
 import { post } from "../../utils/api"
 
 const RegisterForm = () => {
 
   const queryClient = useQueryClient()
   const mutationRegister = useMutation(
-    (newUser: RegisterForm) => post('/api/register', newUser),
+    (newUser: User) => post('/api/register', newUser),
     {
       onSuccess: res => {
         toast.success(res.data)
@@ -25,7 +25,7 @@ const RegisterForm = () => {
     formState: { errors },
     setValue,
     reset
-  } = useForm<RegisterForm>()
+  } = useForm<User>()
 
   const onSubmit = handleSubmit(data =>
     mutationRegister.mutate({

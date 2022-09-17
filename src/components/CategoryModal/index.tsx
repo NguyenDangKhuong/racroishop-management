@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Category } from '../../models/Category'
-import CategoryFormData from '../../types/category/CategoryFormData'
 import { post, put } from '../../utils/api'
 import { initialCategory } from '../CategoryTable'
 
@@ -20,23 +20,25 @@ export default function CategoryModal({
 }) {
   const isEditing = editingCategory._id
 
-
-
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => handleCloseModal())
 
   const queryClient = useQueryClient()
   const mutationPostCategory = useMutation(
-    (newCategory: CategoryFormData) => post('/api/category', newCategory),
+    (newCategory: Category) => post('/api/category', newCategory),
     {
-      onSuccess: () => {
+      onSuccess: res => {
+        toast.success(res.data)
         handleCloseModal()
         queryClient.refetchQueries(['fetchCategories'])
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
       }
     }
   )
   const mutationPutCategory = useMutation(
-    (updatedCategory: CategoryFormData) => put('/api/category', updatedCategory),
+    (updatedCategory: Category) => put('/api/category', updatedCategory),
     {
       onSuccess: () => {
         handleCloseModal()
@@ -51,7 +53,7 @@ export default function CategoryModal({
     reset,
     setValue,
     formState: { errors }
-  } = useForm<CategoryFormData>()
+  } = useForm<Category>()
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutCategory.mutate({ ...data, _id: editingCategory._id })

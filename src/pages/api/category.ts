@@ -23,6 +23,7 @@ export default category
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { name } = req.body
+    console.log(req.body)
     if (!name) {
       return res.status(422).send('Danh mục thiếu tên')
     }

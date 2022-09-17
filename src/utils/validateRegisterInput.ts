@@ -1,6 +1,6 @@
-import RegisterForm from '../types/register/RegisterFormData'
+import { User } from '../models/User'
 
-export const validateRegisterInput = (registerInput: RegisterForm) => {
+export const validateRegisterInput = (registerInput: User) => {
   if (!registerInput.email.includes('@'))
     return {
       message: 'Email không đúng định dạng',
