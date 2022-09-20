@@ -29,7 +29,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <Head>
-          <title>Rắc rối shop của vợ yêu</title>
+          <title>Yumy shop của vợ yêu</title>
           <link rel='icon' href='/favicon.ico' />
           <meta charSet='utf-8' />
         </Head>
