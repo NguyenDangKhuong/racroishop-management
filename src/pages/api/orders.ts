@@ -1,5 +1,4 @@
-import endOfDay from 'date-fns/endOfDay'
-import startOfDay from 'date-fns/startOfDay'
+import { endOfDay, endOfMonth, startOfDay, startOfMonth } from 'date-fns'
 import { NextApiRequest, NextApiResponse } from 'next'
 import OrderModel from '../../models/Order'
 import connectDb from '../../utils/connectDb'
@@ -7,8 +6,14 @@ import connectDb from '../../utils/connectDb'
 connectDb()
 
 const orderRoute = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { selectDate } = req.query
-  const orders = await OrderModel.find({
+  const { selectDate, isMonth } = req.query
+  const orders = isMonth ? await OrderModel.find({
+    createdAt: {
+      $gte: startOfMonth(new Date(String(selectDate))),
+      $lte: endOfMonth(new Date(String(selectDate)))
+    }
+  }) :
+  await OrderModel.find({
     createdAt: {
       $gte: startOfDay(new Date(String(selectDate))),
       $lte: endOfDay(new Date(String(selectDate)))

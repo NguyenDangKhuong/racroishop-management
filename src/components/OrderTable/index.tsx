@@ -12,8 +12,10 @@ registerLocale('vi', vi)
 
 const ListTable = () => {
   const [selectDate, setSelectDate] = useState(new Date())
-  const { data: orders, mutate } = useMutation((selectDate: Date) =>
-    get(`/api/orders?selectDate=${selectDate}`).then(res => res.data.orders)
+  const { data: orders, mutate } = useMutation((value: any) =>
+    get(`/api/orders?selectDate=${value.date}&isMonth=${value.isMonth}`).then(
+      (res: any) => res.data.orders
+    )
   )
 
   return (
@@ -30,7 +32,7 @@ const ListTable = () => {
               selected={selectDate}
               onChange={(date: Date) => {
                 setSelectDate(date)
-                mutate(date)
+                mutate({date, isMonth: false})
               }}
             />
           </div>
@@ -45,7 +47,7 @@ const ListTable = () => {
               selected={selectDate}
               onChange={(date: Date) => {
                 setSelectDate(date)
-                mutate(date)
+                mutate({date, isMonth: true})
               }}
             />
           </div>
@@ -125,42 +127,44 @@ const ListTable = () => {
               <td className='px-6 align-middle text-xs whitespace-nowrap p-4'></td>
             </tr>
           ))}
-          <tr className='border-t bg-gray-400'>
-            <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
-              Tổng
-            </td>
-            <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
-              {currencyFormat(
-                orders?.reduce(
-                  (acc: number, curr: Order) => acc + curr.totalPrice,
+          {orders?.length > 0 && (
+            <tr className='border-t bg-gray-400'>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
+                Tổng
+              </td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
+                {currencyFormat(
+                  orders?.reduce(
+                    (acc: number, curr: Order) => acc + curr.totalPrice,
+                    0
+                  )
+                )}
+              </td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                {currencyFormat(
+                  orders?.reduce(
+                    (acc: number, curr: Order) => acc + curr.customerCash,
+                    0
+                  )
+                )}
+              </td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                {currencyFormat(
+                  orders?.reduce(
+                    (acc: number, curr: Order) => acc + curr.exchange,
+                    0
+                  )
+                )}
+              </td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                {orders?.reduce(
+                  (acc: number, curr: Order) => acc + curr.totalCart,
                   0
-                )
-              )}
-            </td>
-            <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
-              {currencyFormat(
-                orders?.reduce(
-                  (acc: number, curr: Order) => acc + curr.customerCash,
-                  0
-                )
-              )}
-            </td>
-            <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
-              {currencyFormat(
-                orders?.reduce(
-                  (acc: number, curr: Order) => acc + curr.exchange,
-                  0
-                )
-              )}
-            </td>
-            <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
-              {orders?.reduce(
-                (acc: number, curr: Order) => acc + curr.totalCart,
-                0
-              )}
-            </td>
-            <td className='px-6 align-middle text-xs whitespace-nowrap p-4'></td>
-          </tr>
+                )}
+              </td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'></td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

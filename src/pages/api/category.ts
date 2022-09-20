@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { nanoid } from 'nanoid'
 import CategoryModel, { Category } from '../../models/Category'
 import connectDb from '../../utils/connectDb'
 
@@ -36,7 +35,6 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
     }
 
     const category: Category = await new CategoryModel({
-      _id: nanoid(6),
       ...req.body
     }).save()
     return res.status(201).send('Danh mục đã được thêm!')
