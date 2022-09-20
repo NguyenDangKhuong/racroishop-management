@@ -32,7 +32,7 @@ const ListTable = () => {
               selected={selectDate}
               onChange={(date: Date) => {
                 setSelectDate(date)
-                mutate({date, isMonth: false})
+                mutate({ date, isMonth: false })
               }}
             />
           </div>
@@ -47,7 +47,7 @@ const ListTable = () => {
               selected={selectDate}
               onChange={(date: Date) => {
                 setSelectDate(date)
-                mutate({date, isMonth: true})
+                mutate({ date, isMonth: true })
               }}
             />
           </div>

@@ -1,3 +1,6 @@
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
+import Script from 'next/script'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import {
   Hydrate,
@@ -5,9 +8,6 @@ import {
   QueryClientProvider
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import Script from 'next/script'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'

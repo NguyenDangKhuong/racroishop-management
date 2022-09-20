@@ -3,11 +3,7 @@ import Header from '../components/Header'
 import checkAuth from '../utils/checkAuth'
 
 const Dashboard = () => {
-  return (
-    checkAuth(
-      <Header />
-    )
-  )
+  return checkAuth(<Header />)
 }
 
 export default Dashboard

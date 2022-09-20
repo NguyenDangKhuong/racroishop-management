@@ -17,7 +17,7 @@ instance.interceptors.request.use(
   }
 )
 
-export const get = async (url: string, params?: object)=> {
+export const get = async (url: string, params?: object) => {
   // await reloadUserAuth()
   try {
     const res = await instance.get(url, params)

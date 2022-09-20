@@ -26,7 +26,9 @@ export default function ProductModal({
   const isEditing = editingProduct._id
 
   const [imageUrl, setImageUrl] = useState(editingProduct.imageUrl || '')
-  const [imagePublicId, setImagePublicId] = useState(editingProduct.imagePublicId || '')
+  const [imagePublicId, setImagePublicId] = useState(
+    editingProduct.imagePublicId || ''
+  )
 
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => handleCloseModal())
@@ -66,25 +68,25 @@ export default function ProductModal({
     setValue,
     reset
   } = useForm<Product>()
-  
+
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutProduct.mutate({
-        ...data,
-        _id: editingProduct._id,
-        price: Number(data.price),
-        storage: Number(data.storage),
-        imageUrl,
-        imagePublicId
-      })
+          ...data,
+          _id: editingProduct._id,
+          price: Number(data.price),
+          storage: Number(data.storage),
+          imageUrl,
+          imagePublicId
+        })
       : mutationPostProduct.mutate({
-        ...data,
-        sku: nanoid(5),
-        price: Number(data.price),
-        storage: Number(data.storage),
-        imageUrl,
-        imagePublicId
-      })
+          ...data,
+          sku: nanoid(5),
+          price: Number(data.price),
+          storage: Number(data.storage),
+          imageUrl,
+          imagePublicId
+        })
   )
 
   const openWidget = () => {
@@ -138,8 +140,9 @@ export default function ProductModal({
                 className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                 {/*header*/}
                 <div className='flex items-start justify-between p-5 border-b border-solid border-gray-200 rounded-t'>
-                  <h3 className='text-3xl font-semibold'>{`${isEditing ? 'Sửa' : 'Thêm'
-                    } sản phẩm`}</h3>
+                  <h3 className='text-3xl font-semibold'>{`${
+                    isEditing ? 'Sửa' : 'Thêm'
+                  } sản phẩm`}</h3>
                   <button
                     className='p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none'
                     onClick={() => handleCloseModal()}>
@@ -203,9 +206,11 @@ export default function ProductModal({
                         <option value='' disabled>
                           Danh mục
                         </option>
-                        {
-                          categories.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
-                        }
+                        {categories.map(item => (
+                          <option key={item._id} value={item._id}>
+                            {item.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className='mb-3 pt-0'>

@@ -49,7 +49,9 @@ const CartListItem: React.FC<{
                 <span className='font-bold text-sm'>{name}</span>
                 <div
                   onClick={() => {
-                    setCartList(cartList.filter(item => _id !== item.product?._id))
+                    setCartList(
+                      cartList.filter(item => _id !== item.product?._id)
+                    )
                   }}
                   className='font-semibold hover:text-red-500 text-red-500 text-xs cursor-pointer'>
                   Xóa

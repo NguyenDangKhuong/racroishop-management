@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import useDebounce from '../../hooks/useDebounce'
 import { Category } from '../../models/Category'
@@ -38,17 +38,20 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     }
   )
 
-  const { isLoading, isError, isSuccess, data: dataProducts } = useQuery(
-    ['fetchProducts'],
-    () => get(`/api/products/`).then(res => res.data.products)
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    data: dataProducts
+  } = useQuery(['fetchProducts'], () =>
+    get(`/api/products/`).then(res => res.data.products)
   )
 
-  const { data: categories } = useQuery(
-    ['fetchCategories'],
-    () => get(`/api/categories/`).then(res => res.data.categories)
+  const { data: categories } = useQuery(['fetchCategories'], () =>
+    get(`/api/categories/`).then(res => res.data.categories)
   )
 
-  const debounedSearchValue = useDebounce(searchValue, 2000)
+  const debounedSearchValue = useDebounce(searchValue, 100)
   const { data: dataSearchProducts = [] } = useQuery(
     ['searchProduct', debounedSearchValue],
     () => get(`/api/product?name=${debounedSearchValue}`).then(res => res.data),
@@ -58,7 +61,9 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   )
 
   useEffect(() => {
-    dataSearchProducts.length > 0 ? setProducts(dataSearchProducts) : setProducts(dataProducts)
+    dataSearchProducts.length > 0
+      ? setProducts(dataSearchProducts)
+      : setProducts(dataProducts)
   }, [dataSearchProducts])
 
   const mutationPutProduct = useMutation(
@@ -187,7 +192,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     type='number'
                     className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
                     value={item.storage}
-                    onChange={() => { }}
+                    onChange={() => {}}
                   />
                   <i
                     className='fas fa-plus text-lg text-emerald-500  cursor-pointer'
@@ -199,7 +204,11 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     }></i>
                 </td>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
-                  {String(categories?.find((category: Category) => item.categoryId === category._id)?.name)}
+                  {String(
+                    categories?.find(
+                      (category: Category) => item.categoryId === category._id
+                    )?.name
+                  )}
                 </td>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   <div

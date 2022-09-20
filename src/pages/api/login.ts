@@ -5,7 +5,7 @@ import { withSessionRoute } from '../../utils/withSession'
 
 connectDb()
 
-const loginRoute = async(req: NextApiRequest, res: NextApiResponse) => {
+const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password } = req.body
   try {
     const user = await UserModel.findOne({ email })

@@ -22,9 +22,13 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
       }
     }
   )
-  const { isLoading, isError, isSuccess, data: categories } = useQuery(
-    ['fetchCategories'],
-    () => get(`/api/categories/`).then(res => res.data.categories)
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    data: categories
+  } = useQuery(['fetchCategories'], () =>
+    get(`/api/categories/`).then(res => res.data.categories)
   )
   const renderResult = () => {
     if (isLoading) {
@@ -115,9 +119,7 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
           </span>
         </div>
       </div>
-      <div className='block w-full overflow-x-auto'>
-        {renderResult()}
-      </div>
+      <div className='block w-full overflow-x-auto'>{renderResult()}</div>
       <CategoryModal
         showModal={showModal}
         setShowModal={(val: boolean) => setShowModal(val)}

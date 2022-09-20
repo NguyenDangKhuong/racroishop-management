@@ -26,21 +26,14 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
     }
 
     await Promise.all(
-      products.map(
-        async (item: any) => {
-          item.product.storage - item.quantity > 0 ?
-          await ProductModel.findByIdAndUpdate(
-            item.product._id,
-            {
+      products.map(async (item: any) => {
+        item.product.storage - item.quantity > 0
+          ? await ProductModel.findByIdAndUpdate(item.product._id, {
               ...item.product,
               storage: item.product.storage - item.quantity
-            }
-          )
-          : await ProductModel.findByIdAndDelete(
-            item.product._id
-          )
-        }
-      )
+            })
+          : await ProductModel.findByIdAndDelete(item.product._id)
+      })
     )
 
     await new OrderModel({ ...req.body }).save()

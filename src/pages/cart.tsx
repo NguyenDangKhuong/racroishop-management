@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Head from 'next/head'
+import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import CartInput from '../components/Carts/CartInput'

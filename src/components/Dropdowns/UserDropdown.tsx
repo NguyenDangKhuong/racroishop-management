@@ -1,6 +1,6 @@
+import { useRouter } from 'next/router'
 import { createPopper } from '@popperjs/core'
 import { useMutation } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
 import { createRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { get } from '../../utils/api'
@@ -89,7 +89,9 @@ const UserDropdown = () => {
           className={
             'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700'
           }
-          onClick={() => {mutationLogout.mutate()}}>
+          onClick={() => {
+            mutationLogout.mutate()
+          }}>
           Đăng xuất
         </a>
       </div>
