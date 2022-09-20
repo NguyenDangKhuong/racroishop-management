@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { nanoid } from 'nanoid'
 import CategoryModel, { Category } from '../../models/Category'
 import connectDb from '../../utils/connectDb'
 
@@ -23,7 +24,6 @@ export default category
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { name } = req.body
-    console.log(req.body)
     if (!name) {
       return res.status(422).send('Danh mục thiếu tên')
     }
@@ -35,7 +35,10 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
         .send(`Đã có danh mục tên này rồi, vui lòng đặt tên khác`)
     }
 
-    const category: Category = await new CategoryModel({ ...req.body }).save()
+    const category: Category = await new CategoryModel({
+      _id: nanoid(6),
+      ...req.body
+    }).save()
     return res.status(201).send('Danh mục đã được thêm!')
   } catch (err) {
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)

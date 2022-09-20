@@ -7,7 +7,7 @@ import CartInput from '../components/Carts/CartInput'
 import CartListItem from '../components/Carts/CartListItem'
 import CartSumary from '../components/Carts/CartSumary'
 import useDebounce from '../hooks/useDebounce'
-import { ProductCart } from '../models/Cart'
+import { ProductCart } from '../models/ProductCart'
 import { get } from '../utils/api'
 import { currencyFormat } from './../utils/currencyFormat'
 
@@ -17,7 +17,7 @@ const Cart: NextPage = () => {
 
   const debounedSearchValue = useDebounce(searchValue, 1000)
 
-  const { isLoading, isError, isSuccess, data } = useQuery(
+  const { data: product } = useQuery(
     ['searchProduct', debounedSearchValue],
     () => get(`/api/product/sku/${debounedSearchValue}`).then(res => res.data),
     {
@@ -28,22 +28,22 @@ const Cart: NextPage = () => {
   const existedProduct = useMemo(
     () =>
       cartList.length > 0 &&
-      data &&
-      cartList.find(item => item.product?._id === data._id),
-    [cartList, data]
+      product &&
+      cartList.find(item => item.product?._id === product._id),
+    [cartList, product]
   )
 
   useEffect(() => {
     const newCartList = existedProduct
       ? cartList.map(item =>
-          item.product?._id === data._id
+          item.product?._id === product._id
             ? { ...item, quantity: item.quantity! + 1 }
             : item
         )
-      : [...cartList, { product: data, quantity: 1 }]
-    data && setCartList(newCartList)
+      : [...cartList, { product, quantity: 1 }]
+    product && setCartList(newCartList)
     setSearchValue('')
-  }, [data])
+  }, [product])
 
   const onChangeSearchInput = useCallback(
     (e: any) => setSearchValue(e.target.value),

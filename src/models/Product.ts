@@ -2,10 +2,10 @@ import { getModelForClass, prop } from '@typegoose/typegoose'
 export class Product {
   _id!: string
 
-  @prop({ type: () => String, required: true, unique: true })
+  @prop({ type: () => String, required: true, unique: true, sparse: true })
   name!: string
 
-  @prop({ type: () => String, required: true, unique: true })
+  @prop({ type: () => String, required: true, unique: true, sparse: true  })
   sku!: string
 
   @prop({ type: () => Number, required: true })

@@ -3,8 +3,8 @@ import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { ProductCart } from '../../models/Cart'
 import { Order } from '../../models/Order'
+import { ProductCart } from '../../models/ProductCart'
 import { post } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
 import LoaderIcon from '../LoaderIcon'
@@ -38,11 +38,11 @@ const CartSumary: React.FC<{
   const onSubmit = handleSubmit(() =>
     mutationPostOrder.mutate({
       orderId: nanoid(6),
-      products: cartList,
       totalPrice,
       totalCart,
       exchange,
-      customerCash
+      customerCash,
+      products: cartList
     })
   )
 

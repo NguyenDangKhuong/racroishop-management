@@ -4,7 +4,7 @@ import connectDb from '../../../../utils/connectDb'
 
 connectDb()
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const sku = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res)
@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break
   }
 }
-
+export default sku
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   const { sku } = req.query
   const product: Product | null = await ProductModel.findOne({ sku })

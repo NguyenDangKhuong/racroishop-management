@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ProductCart } from '../../models/Cart'
+import { ProductCart } from '../../models/ProductCart'
 import { currencyFormat } from '../../utils/currencyFormat'
 
 const CartListItem: React.FC<{
@@ -105,7 +105,7 @@ const CartListItem: React.FC<{
           </div>
         )
       })}
-      <Link href='/'>
+      <Link href='/dashboard'>
         <a className='flex font-semibold text-indigo-600 text-sm mt-10 uppercase'>
           <svg
             className='fill-current mr-2 text-indigo-600 w-4'

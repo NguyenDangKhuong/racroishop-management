@@ -1,24 +1,15 @@
 import { getModelForClass, prop } from '@typegoose/typegoose'
-import ProductModel, { Product } from './Product'
+import { ProductCart } from './ProductCart'
 
-export class Order {
-  @prop({ type: () => String, required: true, unique: true })
+export class Cart {
   _id!: string
 
   @prop()
   products?: ProductCart[]
 }
 
-const CartModel = getModelForClass(Order, {
+const CartModel = getModelForClass(Cart, {
   schemaOptions: { timestamps: true }
 })
-
-export class ProductCart {
-  @prop()
-  public quantity?: number;
-
-  @prop({ type: () => ProductModel })
-  public product?: Product;
-}
 
 export default CartModel

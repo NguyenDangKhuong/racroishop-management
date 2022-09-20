@@ -4,7 +4,7 @@ import connectDb from '../../../utils/connectDb'
 import removeImage from '../../../utils/removeImage'
 
 connectDb()
-const sku = async (req: NextApiRequest, res: NextApiResponse) => {
+const productId = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res)
@@ -18,7 +18,7 @@ const sku = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default sku
+export default productId
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
