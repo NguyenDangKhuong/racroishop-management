@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import CartInput from '../components/Carts/CartInput'
@@ -119,7 +119,7 @@ const Cart: NextPage = () => {
         <div
           ref={componentRef}
           className='content-invoice flex flex-col justify-center items-center'>
-          <h1 className='text-4xl font-bold mt-2'>Rắc rối shop</h1>
+          <h1 className='text-4xl font-bold mt-2 uppercase'>Yumy shop</h1>
           <div className='mt-2 text-md text-center'>
             Địa chỉ: 223A, Nguyễn Văn Khạ, ấp Cây Sộp. Tân An Hội, Củ Chi, TPHCM
             <br />
