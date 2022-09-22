@@ -7,6 +7,7 @@ import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
 import { post, put } from '../../utils/api'
+import { currencyFormat } from '../../utils/currencyFormat'
 import ErrorMessage from '../ErrorMessage'
 import { initialProduct } from '../ProductTable'
 
@@ -26,6 +27,7 @@ export default function ProductModal({
   const isEditing = editingProduct._id
 
   const [imageUrl, setImageUrl] = useState(editingProduct.imageUrl || '')
+  const [price, setPrice] = useState(0)
   const [imagePublicId, setImagePublicId] = useState(
     editingProduct.imagePublicId || ''
   )
@@ -115,14 +117,17 @@ export default function ProductModal({
     setEditingProduct(initialProduct)
     setImageUrl('')
     setImagePublicId('')
+    setPrice(0)
     reset()
   }
 
   useEffect(() => {
     const { name, price, storage, categoryId, imageUrl } = editingProduct
     setValue('name', name)
-    setValue('price', price ? Number(price) : 0)
-    setValue('storage', storage ? Number(storage) : 0)
+    // @ts-ignore: Unreachable code error
+    setValue('price', price ? Number(price) : '')
+    // @ts-ignore: Unreachable code error
+    setValue('storage', storage ? Number(storage) : '')
     setValue('categoryId', categoryId ? String(categoryId) : '')
     setValue('imageUrl', String(imageUrl))
     imageUrl && setImageUrl(imageUrl)
@@ -172,7 +177,8 @@ export default function ProductModal({
                         placeholder='Giá tiền'
                         className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         {...register('price', {
-                          required: 'Vui lòng nhập giá tiền'
+                          required: 'Vui lòng nhập giá tiền',
+                          onChange: e => setPrice(e.target.value)
                         })}
                       />
                       {errors.price && (
@@ -182,6 +188,30 @@ export default function ProductModal({
                           )}></ErrorMessage>
                       )}
                     </div>
+                    {price > 0 && price < 999 && (
+                      <div className='mb-3'>
+                        <span
+                          className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
+                          onClick={() => setValue('price', price * 1000)}>
+                          {currencyFormat(price * 1000)}
+                        </span>
+                        <span
+                          className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
+                          onClick={() => setValue('price', price * 10000)}>
+                          {currencyFormat(price * 10000)}
+                        </span>
+                        <span
+                          className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
+                          onClick={() => setValue('price', price * 100000)}>
+                          {currencyFormat(price * 100000)}
+                        </span>
+                        <span
+                          className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 mt-2 cursor-pointer'
+                          onClick={() => setValue('price', price * 1000000)}>
+                          {currencyFormat(price * 1000000)}
+                        </span>
+                      </div>
+                    )}
                     <div className='mb-3 pt-0'>
                       <input
                         type='number'

@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import useDebounce from '../../hooks/useDebounce'
 import { Category } from '../../models/Category'
@@ -21,7 +21,7 @@ export const initialProduct = {
 const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showModal, setShowModal] = useState(false)
   const [productStorage, setProductStorage] = useState(0)
-  const [barcodeValue, setBarcodeValue] = useState('')
+  const [productSelected, setProductSelected] = useState<Product>(initialProduct)
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
   const [searchValue, setSearchValue] = useState('')
@@ -214,7 +214,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                   <div
                     className='flex items-center text-blue-500 font-bold cursor-pointer'
                     onClick={() => {
-                      setBarcodeValue(item.sku)
+                      setProductSelected(item)
                       setShowBarcodeModal(true)
                       setProductStorage(item.storage)
                     }}>
@@ -289,10 +289,9 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           setEditingProduct={(val: any) => setEditingProduct(val)}
         />
         <BarcodeModal
-          barcodeValue={barcodeValue}
+productSelected={productSelected}
           showBarcodeModal={showBarcodeModal}
           setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
-          productStorage={productStorage}
         />
       </div>
     </>

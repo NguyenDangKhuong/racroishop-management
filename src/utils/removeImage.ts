@@ -6,12 +6,20 @@ import {
 } from '../helpers/constants'
 
 const removeImage = (publicId: string) => {
-  cloudinary.config({
-    cloud_name: CLOUD_NAME_CLOUDINARY,
-    api_key: API_KEY_CLOUDINARY,
-    api_secret: API_SECRET_CLOUDINARY
-  })
-  cloudinary.uploader.destroy(publicId)
+  console.log('aaa')
+  try {
+    console.log(publicId)
+    cloudinary.config({
+      cloud_name: CLOUD_NAME_CLOUDINARY,
+      api_key: API_KEY_CLOUDINARY,
+      api_secret: API_SECRET_CLOUDINARY
+    })
+    cloudinary.uploader.destroy(publicId, function (error, result) {
+      console.log(result, error)
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 export default removeImage

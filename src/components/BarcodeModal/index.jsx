@@ -1,18 +1,19 @@
 import { useRef } from 'react'
 import Barcode from 'react-barcode'
 import { useReactToPrint } from 'react-to-print'
+import { currencyFormat } from '../../utils/currencyFormat'
 
 const BarcodeModal = ({
-  barcodeValue,
+  productSelected,
   showBarcodeModal,
-  setShowBarcodeModal,
-  productStorage
+  setShowBarcodeModal
 }) => {
   const componentRef = useRef()
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     copyStyles: true
   })
+
   return showBarcodeModal ? (
     <>
       <div
@@ -36,14 +37,24 @@ const BarcodeModal = ({
             <div
               ref={componentRef}
               className='grid grid-cols-2 gap-x-0.5 gap-y-2 text-center m-auto'>
-              {Array.from(Array(productStorage), (_, i) => (
-                <Barcode
-                  key={i}
-                  width={1}
-                  height={30}
-                  fontSize={12}
-                  value={barcodeValue}
-                />
+              {Array.from(Array(productSelected.storage), (_, i) => (
+                <div key={i}>
+                  <div className='text-[8px]'>{
+                    productSelected.name.length > 20
+                      ? `${productSelected.name.substring(0, 20)}...`
+                      : productSelected.name
+                  }</div>
+                  <Barcode
+                    width={1}
+                    height={20}
+                    fontSize={8}
+                    margin={2}
+                    value={productSelected.sku}
+                  />
+                  <div className='text-[8px]'>
+                    {currencyFormat(productSelected.price)}
+                  </div>
+                </div>
               ))}
             </div>
             {/*footer*/}
