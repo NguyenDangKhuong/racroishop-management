@@ -1,20 +1,21 @@
+import { useMutation } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import useAuth from '../../hooks/useAuth'
 import { User } from '../../models/User'
 import { post } from '../../utils/api'
 
 const LoginForm = () => {
   const router = useRouter()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    reset
-  } = useForm<User>()
+
+  const { session } = useAuth({
+    redirectTo: '/dashboard',
+    redirectIfFoundUser: true
+  })
+
+  const { register, handleSubmit } = useForm<User>()
 
   const mutationLogin = useMutation(
     (user: User) => post('/api/login', user).then(res => res.data),

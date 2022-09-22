@@ -1,9 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
 import { format, parseISO } from 'date-fns'
 import vi from 'date-fns/locale/vi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { toast } from 'react-toastify'
 import { Order } from '../../models/Order'
 import { get } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
@@ -12,11 +13,21 @@ registerLocale('vi', vi)
 
 const ListTable = () => {
   const [selectDate, setSelectDate] = useState(new Date())
-  const { data: orders, mutate } = useMutation((value: any) =>
-    get(`/api/orders?selectDate=${value.date}&isMonth=${value.isMonth}`).then(
-      (res: any) => res.data.orders
-    )
+  const { data: orders, mutate } = useMutation(
+    (value: any) =>
+      get(`/api/orders?selectDate=${value.date}&isMonth=${value.isMonth}`).then(
+        (res: any) => res.data.orders
+      ),
+    {
+      onSuccess: res => {
+        toast.success(res.data)
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
+      }
+    }
   )
+  useEffect(() => mutate({ date: new Date(), isMonth: false }), [])
 
   return (
     <div>
@@ -121,7 +132,7 @@ const ListTable = () => {
               <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                 {format(
                   parseISO(String(item?.createdAt!)),
-                  'hh:mm:ss dd/MM/yyyy'
+                  'HH:mm:ss dd/MM/yyyy'
                 )}
               </td>
               <td className='px-6 align-middle text-xs whitespace-nowrap p-4'></td>

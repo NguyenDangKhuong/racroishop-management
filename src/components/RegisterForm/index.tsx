@@ -1,16 +1,18 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { User } from '../../models/User'
 import { post } from '../../utils/api'
 
 const RegisterForm = () => {
-  const queryClient = useQueryClient()
+  const router = useRouter()
   const mutationRegister = useMutation(
     (newUser: User) => post('/api/register', newUser),
     {
       onSuccess: res => {
         toast.success(res.data)
+        router.push('/')
       },
       onError: (err: any) => {
         toast.error(err.response.data)
@@ -21,9 +23,6 @@ const RegisterForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    setValue,
-    reset
   } = useForm<User>()
 
   const onSubmit = handleSubmit(data =>

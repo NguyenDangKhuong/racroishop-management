@@ -1,13 +1,15 @@
 import CategoryTable from '../components/CategoryTable'
-import checkAuth from '../utils/checkAuth'
+import DashboardLayout from '../components/DashboardLayout'
 
 const Category = () => {
-  return checkAuth(
-    <div className='flex flex-wrap mt-4'>
-      <div className='w-full mb-12 px-4'>
-        <CategoryTable />
+  return (
+    <DashboardLayout>
+      <div className='flex flex-wrap mt-4'>
+        <div className='w-full mb-12 px-4'>
+          <CategoryTable />
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   )
 }
 
