@@ -95,8 +95,8 @@ export default function ProductModal({
     const widget = window.cloudinary.createUploadWidget(
       {
         cloudName: 'ndk',
-        uploadPreset: 'racroishop',
-        folder: 'racroishop/products'
+        uploadPreset: 'yumyshop',
+        folder: 'yumyshop/products'
       },
       (error: any, res: any) => {
         if (error) {
