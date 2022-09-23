@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { getYear } from 'date-fns'
+import Link from 'next/link'
 import Layout from '../components/Layout'
 
 const ProfilePage = () => {
@@ -50,7 +50,7 @@ const ProfilePage = () => {
                   </div>
                   <div className='w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center'>
                     <div className='py-6 px-3 mt-32 sm:mt-0'>
-                      <Link href='/cv'>
+                      <Link href='/c'>
                         <button
                           className='bg-gray-700 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150'
                           type='button'>
@@ -143,7 +143,7 @@ const ProfilePage = () => {
         <div className='container mx-auto px-4'>
           <div className='flex flex-wrap text-center lg:text-left'>
             <div className='w-full lg:w-6/12 px-4'>
-              <h4 className='text-3xl font-semibold'>Let's keep in touch!</h4>
+              <h4 className='text-3xl font-semibold'>{`Let's keep in touch!`}</h4>
               <h5 className='text-lg mt-0 mb-2 text-gray-600'>
                 Find us on any of these platforms, we respond 1-2 business days.
               </h5>
