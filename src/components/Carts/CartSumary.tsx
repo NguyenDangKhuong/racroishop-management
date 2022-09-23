@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
-import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { useGenegateId } from '../../hooks/useGenegateId'
 import { Order } from '../../models/Order'
 import { ProductCart } from '../../models/ProductCart'
 import { post } from '../../utils/api'
@@ -31,13 +31,15 @@ const CartSumary: React.FC<{
     }
   )
 
+  const orderId = useGenegateId(6)
+
   const {
     handleSubmit,
     formState: { errors }
   } = useForm<Order>()
   const onSubmit = handleSubmit(() =>
     mutationPostOrder.mutate({
-      orderId: nanoid(6),
+      orderId,
       totalPrice,
       totalCart,
       exchange,
