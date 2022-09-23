@@ -1,11 +1,9 @@
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../hooks/useUser'
 import Footer from '../Footer'
 import Navbar from '../Navbar'
 import Sidebar from '../Sidebar'
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  useAuth({ redirectTo: '/login' })
-  
   return (
     <>
       <Sidebar />

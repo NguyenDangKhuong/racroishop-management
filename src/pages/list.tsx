@@ -1,7 +1,9 @@
 import DashboardLayout from '../components/DashboardLayout'
 import OrderTable from '../components/OrderTable'
+import useUser from '../hooks/useUser'
 
 const ListPage = () => {
+  useUser()
   return (
     <DashboardLayout>
       <div className='flex flex-wrap mt-4'>

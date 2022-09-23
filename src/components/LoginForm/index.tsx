@@ -3,14 +3,14 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../hooks/useUser'
 import { User } from '../../models/User'
 import { post } from '../../utils/api'
 
 const LoginForm = () => {
   const router = useRouter()
 
-  const { session } = useAuth({
+  useAuth({
     redirectTo: '/dashboard',
     redirectIfFoundUser: true
   })

@@ -3,23 +3,29 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { get } from '../utils/api'
 
-export default function useAuth({
+export default function useUser({
   redirectTo = '',
-  redirectIfFoundUser = false
+  redirectIfFoundUser = false,
 } = {}) {
   const router = useRouter()
   const { isLoading, data: session } = useQuery(['fetchUser'], () =>
-    get(`/api/user/`).then(res => res.data)
+    get(`/api/user/`).then(res => res.data),
+    {
+      initialData: {
+        isLoggedIn: false,
+      }
+    }
   )
+
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
     // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
     if (!redirectTo || !session) return
 
     if (
-      // If redirectTo is set, redirect if the user was not found.
+      // If redirectTo is set, redirect if not login.
       (redirectTo && !redirectIfFoundUser && !session?.isLoggedIn) ||
-      // If redirectIfFound is also set, redirect if the user was found
+      // If redirectIfFoundUser is also set, redirect if the user login
       (redirectIfFoundUser && session?.isLoggedIn)
     ) {
       router.push(redirectTo)

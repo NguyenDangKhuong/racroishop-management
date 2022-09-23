@@ -6,9 +6,7 @@ import {
 } from '../helpers/constants'
 
 const removeImage = (publicId: string) => {
-  console.log('aaa')
   try {
-    console.log(publicId)
     cloudinary.config({
       cloud_name: CLOUD_NAME_CLOUDINARY,
       api_key: API_KEY_CLOUDINARY,

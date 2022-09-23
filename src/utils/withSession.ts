@@ -1,16 +1,17 @@
+import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
 import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   NextApiHandler
 } from 'next'
-import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
+import { COOKIE_NAME, SECRET_COOKIE_PASSWORD, __prod__ } from '../helpers/constants'
 
 export const sessionOptions = {
-  password: 'complex_password_at_least_32_characters_long',
-  cookieName: 'myapp_cookiename',
+  password: `${SECRET_COOKIE_PASSWORD}`,
+  cookieName: `${COOKIE_NAME}`,
   // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
   cookieOptions: {
-    secure: process.env.NODE_ENV === 'production'
+    secure: __prod__
   }
 }
 
