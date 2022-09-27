@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { nanoid } from 'nanoid'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { useGenegateId } from '../../hooks/useGenegateId'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
@@ -72,6 +72,8 @@ export default function ProductModal({
     reset
   } = useForm<Product>()
 
+  const sku = useGenegateId(5)
+
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutProduct.mutate({
@@ -84,7 +86,7 @@ export default function ProductModal({
         })
       : mutationPostProduct.mutate({
           ...data,
-          sku: nanoid(5),
+          sku,
           price: Number(data.price),
           storage: Number(data.storage),
           imageUrl,

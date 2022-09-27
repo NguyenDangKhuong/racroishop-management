@@ -3,7 +3,7 @@ import {
   endOfMonth,
   startOfDay,
   startOfMonth,
-  subDays
+  subHours
 } from 'date-fns'
 import { NextApiRequest, NextApiResponse } from 'next'
 import OrderModel from '../../models/Order'
@@ -14,6 +14,9 @@ connectDb()
 const orderRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { selectDate, isMonth } = req.query
+    console.log('--------')
+    console.log('current', new Date(String(selectDate)))
+    console.log('add', startOfDay(subHours(new Date(String(selectDate)), 7)))
     const orders = JSON.parse(String(isMonth).toLowerCase())
       ? await OrderModel.find({
           createdAt: {
@@ -23,8 +26,8 @@ const orderRoute = async (req: NextApiRequest, res: NextApiResponse) => {
         })
       : await OrderModel.find({
           createdAt: {
-            $gte: startOfDay(subDays(new Date(String(selectDate)), 1)),
-            $lte: endOfDay(subDays(new Date(String(selectDate)), 1))
+            $gte: startOfDay(subHours(new Date(String(selectDate)), 7)),
+            $lte: endOfDay(subHours(new Date(String(selectDate)), 7))
           }
         })
     res.status(200).json({ orders })
