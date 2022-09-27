@@ -115,7 +115,7 @@ const Cart: NextPage = () => {
           />
         </div>
       </div>
-      <div className='mt-80 max-w-xs m-auto'>
+      <div className='max-w-xs m-auto p-5'>
         <div
           ref={componentRef}
           className='content-invoice flex flex-col justify-center items-center'>
