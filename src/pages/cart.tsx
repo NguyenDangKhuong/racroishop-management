@@ -115,52 +115,54 @@ const Cart: NextPage = () => {
           />
         </div>
       </div>
-      <div className='mt-80'>
+      <div className='mt-80 max-w-xs m-auto'>
         <div
           ref={componentRef}
           className='content-invoice flex flex-col justify-center items-center'>
-          <h1 className='text-4xl font-bold mt-2 uppercase'>Yumy shop</h1>
-          <div className='mt-2 text-md text-center'>
+          <h1 className='text-4xl font-bold mt-2 uppercase font-serif'>
+            Yumy shop
+          </h1>
+          <div className='mt-2 text-sm text-center'>
             Địa chỉ: 223A, Nguyễn Văn Khạ, ấp Cây Sộp. Tân An Hội, Củ Chi, TPHCM
             <br />
             SĐT/Zalo : 0393.022.997 / 0966.813.400
           </div>
           <h2 className='text-xl font-bold mt-2'>Hóa đơn thanh toán</h2>
           <div>
-            Ngày:{' '}
-            {`${new Date().getUTCDate()}/${
+            Thời gian:{' '}
+            {`${new Date().getHours()}:${new Date().getMinutes()} - ${new Date().getUTCDate()}/${
               new Date().getUTCMonth() + 1
             }/${new Date().getUTCFullYear()}`}
           </div>
 
-          <table className='table-auto mt-3 border-collapse border'>
+          <table className='table-auto mt-3 border-collapse border border-black'>
             <thead>
               <tr>
-                <th className='border p-3'>Tên</th>
-                <th className='border p-3'>Số lượng</th>
-                <th className='border p-3'>Đơn giá</th>
-                <th className='border p-3'>Thành tiền</th>
+                <th className='border border-black p-1'>Tên</th>
+                <th className='border border-black p-1'>Số lượng</th>
+                <th className='border border-black p-1'>Đơn giá</th>
+                <th className='border border-black p-1'>Thành tiền</th>
               </tr>
             </thead>
             <tbody>
               {cartList.map(item => (
                 <tr key={item.product?._id}>
-                  <td className='border text-left p-3'>{item.product?.name}</td>
-                  <td className='border text-right p-3'>{item.quantity}</td>
-                  <td className='border text-right p-3'>
+                  <td className='border border-black text-left p-1'>{item.product?.name}</td>
+                  <td className='border border-black text-right p-1'>{item.quantity}</td>
+                  <td className='border border-black text-right p-1'>
                     {currencyFormat(item.product?.price!)}
                   </td>
-                  <td className='border text-right p-3'>
+                  <td className='border border-black text-right p-1'>
                     {currencyFormat(item!.quantity! * item.product?.price!)}
                   </td>
                 </tr>
               ))}
               <tr>
-                <td className='border border-t-4 text-left p-3'>Tổng</td>
-                <td className='border border-t-4 text-right p-3'>
+                <td className='border border-black border-t-4 text-left p-1'>Tổng</td>
+                <td className='border border-black border-t-4 text-right p-1'>
                   {totalCart}
                 </td>
-                <td colSpan={2} className='border border-t-4 text-right p-3'>
+                <td colSpan={2} className='border border-black border-t-4 text-right p-1'>
                   {currencyFormat(totalPrice)}
                 </td>
               </tr>
