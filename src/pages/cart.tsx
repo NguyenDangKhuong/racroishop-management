@@ -115,19 +115,22 @@ const Cart: NextPage = () => {
           />
         </div>
       </div>
-      <div className='max-w-xs m-auto p-5'>
+      <div className='max-w-xs m-auto'>
         <div
           ref={componentRef}
-          className='content-invoice flex flex-col justify-center items-center'>
-          <h1 className='text-4xl font-bold mt-2 uppercase font-serif'>
+          className='content-invoice flex flex-col justify-center items-center text-center text-[10px]'>
+          <h1 className='text-[20px] font-bold mt-2 uppercase font-serif'>
             Yumy shop
           </h1>
-          <div className='mt-2 text-sm text-center'>
-            Địa chỉ: 223A, Nguyễn Văn Khạ, ấp Cây Sộp. Tân An Hội, Củ Chi, TPHCM
+          <div className='mt-1 text-center'>
+            Đ/c: 223A Nguyễn Văn Khạ, ấp<br /> Cây Sộp, Tân An Hội, Củ
+            Chi, TPHCM
             <br />
-            SĐT/Zalo : 0393.022.997 / 0966.813.400
+            SĐT/Zalo : 0393.022.997/
+            <br />
+            0966.813.400
           </div>
-          <h2 className='text-xl font-bold mt-2'>Hóa đơn thanh toán</h2>
+          <h2 className='text-sm font-bold mt-1'>Hóa đơn thanh toán</h2>
           <div>
             Thời gian:{' '}
             {`${new Date().getHours()}:${new Date().getMinutes()} - ${new Date().getUTCDate()}/${
@@ -138,37 +141,47 @@ const Cart: NextPage = () => {
           <table className='table-auto mt-3 border-collapse border border-black'>
             <thead>
               <tr>
-                <th className='border border-black p-1'>Tên</th>
-                <th className='border border-black p-1'>Số lượng</th>
-                <th className='border border-black p-1'>Đơn giá</th>
-                <th className='border border-black p-1'>Thành tiền</th>
+                <th className='border border-black text-[10px]'>Tên</th>
+                <th className='border border-black text-[10px]'>Sl</th>
+                <th className='border border-black text-[10px]'>Đơn giá</th>
+                <th className='border border-black text-[10px]'>Thành tiền</th>
               </tr>
             </thead>
             <tbody>
               {cartList.map(item => (
                 <tr key={item.product?._id}>
-                  <td className='border border-black text-left p-1'>{item.product?.name}</td>
-                  <td className='border border-black text-right p-1'>{item.quantity}</td>
-                  <td className='border border-black text-right p-1'>
+                  <td className='border border-black text-left text-[10px]'>
+                    {item.product?.name}
+                  </td>
+                  <td className='border border-black text-right text-[10px]'>
+                    {item.quantity}
+                  </td>
+                  <td className='border border-black text-right text-[10px]'>
                     {currencyFormat(item.product?.price!)}
                   </td>
-                  <td className='border border-black text-right p-1'>
+                  <td className='border border-black text-right text-[10px]'>
                     {currencyFormat(item!.quantity! * item.product?.price!)}
                   </td>
                 </tr>
               ))}
               <tr>
-                <td className='border border-black border-t-4 text-left p-1'>Tổng</td>
-                <td className='border border-black border-t-4 text-right p-1'>
+                <td className='border border-black border-t-4 text-left text-[10px]'>
+                  Tổng
+                </td>
+                <td className='border border-black border-t-4 text-right text-[10px]'>
                   {totalCart}
                 </td>
-                <td colSpan={2} className='border border-black border-t-4 text-right p-1'>
+                <td
+                  colSpan={2}
+                  className='border border-black border-t-4 text-right text-[10px]'>
                   {currencyFormat(totalPrice)}
                 </td>
               </tr>
             </tbody>
           </table>
-          <div className='mt-4'>Xin cảm ơn quý khách và hẹn gặp lại!</div>
+          <div className='mt-4 text-center text-[10px]'>
+            Xin cảm ơn quý khách và hẹn gặp lại!
+          </div>
         </div>
       </div>
     </>
