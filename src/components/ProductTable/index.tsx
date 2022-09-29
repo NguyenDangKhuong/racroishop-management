@@ -8,6 +8,7 @@ import { get, put, remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
 import ProductModal from '../ProductModal'
+import ZoomImage from '../ZoomImage'
 
 export const initialProduct = {
   name: '',
@@ -21,8 +22,11 @@ export const initialProduct = {
 const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showModal, setShowModal] = useState(false)
   const [productStorage, setProductStorage] = useState(0)
-  const [productSelected, setProductSelected] = useState<Product>(initialProduct)
+  const [productSelected, setProductSelected] =
+    useState<Product>(initialProduct)
+  const [imageSelected, setImageSelected] = useState('')
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
+  const [showImageModal, setShowImageModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
   const [searchValue, setSearchValue] = useState('')
   const [products, setProducts] = useState<Product[]>([])
@@ -171,6 +175,10 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     width={100}
                     height={100}
                     alt=''
+                    onClick={() => {
+                      setImageSelected(String(item.imageUrl))
+                      setShowImageModal(true)
+                    }}
                   />
                 </td>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
@@ -192,7 +200,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     type='number'
                     className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
                     value={item.storage}
-                    onChange={() => {}}
+                    onChange={e => {}}
                   />
                   <i
                     className='fas fa-plus text-lg text-emerald-500  cursor-pointer'
@@ -289,9 +297,14 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           setEditingProduct={(val: any) => setEditingProduct(val)}
         />
         <BarcodeModal
-productSelected={productSelected}
+          productSelected={productSelected}
           showBarcodeModal={showBarcodeModal}
           setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
+        />
+        <ZoomImage
+          imageSelected={imageSelected}
+          showImageModal={showImageModal}
+          setShowImageModal={(val: boolean) => setShowImageModal(val)}
         />
       </div>
     </>
