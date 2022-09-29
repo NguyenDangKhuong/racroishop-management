@@ -14,10 +14,10 @@ const products = async (req: NextApiRequest, res: NextApiResponse) => {
   const totalDocs = await ProductModel.countDocuments()
   const totalPages = Math.ceil(totalDocs / pageSize)
   if (pageNum === 1) {
-    products = await ProductModel.find().limit(pageSize)
+    products = await ProductModel.find().limit(pageSize).sort({createdAt: -1})
   } else {
     const skip = pageSize * (pageNum - 1)
-    products = await ProductModel.find().skip(skip).limit(pageSize)
+    products = await ProductModel.find().skip(skip).limit(pageSize).sort({createdAt: -1})
   }
   res.status(200).json({ products, totalPages })
 }
