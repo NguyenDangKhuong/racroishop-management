@@ -44,12 +44,12 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
     }
 
-    const existedName = await ProductModel.findOne({ name })
-    if (existedName) {
-      return res
-        .status(422)
-        .send(`Đã có sản phẩm tên này rồi, vui lòng đặt tên khác`)
-    }
+    // const existedName = await ProductModel.findOne({ name })
+    // if (existedName) {
+    //   return res
+    //     .status(422)
+    //     .send(`Đã có sản phẩm tên này rồi, vui lòng đặt tên khác`)
+    // }
 
     const product: Product = await new ProductModel({ ...req.body }).save()
     return res.status(201).send('Sản phẩm đã được thêm!')
