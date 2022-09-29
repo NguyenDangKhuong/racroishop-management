@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import useDebounce from '../../hooks/useDebounce'
@@ -7,21 +7,21 @@ import { Product } from '../../models/Product'
 import { get, put, remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
+import Pagination from '../Pagination'
 import ProductModal from '../ProductModal'
 import ZoomImage from '../ZoomImage'
 
 export const initialProduct = {
+  _id: '',
   name: '',
   price: 0,
   sku: '',
   storage: 0,
-  _id: '',
   image: ''
 }
 
 const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showModal, setShowModal] = useState(false)
-  const [productStorage, setProductStorage] = useState(0)
   const [productSelected, setProductSelected] =
     useState<Product>(initialProduct)
   const [imageSelected, setImageSelected] = useState('')
@@ -30,52 +30,47 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
   const [searchValue, setSearchValue] = useState('')
   const [products, setProducts] = useState<Product[]>([])
-
-  const queryClient = useQueryClient()
+  const [selectedPage, setSelectedPage] = useState(1)
 
   const mutationDelProduct = useMutation(
     (_id: string) => remove(`/api/product/${_id}`),
     {
       onSuccess: () => {
-        queryClient.refetchQueries(['fetchProducts'])
+        mutate({ page: selectedPage })
       }
     }
   )
+  const debounedSearchValue = useDebounce(searchValue, 100)
 
   const {
     isLoading,
     isError,
     isSuccess,
-    data: dataProducts
-  } = useQuery(['fetchProducts'], () =>
-    get(`/api/products/`).then(res => res.data.products)
+    data: dataProducts,
+    mutate
+  } = useMutation(['fetchProducts', debounedSearchValue], (value: any) =>
+    get(
+      `/api/products?page=${value.page}&size=${50}&name=${
+        debounedSearchValue ? debounedSearchValue : ''
+      }`
+    ).then(res => res.data)
   )
 
   const { data: categories } = useQuery(['fetchCategories'], () =>
     get(`/api/categories/`).then(res => res.data.categories)
   )
 
-  const debounedSearchValue = useDebounce(searchValue, 100)
-  const { data: dataSearchProducts = [] } = useQuery(
-    ['searchProduct', debounedSearchValue],
-    () => get(`/api/product?name=${debounedSearchValue}`).then(res => res.data),
-    {
-      enabled: debounedSearchValue.length > 0
-    }
+  useEffect(() => mutate({ page: 1 }), [])
+  useEffect(
+    () => mutate({ page: selectedPage }),
+    [selectedPage, debounedSearchValue]
   )
-
-  useEffect(() => {
-    dataSearchProducts.length > 0
-      ? setProducts(dataSearchProducts)
-      : setProducts(dataProducts)
-  }, [dataSearchProducts])
+  useEffect(() => setProducts(dataProducts?.products), [dataProducts])
 
   const mutationPutProduct = useMutation(
     (updatedProduct: Product) => put('/api/product', updatedProduct),
     {
-      onSuccess: () => {
-        queryClient.refetchQueries(['fetchProducts'])
-      }
+      onSuccess: () => mutate({ page: selectedPage })
     }
   )
 
@@ -196,12 +191,9 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                         storage: item.storage - 1
                       })
                     }></i>
-                  <input
-                    type='number'
-                    className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
-                    value={item.storage}
-                    onChange={e => {}}
-                  />
+                  <span className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'>
+                    {item.storage}
+                  </span>
                   <i
                     className='fas fa-plus text-lg text-emerald-500  cursor-pointer'
                     onClick={() =>
@@ -224,7 +216,6 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     onClick={() => {
                       setProductSelected(item)
                       setShowBarcodeModal(true)
-                      setProductStorage(item.storage)
                     }}>
                     {item.sku}
                   </div>
@@ -289,12 +280,18 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           </div>
         </div>
         <div className='block w-full overflow-x-auto'>{renderResult()}</div>
+        <Pagination
+          totalPages={searchValue ? 0 : dataProducts?.totalPages}
+          selectedPage={selectedPage}
+          setSelectedPage={(val: number) => setSelectedPage(val)}
+        />
         <ProductModal
           showModal={showModal}
           setShowModal={(val: boolean) => setShowModal(val)}
           editingProduct={editingProduct}
           categories={categories}
           setEditingProduct={(val: any) => setEditingProduct(val)}
+          mutateProduct={() => mutate({ page: selectedPage })}
         />
         <BarcodeModal
           productSelected={productSelected}

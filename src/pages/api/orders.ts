@@ -14,9 +14,6 @@ connectDb()
 const orderRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { selectDate, isMonth } = req.query
-    console.log('--------')
-    console.log('current', new Date(String(selectDate)))
-    console.log('add', startOfDay(subHours(new Date(String(selectDate)), 7)))
     const orders = JSON.parse(String(isMonth).toLowerCase())
       ? await OrderModel.find({
           createdAt: {

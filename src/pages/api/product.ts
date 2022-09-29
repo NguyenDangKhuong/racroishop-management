@@ -7,9 +7,6 @@ connectDb()
 
 const product = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
-    case 'GET':
-      await handleGetRequest(req, res)
-      break
     case 'POST':
       await handlePostRequest(req, res)
       break
@@ -24,24 +21,15 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default product
 
-async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const { name } = req.query
-    const products = await ProductModel.find({
-      name: { $regex: name, $options: 'i' }
-    }).limit(5)
-    return res.status(200).json(products)
-  } catch (err) {
-    console.log(err)
-    res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
-  }
-}
-
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { name, price, storage } = req.body
     if (!name || !price || !storage) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
+    }
+
+    if(price < 1000) {
+      return res.status(422).send('Giá sản phẩm không thể dưới 1000')
     }
 
     const existedName = await ProductModel.findOne({ name })
@@ -63,6 +51,10 @@ async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
     const { _id, name, price, storage, imagePublicId } = req.body
     if (!name || !price || !storage) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
+    }
+
+    if(price < 1000) {
+      return res.status(422).send('Giá sản phẩm không thể dưới 1000')
     }
 
     await ProductModel.findByIdAndUpdate(_id, req.body, { new: true })

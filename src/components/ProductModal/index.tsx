@@ -17,13 +17,15 @@ export default function ProductModal({
   setShowModal,
   editingProduct,
   setEditingProduct,
-  categories
+  categories,
+  mutateProduct
 }: {
   showModal: boolean
   setShowModal: any
   editingProduct: Product
   setEditingProduct: any
   categories: Category[]
+  mutateProduct: any
 }) {
   const isEditing = editingProduct._id
 
@@ -43,7 +45,7 @@ export default function ProductModal({
       onSuccess: res => {
         toast.success(res.data)
         handleCloseModal()
-        queryClient.refetchQueries(['fetchProducts'])
+        mutateProduct()
       },
       onError: (err: any) => {
         toast.error(err.response.data)
@@ -56,7 +58,7 @@ export default function ProductModal({
       onSuccess: res => {
         toast.success(res.data)
         handleCloseModal()
-        queryClient.refetchQueries(['fetchProducts'])
+        mutateProduct()
       },
       onError: (err: any) => {
         toast.error(err.response.data)
@@ -125,7 +127,8 @@ export default function ProductModal({
   }
 
   useEffect(() => {
-    const { name, price, storage, categoryId, imageUrl } = editingProduct
+    const { name, price, storage, categoryId, imageUrl, imagePublicId } =
+      editingProduct
     setValue('name', name)
     // @ts-ignore: Unreachable code error
     setValue('price', price ? Number(price) : '')
@@ -134,6 +137,7 @@ export default function ProductModal({
     setValue('categoryId', categoryId ? String(categoryId) : '')
     setValue('imageUrl', String(imageUrl))
     imageUrl && setImageUrl(imageUrl)
+    imagePublicId && setImagePublicId(imagePublicId)
   }, [editingProduct])
 
   return (
@@ -255,6 +259,9 @@ export default function ProductModal({
                         onClick={openWidget}
                       />
                     </div>
+                    <div className='mb-3 pt-0'>
+                      <div>{imagePublicId}</div>
+                    </div>
                   </div>
                   {/*footer*/}
                   <div className='flex items-center justify-end p-6 border-t border-solid border-gray-200 rounded-b'>
@@ -267,7 +274,8 @@ export default function ProductModal({
                     <button
                       type='submit'
                       className='bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'>
-                      {(mutationPostProduct.isLoading || mutationPutProduct.isLoading) && <LoaderIcon />}
+                      {(mutationPostProduct.isLoading ||
+                        mutationPutProduct.isLoading) && <LoaderIcon />}
                       {isEditing ? 'Sửa' : 'Thêm'}
                     </button>
                   </div>
