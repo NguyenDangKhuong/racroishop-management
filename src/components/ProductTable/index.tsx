@@ -50,7 +50,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     mutate
   } = useMutation(['fetchProducts', debounedSearchValue], (value: any) =>
     get(
-      `/api/products?page=${value.page}&size=${50}&name=${
+      `/api/products?page=${value.page}&size=${30}&name=${
         debounedSearchValue ? debounedSearchValue : ''
       }`
     ).then(res => res.data)
