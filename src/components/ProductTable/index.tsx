@@ -31,6 +31,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [searchValue, setSearchValue] = useState('')
   const [products, setProducts] = useState<Product[]>([])
   const [selectedPage, setSelectedPage] = useState(1)
+  const [totalDocs, setTotalDocs] = useState(0)
 
   const mutationDelProduct = useMutation(
     (_id: string) => remove(`/api/product/${_id}`),
@@ -61,11 +62,16 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   )
 
   useEffect(() => mutate({ page: 1 }), [])
+
   useEffect(
     () => mutate({ page: selectedPage }),
     [selectedPage, debounedSearchValue]
   )
-  useEffect(() => setProducts(dataProducts?.products), [dataProducts])
+
+  useEffect(() => {
+    setProducts(dataProducts?.products)
+    setTotalDocs(dataProducts?.totalDocs)
+  }, [dataProducts])
 
   const mutationPutProduct = useMutation(
     (updatedProduct: Product) => put('/api/product', updatedProduct),
@@ -243,8 +249,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   return (
     <>
       {/* Form */}
-      <form className='md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3 mb-5'>
-        <div className='relative flex w-full flex-wrap items-stretch'>
+      <form className='md:flex flex-row flex-wrap items-center lg:ml-auto mb-5'>
+        <div className='relative flex md:w-full w-80 flex-wrap items-stretch'>
           <span className='z-10 h-full leading-snug font-normal absolute text-center text-gray-300 bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
             <i className='fas fa-search'></i>
           </span>
@@ -270,7 +276,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                   'font-semibold text-lg ' +
                   (color === 'light' ? 'text-gray-700' : 'text-white')
                 }>
-                Danh sách sản phẩm
+                Danh sách sản phẩm: {totalDocs} sản phẩm
               </h3>
             </div>
             <span className='cursor-pointer' onClick={() => setShowModal(true)}>

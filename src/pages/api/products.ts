@@ -15,13 +15,13 @@ const products = async (req: NextApiRequest, res: NextApiResponse) => {
     const products = await ProductModel.find({
       name: { $regex: name, $options: 'i' }
     }).sort({ createdAt: -1 })
-    return res.status(200).json({ products, totalPages })
+    return res.status(200).json({ products, totalPages, totalDocs })
   }
   if (pageNum === 1) {
     const products = await ProductModel.find()
       .limit(pageSize)
       .sort({ createdAt: -1 })
-    return res.status(200).json({ products, totalPages })
+    return res.status(200).json({ products, totalPages, totalDocs })
   }
   const skip = pageSize * (pageNum - 1)
   const products = await ProductModel.find()
@@ -29,7 +29,7 @@ const products = async (req: NextApiRequest, res: NextApiResponse) => {
     .limit(pageSize)
     .sort({ createdAt: -1 })
 
-  res.status(200).json({ products, totalPages })
+  res.status(200).json({ products, totalPages, totalDocs })
 }
 
 export default products
