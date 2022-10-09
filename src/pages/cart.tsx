@@ -3,8 +3,9 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
-import CartInput from '../components/Carts/CartInput'
 import CartListItem from '../components/Carts/CartListItem'
+import CartScanInput from '../components/Carts/CartScanInput'
+import CartSearchInput from '../components/Carts/CartSearchInput'
 import CartSumary from '../components/Carts/CartSumary'
 import useDebounce from '../hooks/useDebounce'
 import { ProductCart } from '../models/ProductCart'
@@ -12,16 +13,17 @@ import { get } from '../utils/api'
 import { currencyFormat } from './../utils/currencyFormat'
 
 const Cart: NextPage = () => {
+  const [scanValue, setScanValue] = useState('')
   const [searchValue, setSearchValue] = useState('')
   const [cartList, setCartList] = useState<ProductCart[]>([])
 
-  const debounedSearchValue = useDebounce(searchValue, 1000)
+  const debounedScanValue = useDebounce(scanValue, 1)
 
   const { data: product } = useQuery(
-    ['searchProduct', debounedSearchValue],
-    () => get(`/api/product/sku/${debounedSearchValue}`).then(res => res.data),
+    ['searchProduct', debounedScanValue],
+    () => get(`/api/product/sku/${debounedScanValue || searchValue}`).then(res => res.data),
     {
-      enabled: debounedSearchValue.length > 0
+      enabled: debounedScanValue.length > 0 || searchValue.length > 4
     }
   )
 
@@ -42,8 +44,14 @@ const Cart: NextPage = () => {
         )
       : [...cartList, { product, quantity: 1 }]
     product && setCartList(newCartList)
+    setScanValue('')
     setSearchValue('')
   }, [product])
+
+  const onChangeScanInput = useCallback(
+    (e: any) => setScanValue(e.target.value),
+    [scanValue]
+  )
 
   const onChangeSearchInput = useCallback(
     (e: any) => setSearchValue(e.target.value),
@@ -94,10 +102,16 @@ const Cart: NextPage = () => {
         <title>Thanh toán</title>
       </Head>
       <div className='container mx-auto mt-5 select-none'>
-        <CartInput
-          inputValue={searchValue}
-          handleSearchValue={onChangeSearchInput}
-        />
+        <div className='flex justify-between'>
+          <CartScanInput
+            inputValue={scanValue}
+            handleSearchValue={onChangeScanInput}
+          />
+          <CartSearchInput
+            inputValue={searchValue}
+            handleSearchValue={onChangeSearchInput}
+          />
+        </div>
         <div className='flex-col md:flex-row flex shadow-md my-5'>
           {/* {renderResult()} */}
           <CartListItem
@@ -123,8 +137,8 @@ const Cart: NextPage = () => {
             Yumy shop
           </h1>
           <div className='mt-1 text-center'>
-            Đ/c: 223A Nguyễn Văn Khạ, ấp<br /> Cây Sộp, Tân An Hội, Củ
-            Chi, TPHCM
+            Đ/c: 223A Nguyễn Văn Khạ, ấp
+            <br /> Cây Sộp, Tân An Hội, Củ Chi, TPHCM
             <br />
             SĐT/Zalo : 0393.022.997/
             <br />
@@ -142,7 +156,7 @@ const Cart: NextPage = () => {
             <thead>
               <tr>
                 <th className='border border-black text-[10px]'>Tên</th>
-                <th className='border border-black text-[10px]'>Sl</th>
+                <th className='border border-black text-[10px]'>SL</th>
                 <th className='border border-black text-[10px]'>Đơn giá</th>
                 <th className='border border-black text-[10px]'>Thành tiền</th>
               </tr>

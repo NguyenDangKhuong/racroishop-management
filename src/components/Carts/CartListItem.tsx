@@ -9,7 +9,7 @@ const CartListItem: React.FC<{
   setCartList: (newProductList: ProductCart[]) => void
 }> = ({ totalCart, cartList, setCartList }) => {
   return (
-    <div className='w-3/4 bg-white px-10 py-10'>
+    <div className='w-3/4 bg-white p-5'>
       <div className='flex justify-between border-b pb-8'>
         <h1 className='font-semibold text-2xl'>Giỏ hàng</h1>
         <h2 className='font-semibold text-2xl'>{totalCart} sản phẩm</h2>

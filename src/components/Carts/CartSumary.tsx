@@ -49,7 +49,7 @@ const CartSumary: React.FC<{
   )
 
   return (
-    <form onSubmit={onSubmit} id='summary' className='w-1/4 px-8 py-10'>
+    <form onSubmit={onSubmit} id='summary' className='w-1/4 px-8 py-5'>
       <h1 className='font-semibold text-2xl border-b pb-8'>
         Tổng quan đơn hàng
       </h1>
@@ -61,14 +61,14 @@ const CartSumary: React.FC<{
           {currencyFormat(totalPrice)}
         </span>
       </div>
-      <div>
+      {/* <div>
         <label className='font-medium inline-block mb-3 text-sm uppercase'>
           Tiền ship
         </label>
         <select className='block p-2 text-gray-600 w-full text-sm'>
           <option>Giao hàng tiết kiệm 0 vnd</option>
         </select>
-      </div>
+      </div> */}
       {/* <div className='py-10'>
         <label
           htmlFor='promo'
@@ -85,7 +85,7 @@ const CartSumary: React.FC<{
       <button className='bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase'>
         Apply
       </button> */}
-      <div className='py-10'>
+      <div className='py-5'>
         <label
           htmlFor='customerPrice'
           className='font-semibold inline-block mb-3 text-sm uppercase'>
@@ -124,7 +124,7 @@ const CartSumary: React.FC<{
           </span>
         </>
       )}
-      <div className='border-t mt-8'>
+      <div className='border-t mt-5'>
         <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
           <span>Tổng tiền</span>
           <span>{currencyFormat(totalPrice)}</span>
@@ -142,6 +142,21 @@ const CartSumary: React.FC<{
           <span>{currencyFormat(exchange)}</span>
         </div>
       </div>
+      {/* <div className='border-t mt-5'>
+        <label
+          htmlFor='discountPrice'
+          className='font-semibold inline-block mb-3 text-sm uppercase'>
+          Giảm giá
+        </label>
+        <input
+          type='text'
+          id='discountPrice'
+          placeholder='Nhập số tiền giảm giá'
+          className='p-2 text-sm w-full bg-gray-200'
+          value={customerCash || ''}
+          onChange={e => setCustomerCash(Number(e.target.value))}
+        />
+      </div> */}
     </form>
   )
 }
