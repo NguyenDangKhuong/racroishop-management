@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import useDebounce from '../../hooks/useDebounce'
 import { Category } from '../../models/Category'
@@ -173,7 +173,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                   <Image
                     className='h-24'
                     src={item.imageUrl || '/image/product-placeholder.png'}
-                    width={100}
+                    width={80}
                     height={100}
                     alt=''
                     onClick={() => {
