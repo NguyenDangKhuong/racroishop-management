@@ -168,7 +168,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           <tbody>
             {products?.map((item: Product) => (
               <tr key={item.sku} className='border-t'>
-                <td className='px-1 align-middle text-xs whitespace-nowrap p-4 text-left'>
+                <td className='pl-4 align-middle text-xs whitespace-nowrap py-4 text-left'>
                   <img
                     className='h-24 w-auto'
                     src={item.imageUrl || '/image/product-placeholder.png'}
