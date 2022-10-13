@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import useDebounce from '../../hooks/useDebounce'
 import { Category } from '../../models/Category'
@@ -176,6 +176,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     width={80}
                     height={100}
                     alt=''
+                    unoptimized={true}
                     onClick={() => {
                       setImageSelected(String(item.imageUrl))
                       setShowImageModal(true)

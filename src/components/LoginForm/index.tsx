@@ -111,6 +111,7 @@ const LoginForm = () => {
                       alt='...'
                       className='w-5 mr-1'
                       src='https://demos.creative-tim.com/notus-nextjs/img/github.svg'
+                      unoptimized={true}
                       width={30}
                       height={30}
                     />
@@ -123,6 +124,7 @@ const LoginForm = () => {
                       alt='...'
                       className='w-5 mr-1'
                       src='https://demos.creative-tim.com/notus-nextjs/img/google.svg'
+                      unoptimized={true}
                       width={30}
                       height={30}
                     />

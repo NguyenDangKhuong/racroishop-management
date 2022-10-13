@@ -42,6 +42,7 @@ const CartListItem: React.FC<{
                   src={imageUrl || '/image/product-placeholder.png'}
                   width={100}
                   height={100}
+                  unoptimized={true}
                   alt=''
                 />
               </div>
