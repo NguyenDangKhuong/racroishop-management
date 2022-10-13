@@ -1,5 +1,4 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import useDebounce from '../../hooks/useDebounce'
 import { Category } from '../../models/Category'
@@ -170,13 +169,11 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
             {products?.map((item: Product) => (
               <tr key={item.sku} className='border-t'>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
-                  <Image
+                  <img
                     className='h-24'
                     src={item.imageUrl || '/image/product-placeholder.png'}
-                    width={80}
-                    height={100}
                     alt=''
-                    unoptimized={true}
+                    // unoptimized={true}
                     onClick={() => {
                       setImageSelected(String(item.imageUrl))
                       setShowImageModal(true)

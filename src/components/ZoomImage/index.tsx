@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useRef } from 'react'
 
 const ZoomImageModal = ({
@@ -33,7 +32,7 @@ const ZoomImageModal = ({
             </div>
             {/*body*/}
             <div>
-              <Image src={imageSelected} unoptimized={true} width='400' height='400' />
+              <img src={imageSelected} />
             </div>
             {/*footer*/}
             <div className='flex items-center justify-end p-6 border-t border-solid border-gray-200 rounded-b'>

@@ -37,12 +37,10 @@ const CartListItem: React.FC<{
             className='flex items-center hover:bg-gray-100 -mx-8 px-6 py-5'>
             <div className='flex w-2/5'>
               <div className='w-20'>
-                <Image
+                <img
                   className='h-24'
                   src={imageUrl || '/image/product-placeholder.png'}
-                  width={100}
-                  height={100}
-                  unoptimized={true}
+                  // unoptimized={true}
                   alt=''
                 />
               </div>

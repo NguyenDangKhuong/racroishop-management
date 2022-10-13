@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -107,26 +106,22 @@ const LoginForm = () => {
                   <button
                     className='bg-white active:bg-gray-50 text-gray-700 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150'
                     type='button'>
-                    <Image
+                    <img
                       alt='...'
                       className='w-5 mr-1'
                       src='https://demos.creative-tim.com/notus-nextjs/img/github.svg'
-                      unoptimized={true}
-                      width={30}
-                      height={30}
+                      // unoptimized={true}
                     />
                     Github
                   </button>
                   <button
                     className='bg-white active:bg-gray-50 text-gray-700 px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150'
                     type='button'>
-                    <Image
+                    <img
                       alt='...'
                       className='w-5 mr-1'
                       src='https://demos.creative-tim.com/notus-nextjs/img/google.svg'
-                      unoptimized={true}
-                      width={30}
-                      height={30}
+                      // unoptimized={true}
                     />
                     Google
                   </button>
