@@ -56,15 +56,6 @@ export default function CategoryModal({
                             ? 'bg-gray-50 text-gray-500 border-gray-100'
                             : 'bg-gray-600 text-gray-200 border-gray-500')
                         }>
-                        Hình
-                      </th>
-                      <th
-                        className={
-                          'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                          (color === 'light'
-                            ? 'bg-gray-50 text-gray-500 border-gray-100'
-                            : 'bg-gray-600 text-gray-200 border-gray-500')
-                        }>
                         Tên
                       </th>
                       <th
@@ -90,18 +81,6 @@ export default function CategoryModal({
                   <tbody>
                     {listProduct?.map((item: any) => (
                       <tr key={item._id} className='border-t'>
-                        <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
-                          <img
-                            className='h-24 w-auto'
-                            src={
-                              item.product.imageUrl ||
-                              '/image/product-placeholder.png'
-                            }
-                            alt=''
-                            // width={70}
-                            // unoptimized={true}
-                          />
-                        </td>
                         <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
                           <span>{item.product.name}</span>
                         </td>
