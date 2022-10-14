@@ -6,13 +6,17 @@ import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { toast } from 'react-toastify'
 import { Order } from '../../models/Order'
+import { ProductCart } from '../../models/ProductCart'
 import { get } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
+import OrderModal from '../OrderModal'
 
 registerLocale('vi', vi)
 
 const ListTable = () => {
   const [selectDate, setSelectDate] = useState(new Date())
+  const [listProduct, setListProduct] = useState<ProductCart[]>([])
+  const [showModal, setShowModal] = useState(false)
   const { data: orders, mutate } = useMutation(
     (value: any) =>
       get(`/api/orders?selectDate=${value.date}&isMonth=${value.isMonth}`).then(
@@ -144,7 +148,14 @@ const ListTable = () => {
                   'HH:mm:ss dd/MM/yyyy'
                 )}
               </td>
-              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'></td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                <i
+                  className='fas fa-edit text-lg text-emerald-500 mr-4 cursor-pointer'
+                  onClick={() => {
+                    setListProduct(item.products)
+                    setShowModal(true)
+                  }}></i>
+              </td>
             </tr>
           ))}
           {orders?.length > 0 && (
@@ -195,6 +206,11 @@ const ListTable = () => {
           )}
         </tbody>
       </table>
+      <OrderModal
+        showModal={showModal}
+        setShowModal={(val: boolean) => setShowModal(val)}
+        listProduct={listProduct}
+      />
     </div>
   )
 }
