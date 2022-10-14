@@ -18,6 +18,9 @@ export class Order {
   
   @prop({ type: () => Number })
   exchange!: number
+
+  @prop({ type: () => Number })
+  discountPrice!: number
   
   @prop({ type: () => [ProductCart] })
   products!: ProductCart[]

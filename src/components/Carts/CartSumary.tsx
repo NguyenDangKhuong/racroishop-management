@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { useGenegateId } from '../../hooks/useGenegateId'
@@ -14,10 +13,22 @@ const CartSumary: React.FC<{
   cartList: ProductCart[]
   handlePrint: any
   totalPrice: number
-}> = ({ totalCart, cartList, handlePrint, totalPrice }) => {
-  const [customerCash, setCustomerCash] = useState(0)
-  const exchange = customerCash > 0 ? customerCash - totalPrice : 0
-
+  discountPrice: number
+  setDiscountPrice: any
+  customerCash: number
+  setCustomerCash: any
+  exchange: number
+}> = ({
+  totalCart,
+  cartList,
+  handlePrint,
+  totalPrice,
+  discountPrice,
+  setDiscountPrice,
+  customerCash,
+  setCustomerCash,
+  exchange
+}) => {
   const mutationPostOrder = useMutation(
     (newOrder: Order) => post('/api/order', newOrder),
     {
@@ -44,7 +55,8 @@ const CartSumary: React.FC<{
       totalCart,
       exchange,
       customerCash,
-      products: cartList
+      products: cartList,
+      discountPrice
     })
   )
 
@@ -138,11 +150,11 @@ const CartSumary: React.FC<{
       </div>
       <div className='border-t mt-8'>
         <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
-          <span>Tiền thối lại cho khách</span>
-          <span>{currencyFormat(exchange)}</span>
+          <span className='text-red-500'>Tiền thối</span>
+          <span className='text-red-500'>{currencyFormat(exchange)}</span>
         </div>
       </div>
-      {/* <div className='border-t mt-5'>
+      <div className='border-t mt-5'>
         <label
           htmlFor='discountPrice'
           className='font-semibold inline-block mb-3 text-sm uppercase'>
@@ -153,10 +165,34 @@ const CartSumary: React.FC<{
           id='discountPrice'
           placeholder='Nhập số tiền giảm giá'
           className='p-2 text-sm w-full bg-gray-200'
-          value={customerCash || ''}
-          onChange={e => setCustomerCash(Number(e.target.value))}
+          value={discountPrice || ''}
+          onChange={e => setDiscountPrice(Number(e.target.value))}
         />
-      </div> */}
+      </div>
+      {discountPrice > 0 && discountPrice < 999 && (
+        <>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
+            onClick={() => setDiscountPrice(discountPrice * 1000)}>
+            {currencyFormat(discountPrice * 1000)}
+          </span>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
+            onClick={() => setDiscountPrice(discountPrice * 10000)}>
+            {currencyFormat(discountPrice * 10000)}
+          </span>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
+            onClick={() => setDiscountPrice(discountPrice * 100000)}>
+            {currencyFormat(discountPrice * 100000)}
+          </span>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 mt-2 cursor-pointer'
+            onClick={() => setDiscountPrice(discountPrice * 1000000)}>
+            {currencyFormat(discountPrice * 1000000)}
+          </span>
+        </>
+      )}
     </form>
   )
 }

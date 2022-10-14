@@ -95,6 +95,12 @@ const ListTable = () => {
               className={
                 'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-50 text-gray-500 border-gray-100'
               }>
+              Giảm giá
+            </th>
+            <th
+              className={
+                'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-gray-50 text-gray-500 border-gray-100'
+              }>
               Tổng số sản phẩm
             </th>
             <th
@@ -125,6 +131,9 @@ const ListTable = () => {
               </td>
               <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                 {currencyFormat(item.exchange)}
+              </td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                {currencyFormat(item.discountPrice)}
               </td>
               <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                 {item.totalCart}
@@ -163,6 +172,14 @@ const ListTable = () => {
                 {currencyFormat(
                   orders?.reduce(
                     (acc: number, curr: Order) => acc + curr.exchange,
+                    0
+                  )
+                )}
+              </td>
+              <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                {currencyFormat(
+                  orders?.reduce(
+                    (acc: number, curr: Order) => acc + curr.discountPrice,
                     0
                   )
                 )}

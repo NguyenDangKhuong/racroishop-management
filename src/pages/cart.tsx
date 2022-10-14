@@ -15,13 +15,18 @@ import { currencyFormat } from './../utils/currencyFormat'
 const Cart: NextPage = () => {
   const [scanValue, setScanValue] = useState('')
   const [searchValue, setSearchValue] = useState('')
+  const [discountPrice, setDiscountPrice] = useState(0)
+  const [customerCash, setCustomerCash] = useState(0)
   const [cartList, setCartList] = useState<ProductCart[]>([])
 
   const debounedScanValue = useDebounce(scanValue, 1)
 
   const { data: product } = useQuery(
     ['searchProduct', debounedScanValue],
-    () => get(`/api/product/sku/${debounedScanValue || searchValue}`).then(res => res.data),
+    () =>
+      get(`/api/product/sku/${debounedScanValue || searchValue}`).then(
+        res => res.data
+      ),
     {
       enabled: debounedScanValue.length > 0 || searchValue.length > 4
     }
@@ -67,6 +72,9 @@ const Cart: NextPage = () => {
     (acc, curr) => acc + curr.product?.price! * curr.quantity!,
     0
   )
+
+  const exchange =
+    customerCash > 0 ? customerCash - totalPrice - discountPrice : 0
 
   // const renderResult = () => {
   //   if (isLoading) {
@@ -125,6 +133,11 @@ const Cart: NextPage = () => {
             totalCart={totalCart}
             cartList={cartList}
             totalPrice={totalPrice}
+            discountPrice={discountPrice}
+            setDiscountPrice={(price: number) => setDiscountPrice(price)}
+            customerCash={customerCash}
+            setCustomerCash={(cash: number) => setCustomerCash(cash)}
+            exchange={exchange}
             handlePrint={handlePrint}
           />
         </div>
@@ -189,6 +202,38 @@ const Cart: NextPage = () => {
                   colSpan={2}
                   className='border border-black border-t-4 text-right text-[10px]'>
                   {currencyFormat(totalPrice)}
+                </td>
+              </tr>
+              <tr>
+                <td className='border border-black text-left text-[10px]'>
+                  Khách đưa
+                </td>
+                <td
+                  colSpan={3}
+                  className='border border-black text-right text-[10px]'>
+                  {currencyFormat(customerCash)}
+                </td>
+              </tr>
+              {discountPrice > 0 && (
+                <tr>
+                  <td className='border border-black text-left text-[10px]'>
+                    Giảm
+                  </td>
+                  <td
+                    colSpan={3}
+                    className='border border-black text-right text-[10px]'>
+                    {currencyFormat(discountPrice)}
+                  </td>
+                </tr>
+              )}
+              <tr>
+                <td className='border border-black text-left text-[10px]'>
+                  Trả lại
+                </td>
+                <td
+                  colSpan={3}
+                  className='border border-black text-right text-[10px]'>
+                  {currencyFormat(exchange)}
                 </td>
               </tr>
             </tbody>
