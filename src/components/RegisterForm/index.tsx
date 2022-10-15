@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { User } from '../../models/User'
@@ -20,10 +20,7 @@ const RegisterForm = () => {
     }
   )
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm<User>()
+  const { register, handleSubmit } = useForm<User>()
 
   const onSubmit = handleSubmit(data =>
     mutationRegister.mutate({

@@ -1,5 +1,5 @@
-import { getYear } from 'date-fns'
 import Link from 'next/link'
+import { getYear } from 'date-fns'
 import Layout from '../components/Layout'
 
 const ProfilePage = () => {

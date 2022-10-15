@@ -1,18 +1,19 @@
-import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { get } from '../utils/api'
 
 export default function useUser({
   redirectTo = '',
-  redirectIfFoundUser = false,
+  redirectIfFoundUser = false
 } = {}) {
   const router = useRouter()
-  const { isLoading, data: session } = useQuery(['fetchUser'], () =>
-    get(`/api/user/`).then(res => res.data),
+  const { isLoading, data: session } = useQuery(
+    ['fetchUser'],
+    () => get(`/api/user/`).then(res => res.data),
     {
       initialData: {
-        isLoggedIn: false,
+        isLoggedIn: false
       }
     }
   )

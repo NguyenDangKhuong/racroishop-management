@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import {
   endOfDay,
   endOfMonth,
@@ -5,7 +6,6 @@ import {
   startOfMonth,
   subHours
 } from 'date-fns'
-import { NextApiRequest, NextApiResponse } from 'next'
 import OrderModel from '../../models/Order'
 import connectDb from '../../utils/connectDb'
 

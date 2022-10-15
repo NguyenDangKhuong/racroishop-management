@@ -28,7 +28,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
     }
 
-    if(price < 1000) {
+    if (price < 1000) {
       return res.status(422).send('Giá sản phẩm không thể dưới 1000')
     }
 
@@ -53,7 +53,7 @@ async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
     }
 
-    if(price < 1000) {
+    if (price < 1000) {
       return res.status(422).send('Giá sản phẩm không thể dưới 1000')
     }
 

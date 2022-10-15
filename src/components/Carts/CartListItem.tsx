@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ProductCart } from '../../models/ProductCart'
 import { currencyFormat } from '../../utils/currencyFormat'
