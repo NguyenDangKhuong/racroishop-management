@@ -74,7 +74,7 @@ const Cart: NextPage = () => {
   )
 
   const exchange =
-    customerCash > 0 ? customerCash - totalPrice - discountPrice : 0
+    customerCash > 0 ? customerCash - totalPrice + discountPrice : 0
 
   // const renderResult = () => {
   //   if (isLoading) {
