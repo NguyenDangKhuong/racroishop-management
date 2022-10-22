@@ -17,7 +17,11 @@ const ListTable = () => {
   const [selectDate, setSelectDate] = useState(new Date())
   const [listProduct, setListProduct] = useState<ProductCart[]>([])
   const [showModal, setShowModal] = useState(false)
-  const { data: orders, mutate } = useMutation(
+  const {
+    data: orders,
+    mutate,
+    isLoading: orderLoading
+  } = useMutation(
     (value: any) =>
       get(`/api/orders?selectDate=${value.date}&isMonth=${value.isMonth}`).then(
         (res: any) => res.data.orders
@@ -203,6 +207,12 @@ const ListTable = () => {
               </td>
               <td className='px-6 align-middle text-xs whitespace-nowrap p-4'></td>
             </tr>
+          )}
+          {orderLoading && (
+            <div className='w-full text-center py-5 border-t'>
+              <i className='fas fa-spinner fa-spin animate-spin text-xl mr-2'></i>
+              Đang tải...
+            </div>
           )}
         </tbody>
       </table>
