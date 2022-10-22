@@ -21,7 +21,11 @@ const Cart: NextPage = () => {
 
   const debounedScanValue = useDebounce(scanValue, 100)
 
-  const { data: product, isLoading: scanLoading, isFetching: scanFetching } = useQuery(
+  const {
+    data: product,
+    isLoading: scanLoading,
+    isFetching: scanFetching
+  } = useQuery(
     ['searchProduct', debounedScanValue],
     () =>
       get(`/api/product/sku/${debounedScanValue || searchValue}`).then(
@@ -241,7 +245,10 @@ const Cart: NextPage = () => {
             </tbody>
           </table>
           <div className='mt-4 text-center text-[10px]'>
-            Xin cảm ơn quý khách và hẹn gặp lại!
+            Quý khách vui lòng kiểm tra hóa đơn <br/> trước khi rời shop
+          </div>
+          <div className='text-center text-[10px]'>
+            Xin cảm ơn và hẹn gặp lại!
           </div>
         </div>
       </div>
