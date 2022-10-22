@@ -21,7 +21,7 @@ const Cart: NextPage = () => {
 
   const debounedScanValue = useDebounce(scanValue, 100)
 
-  const { data: product } = useQuery(
+  const { data: product, isLoading: scanLoading, isFetching: scanFetching } = useQuery(
     ['searchProduct', debounedScanValue],
     () =>
       get(`/api/product/sku/${debounedScanValue || searchValue}`).then(
@@ -114,6 +114,8 @@ const Cart: NextPage = () => {
           <CartScanInput
             inputValue={scanValue}
             handleSearchValue={onChangeScanInput}
+            scanLoading={scanLoading}
+            scanFetching={scanFetching}
           />
           <CartSearchInput
             inputValue={searchValue}
