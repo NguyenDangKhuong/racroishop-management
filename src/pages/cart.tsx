@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import CartListItem from '../components/Carts/CartListItem'
@@ -19,7 +19,7 @@ const Cart: NextPage = () => {
   const [customerCash, setCustomerCash] = useState(0)
   const [cartList, setCartList] = useState<ProductCart[]>([])
 
-  const debounedScanValue = useDebounce(scanValue, 1)
+  const debounedScanValue = useDebounce(scanValue, 100)
 
   const { data: product } = useQuery(
     ['searchProduct', debounedScanValue],
