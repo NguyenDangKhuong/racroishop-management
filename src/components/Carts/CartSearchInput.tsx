@@ -10,7 +10,6 @@ const CartSearchInput = ({ handleSearchValue, inputValue }: any) => {
         placeholder='Nhập vào đây'
         onChange={handleSearchValue}
         value={inputValue}
-        autoFocus
       />
     </div>
   )

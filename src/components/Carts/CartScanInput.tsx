@@ -1,6 +1,11 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 
 const CartScanInput = ({ handleSearchValue, inputValue }: any) => {
+  const scanInput = useCallback((inputElement: any) => {
+    if (inputElement) {
+      inputElement.focus()
+    }
+  }, [])
   return (
     <div className='md:w-2/3'>
       <input
@@ -10,6 +15,7 @@ const CartScanInput = ({ handleSearchValue, inputValue }: any) => {
         placeholder='Nhấp vào đây để quét mã số'
         onChange={handleSearchValue}
         value={inputValue}
+        ref={scanInput}
         autoFocus
       />
     </div>

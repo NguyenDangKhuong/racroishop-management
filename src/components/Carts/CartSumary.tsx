@@ -48,7 +48,11 @@ const CartSumary: React.FC<{
     handleSubmit,
     formState: { errors }
   } = useForm<Order>()
-  const onSubmit = handleSubmit(() =>
+  const onSubmit = handleSubmit(() => {
+    if (customerCash < 999) {
+      toast.error('Tiền khách nhập phải lớn hơn 1000đ')
+      return
+    }
     mutationPostOrder.mutate({
       orderId,
       totalPrice,
@@ -58,7 +62,7 @@ const CartSumary: React.FC<{
       products: cartList,
       discountPrice
     })
-  )
+  })
 
   return (
     <form onSubmit={onSubmit} id='summary' className='w-1/4 px-8 py-5'>
