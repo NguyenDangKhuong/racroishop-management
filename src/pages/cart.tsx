@@ -210,6 +210,30 @@ const Cart: NextPage = () => {
                   {currencyFormat(totalPrice)}
                 </td>
               </tr>
+              {discountPrice > 0 && (
+                <tr>
+                  <td className='border border-black text-left text-[10px]'>
+                    Giảm giá{' '}
+                  </td>
+                  <td
+                    colSpan={3}
+                    className='border border-black text-right text-[10px]'>
+                    {currencyFormat(discountPrice)}
+                  </td>
+                </tr>
+              )}
+              {discountPrice > 0 && (
+                <tr>
+                  <td className='border border-black text-left text-[10px]'>
+                    Tiền đã giảm
+                  </td>
+                  <td
+                    colSpan={3}
+                    className='border border-black text-right text-[10px]'>
+                    {currencyFormat(totalPrice - discountPrice)}
+                  </td>
+                </tr>
+              )}
               <tr>
                 <td className='border border-black text-left text-[10px]'>
                   Khách đưa
@@ -220,32 +244,22 @@ const Cart: NextPage = () => {
                   {currencyFormat(customerCash)}
                 </td>
               </tr>
-              {discountPrice > 0 && (
+              {exchange > 0 && (
                 <tr>
                   <td className='border border-black text-left text-[10px]'>
-                    Giảm
+                    Trả lại
                   </td>
                   <td
                     colSpan={3}
                     className='border border-black text-right text-[10px]'>
-                    {currencyFormat(discountPrice)}
+                    {currencyFormat(exchange)}
                   </td>
                 </tr>
               )}
-              <tr>
-                <td className='border border-black text-left text-[10px]'>
-                  Trả lại
-                </td>
-                <td
-                  colSpan={3}
-                  className='border border-black text-right text-[10px]'>
-                  {currencyFormat(exchange)}
-                </td>
-              </tr>
             </tbody>
           </table>
           <div className='mt-4 text-center text-[10px]'>
-            Quý khách vui lòng kiểm tra hóa đơn <br/> trước khi rời shop
+            Quý khách vui lòng kiểm tra hóa đơn <br /> trước khi rời shop
           </div>
           <div className='text-center text-[10px]'>
             Xin cảm ơn và hẹn gặp lại!
