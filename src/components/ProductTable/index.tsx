@@ -97,7 +97,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     }
     if (isSuccess) {
       return (
-        <table className='items-center w-full bg-transparent border-collapse'>
+        <table className='items-center w-full bg-transparent border-collapse select-text'>
           <thead>
             <tr>
               <th

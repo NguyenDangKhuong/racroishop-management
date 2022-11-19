@@ -147,7 +147,9 @@ const CartSumary: React.FC<{
         </div>
         <button
           className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
-          type='submit'>
+          type='submit'
+          disabled={mutationPostOrder.isLoading}
+          >
           {mutationPostOrder.isLoading && <LoaderIcon />}
           Thanh toán
         </button>
