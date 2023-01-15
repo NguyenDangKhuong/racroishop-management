@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { useReactToPrint } from 'react-to-print'
 import { toast } from 'react-toastify'
 import { useGenegateId } from '../../hooks/useGenegateId'
 import { Order } from '../../models/Order'
@@ -11,30 +12,29 @@ import LoaderIcon from '../LoaderIcon'
 const CartSumary: React.FC<{
   totalCart: number
   cartList: ProductCart[]
-  handlePrint: any
   totalPrice: number
   discountPrice: number
   setDiscountPrice: any
   customerCash: number
   setCustomerCash: any
   exchange: number
+  componentRef: any
 }> = ({
   totalCart,
   cartList,
-  handlePrint,
   totalPrice,
   discountPrice,
   setDiscountPrice,
   customerCash,
   setCustomerCash,
-  exchange
+  exchange,
+  componentRef
 }) => {
   const mutationPostOrder = useMutation(
     (newOrder: Order) => post('/api/order', newOrder),
     {
       onSuccess: res => {
         toast.success(res.data)
-        handlePrint()
       },
       onError: (err: any) => {
         toast.error(err.response.data)
@@ -48,20 +48,29 @@ const CartSumary: React.FC<{
     handleSubmit,
     formState: { errors }
   } = useForm<Order>()
+
   const onSubmit = handleSubmit(() => {
     if (customerCash < 999) {
       toast.error('Tiền khách nhập phải lớn hơn 1000đ')
       return
     }
-    mutationPostOrder.mutate({
-      orderId,
-      totalPrice,
-      totalCart,
-      exchange,
-      customerCash,
-      products: cartList,
-      discountPrice
-    })
+    handlePrint()
+  })
+
+  //print
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    copyStyles: true,
+    onAfterPrint: () =>
+      mutationPostOrder.mutate({
+        orderId,
+        totalPrice,
+        totalCart,
+        exchange,
+        customerCash,
+        products: cartList,
+        discountPrice
+      })
   })
 
   return (
@@ -148,8 +157,7 @@ const CartSumary: React.FC<{
         <button
           className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
           type='submit'
-          disabled={mutationPostOrder.isLoading}
-          >
+          disabled={mutationPostOrder.isLoading}>
           {mutationPostOrder.isLoading && <LoaderIcon />}
           Thanh toán
         </button>

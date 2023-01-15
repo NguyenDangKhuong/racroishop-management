@@ -47,5 +47,6 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
       .send('Đơn đặt hàng đã thanh toán, chuẩn bị in hóa đơn...')
   } catch (err) {
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
+    console.log(err)
   }
 }

@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Head from 'next/head'
+import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useReactToPrint } from 'react-to-print'
 import CartListItem from '../components/Carts/CartListItem'
 import CartScanInput from '../components/Carts/CartScanInput'
 import CartSearchInput from '../components/Carts/CartSearchInput'
@@ -101,12 +100,7 @@ const Cart: NextPage = () => {
   //   return <></>
   // }
 
-  //print
   const componentRef: any = useRef()
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    copyStyles: true
-  })
 
   return (
     <>
@@ -144,7 +138,7 @@ const Cart: NextPage = () => {
             customerCash={customerCash}
             setCustomerCash={(cash: number) => setCustomerCash(cash)}
             exchange={exchange}
-            handlePrint={handlePrint}
+            componentRef={componentRef}
           />
         </div>
       </div>
