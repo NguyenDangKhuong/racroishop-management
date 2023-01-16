@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useReactToPrint } from 'react-to-print'
 import { toast } from 'react-toastify'
@@ -30,6 +31,7 @@ const CartSumary: React.FC<{
   exchange,
   componentRef
 }) => {
+  const [isPaid, setIsPaid] = useState(false)
   const mutationPostOrder = useMutation(
     (newOrder: Order) => post('/api/order', newOrder),
     {
@@ -55,13 +57,14 @@ const CartSumary: React.FC<{
       return
     }
     handlePrint()
+    setIsPaid(true)
   })
 
   //print
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     copyStyles: true,
-    onAfterPrint: () =>
+    onAfterPrint: () => {
       mutationPostOrder.mutate({
         orderId,
         totalPrice,
@@ -71,6 +74,8 @@ const CartSumary: React.FC<{
         products: cartList,
         discountPrice
       })
+      // window.location.reload()
+    }
   })
 
   return (
@@ -157,7 +162,7 @@ const CartSumary: React.FC<{
         <button
           className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
           type='submit'
-          disabled={mutationPostOrder.isLoading}>
+          disabled={mutationPostOrder.isLoading || isPaid}>
           {mutationPostOrder.isLoading && <LoaderIcon />}
           Thanh toán
         </button>

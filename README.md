@@ -1,8 +1,10 @@
 ## Usage
 
+**use notus nextjs theme
+
 **run development**
 
-- run cmd: 
+- run cmd:
 
 > `yarn dev`
 
@@ -10,20 +12,22 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-The `pages/api` directory is mapped to `/api/*`. 
+The `pages/api` directory is mapped to `/api/*`.
 
 **deploy production**
 
-- before deploy run cmd: 
+- before deploy run cmd:
 
 > `yarn build`
 
 #### Auto deploy with `vecel` when push on branch `master`
 
 ## Sync gitlab and github
+
 auto sync with github and gitlab (done):
 
 #### Sync Gitlab to Github
+
 This one is simple. You could set up some CI/CD yourself. But Gitlab will automatically do this for you.
 
 Go to "Settings > Repository > Mirroring repositories"
@@ -74,6 +78,7 @@ jobs:
           # You can store token in your project's 'Setting > Secrets' and reference the name here. Such as ${{ secrets.TARGET_TOKEN }}
         target-token: ${{ secrets.TARGET_TOKEN }}
 ```
+
 **Make sure the branch you are pushing to in Gitlab is not protected or allows for force push**
 
 ## Learn More

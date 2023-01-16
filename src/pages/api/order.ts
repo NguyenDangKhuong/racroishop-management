@@ -40,11 +40,8 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
         }
       })
     )
-
     await new OrderModel({ ...req.body }).save()
-    return res
-      .status(201)
-      .send('Đơn đặt hàng đã thanh toán, chuẩn bị in hóa đơn...')
+    return res.status(201).send('Đã thêm đơn vào hệ thống!')
   } catch (err) {
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
     console.log(err)
