@@ -74,7 +74,7 @@ const CartSumary: React.FC<{
         products: cartList,
         discountPrice
       })
-      // window.location.reload()
+      window.location.reload()
     }
   })
 
