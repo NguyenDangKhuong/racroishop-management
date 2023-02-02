@@ -153,9 +153,9 @@ const Cart: NextPage = () => {
             Đ/c: 223A Nguyễn Văn Khạ, ấp
             <br /> Cây Sộp, Tân An Hội, Củ Chi, TPHCM
             <br />
-            SĐT/Zalo : 0393.022.997/
+            SĐT: 0393.022.997
             <br />
-            0966.813.400
+            Zalo: 0966.813.400
           </div>
           <h2 className='text-sm font-bold mt-1'>Hóa đơn thanh toán</h2>
           <div>
