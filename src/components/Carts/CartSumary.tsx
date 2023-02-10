@@ -170,7 +170,7 @@ const CartSumary: React.FC<{
       <div className='border-t mt-8'>
         <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
           <span className='text-red-500'>Tiền thối</span>
-          <span className='text-red-500'>{currencyFormat(exchange)}</span>
+          <span className='text-red-500'>{totalPrice && currencyFormat(exchange)}</span>
         </div>
       </div>
       <div className='border-t mt-5'>
