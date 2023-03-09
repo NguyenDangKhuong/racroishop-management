@@ -1,14 +1,16 @@
 import { useRouter } from 'next/router'
 import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import useAuth from '../../hooks/useUser'
 import { User } from '../../models/User'
 import { post } from '../../utils/api'
+import LoaderIcon from '../LoaderIcon'
 
 const LoginForm = () => {
   const router = useRouter()
-
+  const [isLoading, setIsLoading] = useState(false)
   useAuth({
     redirectTo: '/dashboard',
     redirectIfFoundUser: true
@@ -20,6 +22,7 @@ const LoginForm = () => {
     (user: User) => post('/api/login', user).then(res => res.data),
     {
       onSuccess: res => {
+        setIsLoading(false)
         toast.success('Đăng nhập thành công!')
         if (res) router.push(`/dashboard`)
       },
@@ -32,6 +35,7 @@ const LoginForm = () => {
   //submit next-auth
   const onSubmit = handleSubmit(async data => {
     try {
+      setIsLoading(true)
       mutationLogin.mutate({
         ...data
       })
@@ -90,6 +94,7 @@ const LoginForm = () => {
                     <button
                       type='submit'
                       className='bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150'>
+                      {isLoading && <LoaderIcon />}
                       Đăng nhập
                     </button>
                   </div>
