@@ -156,8 +156,8 @@ const CartSumary: React.FC<{
       )}
       <div className='border-t mt-5'>
         <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
-          <span>Tổng tiền</span>
-          <span>{currencyFormat(totalPrice)}</span>
+          <span>Tổng tiền đã giảm</span>
+          <span>{currencyFormat(totalPrice - discountPrice)}</span>
         </div>
         <button
           className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
