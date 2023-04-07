@@ -10,6 +10,7 @@ import useDebounce from '../hooks/useDebounce'
 import { ProductCart } from '../models/ProductCart'
 import { get } from '../utils/api'
 import { currencyFormat } from './../utils/currencyFormat'
+import { format } from 'date-fns'
 
 const Cart: NextPage = () => {
   const [scanValue, setScanValue] = useState('')
@@ -101,6 +102,7 @@ const Cart: NextPage = () => {
   // }
 
   const componentRef: any = useRef()
+  console.log(format(new Date(), 'HH:mm - dd/MM/yyyy'))
 
   return (
     <>
@@ -160,9 +162,7 @@ const Cart: NextPage = () => {
           <h2 className='text-sm font-bold mt-1'>Hóa đơn thanh toán</h2>
           <div>
             Thời gian:{' '}
-            {`${new Date().getHours()}:${new Date().getMinutes()} - ${new Date().getUTCDate()}/${
-              new Date().getUTCMonth() + 1
-            }/${new Date().getUTCFullYear()}`}
+            {format(new Date(), 'HH:mm - dd/MM/yyyy')}
           </div>
 
           <table className='table-auto mt-3 border-collapse border border-black'>
