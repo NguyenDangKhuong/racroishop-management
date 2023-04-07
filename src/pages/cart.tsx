@@ -102,7 +102,6 @@ const Cart: NextPage = () => {
   // }
 
   const componentRef: any = useRef()
-  console.log(format(new Date(), 'HH:mm - dd/MM/yyyy'))
 
   return (
     <>
