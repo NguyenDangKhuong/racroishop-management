@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import React from 'react'
 
 export default function Footer() {
@@ -9,7 +10,7 @@ export default function Footer() {
           <div className='flex flex-wrap items-center md:justify-between justify-center'>
             <div className='w-full md:w-4/12 px-4'>
               <div className='text-sm text-gray-500 font-semibold py-1 text-center md:text-left'>
-                Copyright © {new Date().getFullYear()}{' '}
+                Copyright © {format(new Date(), 'yyyy')}{' '}
                 <a
                   href='#'
                   className='text-gray-500 hover:text-gray-700 text-sm font-semibold py-1'>
