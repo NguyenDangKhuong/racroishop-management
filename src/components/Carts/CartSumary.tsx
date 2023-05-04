@@ -80,10 +80,10 @@ const CartSumary: React.FC<{
 
   return (
     <form onSubmit={onSubmit} id='summary' className='w-1/4 px-8 py-5'>
-      <h1 className='font-semibold text-2xl border-b pb-8'>
+      <h1 className='font-semibold text-2xl border-b pb-5'>
         Tổng quan đơn hàng
       </h1>
-      <div className='flex justify-between mt-10 mb-5'>
+      <div className='flex justify-between mt-5 mb-2'>
         <span className='font-semibold text-sm uppercase'>
           {totalCart} sản phẩm
         </span>
@@ -115,7 +115,7 @@ const CartSumary: React.FC<{
       <button className='bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase'>
         Apply
       </button> */}
-      <div className='py-5'>
+      <div className='py-2'>
         <label
           htmlFor='customerPrice'
           className='font-semibold inline-block mb-3 text-sm uppercase'>
@@ -128,6 +128,7 @@ const CartSumary: React.FC<{
           className='p-2 text-sm w-full bg-gray-200'
           value={customerCash || ''}
           onChange={e => setCustomerCash(Number(e.target.value))}
+          autoComplete='off'
         />
       </div>
       {customerCash > 0 && customerCash < 999 && (
@@ -154,26 +155,26 @@ const CartSumary: React.FC<{
           </span>
         </>
       )}
-      <div className='border-t mt-5'>
-        <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
+      <div className='border-t'>
+        <div className='flex font-semibold justify-between py-3 text-sm uppercase'>
           <span>Tổng tiền đã giảm</span>
           <span>{currencyFormat(totalPrice - discountPrice)}</span>
         </div>
         <button
-          className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full flex justify-center item-center'
+          className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-2 text-sm text-white uppercase w-full flex justify-center item-center'
           type='submit'
           disabled={mutationPostOrder.isLoading || isPaid}>
           {mutationPostOrder.isLoading && <LoaderIcon />}
           Thanh toán
         </button>
       </div>
-      <div className='border-t mt-8'>
-        <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
+      <div className='border-t mt-3'>
+        <div className='flex font-semibold justify-between py-3 text-sm uppercase'>
           <span className='text-red-500'>Tiền thối</span>
           <span className='text-red-500'>{totalPrice && currencyFormat(exchange)}</span>
         </div>
       </div>
-      <div className='border-t mt-5'>
+      <div className='border-t mt-2'>
         <label
           htmlFor='discountPrice'
           className='font-semibold inline-block mb-3 text-sm uppercase'>
@@ -184,6 +185,7 @@ const CartSumary: React.FC<{
           id='discountPrice'
           placeholder='Nhập số tiền giảm giá'
           className='p-2 text-sm w-full bg-gray-200'
+          autoComplete='off'
           value={discountPrice || ''}
           onChange={e => setDiscountPrice(Number(e.target.value))}
         />
