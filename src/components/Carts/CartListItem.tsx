@@ -9,8 +9,8 @@ const CartListItem: React.FC<{
   return (
     <div className='w-3/4 bg-white p-5'>
       <div className='flex justify-between border-b pb-5'>
-        <h1 className='font-semibold text-2xl'>Giỏ hàng</h1>
-        <h2 className='font-semibold text-2xl'>{totalCart} sản phẩm</h2>
+        <h1 className='font-semibold uppercase text-sm'>Giỏ hàng</h1>
+        <h2 className='font-semibold uppercase text-sm'>{totalCart} sản phẩm</h2>
       </div>
       <div className='flex mt-10 mb-5'>
         <h3 className='font-semibold text-gray-600 text-xs uppercase w-2/5'>

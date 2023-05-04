@@ -80,7 +80,7 @@ const CartSumary: React.FC<{
 
   return (
     <form onSubmit={onSubmit} id='summary' className='w-1/4 px-8 py-5'>
-      <h1 className='font-semibold text-2xl border-b pb-5'>
+      <h1 className='font-semibold text-sm uppercase border-b pb-5'>
         Tổng quan đơn hàng
       </h1>
       <div className='flex justify-between mt-5 mb-2'>
