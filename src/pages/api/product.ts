@@ -32,7 +32,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
       return res.status(422).send('Giá sản phẩm không thể dưới 1000')
     }
 
-    const existedName = await ProductModel.findOne({ name })
+    const existedName = await ProductModel.findOne({ name }).lean()
     if (existedName) {
       return res
         .status(422)

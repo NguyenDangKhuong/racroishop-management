@@ -27,7 +27,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
       return res.status(422).send('Danh mục thiếu tên')
     }
 
-    const existedName = await CategoryModel.findOne({ name })
+    const existedName = await CategoryModel.findOne({ name }).lean()
     if (existedName) {
       return res
         .status(422)

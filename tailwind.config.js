@@ -11,7 +11,10 @@ module.exports = {
       tailwindcss: {},
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
-    }
-  ]
-  ,
+    },
+    require("daisyui")
+  ],
+  daisyui: {
+    themes: ["light"],
+  }
 }

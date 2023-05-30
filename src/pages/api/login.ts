@@ -8,7 +8,7 @@ connectDb()
 const loginRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password } = req.body
   try {
-    const user = await UserModel.findOne({ email })
+    const user = await UserModel.findOne({ email }).lean()
     if (!user) {
       return res.status(401).send(`Không tìm thấy người dùng`)
     }

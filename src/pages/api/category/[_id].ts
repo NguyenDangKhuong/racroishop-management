@@ -38,7 +38,7 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
     const deletedCategory: Category | null =
       await CategoryModel.findOneAndDelete({
         _id
-      })
+      }).lean()
     return res.status(200).json(deletedCategory)
   } catch (err) {
     console.log(err)

@@ -19,6 +19,8 @@ export const initialProduct = {
   image: ''
 }
 
+const pageSize = 30
+
 const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showModal, setShowModal] = useState(false)
   const [productSelected, setProductSelected] =
@@ -50,7 +52,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     mutate
   } = useMutation(['fetchProducts', debounedSearchValue], (value: any) =>
     get(
-      `/api/products?page=${value.page}&size=${30}&name=${
+      `/api/products?page=${value.page}&size=${pageSize}&name=${
         debounedSearchValue ? debounedSearchValue : ''
       }`
     ).then(res => res.data)
@@ -289,6 +291,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           totalPages={searchValue ? 0 : dataProducts?.totalPages}
           selectedPage={selectedPage}
           setSelectedPage={(val: number) => setSelectedPage(val)}
+          totalDocs={totalDocs}
+          pageSize={pageSize}
         />
         <ProductModal
           showModal={showModal}

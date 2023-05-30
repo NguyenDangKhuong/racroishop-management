@@ -37,7 +37,7 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
     if (!_id) return
     const deletedProduct: Product | null = await ProductModel.findOneAndDelete({
       _id
-    })
+    }).lean()
     deletedProduct && removeImage(String(deletedProduct?.imagePublicId))
 
     return res.status(200).json(deletedProduct)

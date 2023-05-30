@@ -15,7 +15,7 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
     const { name, email, password } = req.body
     const existingUser = await UserModel.findOne({
       email
-    })
+    }).lean()
     if (existingUser)
       return res
         .status(400)

@@ -20,13 +20,13 @@ const orderRoute = async (req: NextApiRequest, res: NextApiResponse) => {
             $gte: startOfMonth(new Date(String(selectDate))),
             $lte: endOfMonth(new Date(String(selectDate)))
           }
-        })
+        }).lean()
       : await OrderModel.find({
           createdAt: {
             $gte: startOfDay(subHours(new Date(String(selectDate)), 7)),
             $lte: endOfDay(subHours(new Date(String(selectDate)), 7))
           }
-        })
+        }).lean()
     res.status(200).json({ orders })
   } catch (err) {
     console.log(err)
