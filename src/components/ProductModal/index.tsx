@@ -176,7 +176,7 @@ export default function ProductModal({
                       />
                       <div
                         className='btn ml-1'
-                        onClick={() => 
+                        onClick={() => getValues('categoryId') &&
                           setValue('name', `${String(categories.find(
                             ({ _id }) => _id === getValues('categoryId')
                           )?.name)} ${tempName}`)
