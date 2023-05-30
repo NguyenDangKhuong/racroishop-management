@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -38,7 +38,6 @@ export default function ProductModal({
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => handleCloseModal())
 
-  const queryClient = useQueryClient()
   const mutationPostProduct = useMutation(
     (newProduct: Product) => post('/api/product', newProduct),
     {
@@ -71,10 +70,12 @@ export default function ProductModal({
     handleSubmit,
     formState: { errors },
     setValue,
-    reset
+    reset,
+    getValues
   } = useForm<Product>()
 
   const sku = useGenegateId(5)
+  const tempName = useGenegateId(5)
 
   const onSubmit = handleSubmit(data =>
     isEditing
@@ -166,13 +167,22 @@ export default function ProductModal({
                 <form onSubmit={onSubmit}>
                   {/*body*/}
                   <div className='relative p-6 flex-auto'>
-                    <div className='mb-3 pt-0'>
+                    <div className='mb-3 pt-0 flex'>
                       <input
                         type='text'
                         placeholder='Tên'
                         className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         {...register('name', { required: 'Vui lòng nhập tên' })}
                       />
+                      <div
+                        className='btn ml-1'
+                        onClick={() => 
+                          setValue('name', `${String(categories.find(
+                            ({ _id }) => _id === getValues('categoryId')
+                          )?.name)} ${tempName}`)
+                        }>
+                        Tạo tên
+                      </div>
                       {errors.name && (
                         <ErrorMessage
                           message={String(errors.name?.message)}></ErrorMessage>

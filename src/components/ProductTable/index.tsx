@@ -1,11 +1,13 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import useDebounce from '../../hooks/useDebounce'
 import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
 import { get, put, remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
+import ConfirmModal from '../ConfirmModal'
 import Pagination from '../Pagination'
 import ProductModal from '../ProductModal'
 import ZoomImage from '../ZoomImage'
@@ -33,12 +35,18 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [products, setProducts] = useState<Product[]>([])
   const [selectedPage, setSelectedPage] = useState(1)
   const [totalDocs, setTotalDocs] = useState(0)
+  const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false)
 
   const mutationDelProduct = useMutation(
     (_id: string) => remove(`/api/product/${_id}`),
     {
       onSuccess: () => {
         mutate({ page: selectedPage })
+        toast.success('Sản phẩm đã được xóa!')
+        setEditingProduct(initialProduct)
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
       }
     }
   )
@@ -236,7 +244,10 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     }}></i>
                   <i
                     className='fas fa-close text-lg text-emerald-500 mr-2 cursor-pointer'
-                    onClick={() => mutationDelProduct.mutate(item._id)}></i>
+                    onClick={() => {
+                      setEditingProduct(item)
+                      setIsOpenConfirmModal(true)
+                    }}></i>
                 </td>
               </tr>
             ))}
@@ -301,6 +312,16 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           categories={categories}
           setEditingProduct={(val: any) => setEditingProduct(val)}
           mutateProduct={() => mutate({ page: selectedPage })}
+        />
+        <ConfirmModal
+          title='Xác nhận'
+          content='Xác nhận bạn có muốn xóa sản phẩm này không'
+          isOpen={isOpenConfirmModal}
+          confirmHandler={() => {
+            mutationDelProduct.mutate(editingProduct._id)
+            setIsOpenConfirmModal(false)
+          }}
+          closeHandlder={() => setIsOpenConfirmModal(false)}
         />
         <BarcodeModal
           productSelected={productSelected}
