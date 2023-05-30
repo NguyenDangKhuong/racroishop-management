@@ -42,7 +42,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     {
       onSuccess: () => {
         mutate({ page: selectedPage })
-        toast.success('Sản phẩm đã được xóa!')
+        toast.warning('Sản phẩm đã được Xóa!')
         setEditingProduct(initialProduct)
       },
       onError: (err: any) => {
@@ -291,7 +291,12 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 Danh sách sản phẩm: {totalDocs} sản phẩm
               </h3>
             </div>
-            <span className='cursor-pointer' onClick={() => setShowModal(true)}>
+            <span
+              className='cursor-pointer'
+              onClick={() => {
+                setEditingProduct(initialProduct)
+                setShowModal(true)
+              }}>
               <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
               Sản Phẩm
             </span>
