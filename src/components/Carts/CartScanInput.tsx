@@ -18,6 +18,7 @@ const CartScanInput = ({ handleSearchValue, inputValue, scanLoading, scanFetchin
         value={inputValue}
         ref={scanInput}
         autoFocus
+        autoComplete='off'
       />
       {scanLoading && scanFetching && <LoaderIcon />}
     </div>
