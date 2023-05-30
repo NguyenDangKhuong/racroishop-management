@@ -143,7 +143,7 @@ const Cart: NextPage = () => {
           />
         </div>
       </div>
-      <div className='max-w-xs m-auto'>
+      <div className='max-w-xs m-auto mt-40'>
         <div
           ref={componentRef}
           className='content-invoice flex flex-col justify-center items-center text-center text-[10px]'>

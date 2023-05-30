@@ -132,7 +132,7 @@ const CartSumary: React.FC<{
         />
       </div>
       {customerCash > 0 && customerCash < 999 && (
-        <>
+        <div className='py-1'>
           <span
             className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
             onClick={() => setCustomerCash(customerCash * 1000)}>
@@ -153,7 +153,7 @@ const CartSumary: React.FC<{
             onClick={() => setCustomerCash(customerCash * 1000000)}>
             {currencyFormat(customerCash * 1000000)}
           </span>
-        </>
+        </div>
       )}
       <div className='border-t'>
         <div className='flex font-semibold justify-between py-3 text-xs uppercase'>
@@ -191,7 +191,7 @@ const CartSumary: React.FC<{
         />
       </div>
       {discountPrice > 0 && discountPrice < 999 && (
-        <>
+        <div className='py-1'>
           <span
             className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
             onClick={() => setDiscountPrice(discountPrice * 1000)}>
@@ -212,7 +212,7 @@ const CartSumary: React.FC<{
             onClick={() => setDiscountPrice(discountPrice * 1000000)}>
             {currencyFormat(discountPrice * 1000000)}
           </span>
-        </>
+        </div>
       )}
     </form>
   )
