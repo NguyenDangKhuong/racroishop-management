@@ -159,7 +159,7 @@ const Cart: NextPage = () => {
             Zalo: 0966.813.400
           </div>
           <h2 className='text-sm font-bold mt-1'>Hóa đơn thanh toán</h2>
-          <div>{`Thời gian: ${format(new Date(), 'HH:mm - dd/MM/yyyy')}`}</div>
+          <div>{`Thời gian:${format(new Date(), 'HH:mm - dd/MM/yyyy')}`}</div>
           <table className='table-auto mt-3 border-collapse border border-black'>
             <thead>
               <tr>
