@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useQuery } from '@tanstack/react-query'
+import { format } from 'date-fns'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import CartListItem from '../components/Carts/CartListItem'
 import CartScanInput from '../components/Carts/CartScanInput'
@@ -10,7 +11,6 @@ import useDebounce from '../hooks/useDebounce'
 import { ProductCart } from '../models/ProductCart'
 import { get } from '../utils/api'
 import { currencyFormat } from './../utils/currencyFormat'
-import { format } from 'date-fns'
 
 const Cart: NextPage = () => {
   const [scanValue, setScanValue] = useState('')
@@ -159,11 +159,7 @@ const Cart: NextPage = () => {
             Zalo: 0966.813.400
           </div>
           <h2 className='text-sm font-bold mt-1'>Hóa đơn thanh toán</h2>
-          <div>
-            Thời gian:{' '}
-            {format(new Date(), 'HH:mm - dd/MM/yyyy')}
-          </div>
-
+          <div>{`Thời gian: ${format(new Date(), 'HH:mm - dd/MM/yyyy')}`}</div>
           <table className='table-auto mt-3 border-collapse border border-black'>
             <thead>
               <tr>
@@ -234,7 +230,7 @@ const Cart: NextPage = () => {
                 <td
                   colSpan={3}
                   className='border border-black text-right text-[10px]'>
-                  {currencyFormat(customerCash)}
+                  {customerCash ? currencyFormat(customerCash) : 0}
                 </td>
               </tr>
               {exchange > 0 && (
@@ -245,7 +241,7 @@ const Cart: NextPage = () => {
                   <td
                     colSpan={3}
                     className='border border-black text-right text-[10px]'>
-                    {currencyFormat(exchange)}
+                    {exchange ? currencyFormat(exchange) : 0}
                   </td>
                 </tr>
               )}

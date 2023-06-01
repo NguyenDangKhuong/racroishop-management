@@ -87,7 +87,7 @@ const CartSumary: React.FC<{
         <span className='font-semibold text-sm uppercase'>
           {totalCart} sản phẩm
         </span>
-        <span className='font-semibold text-sm'>
+        <span className={`font-semibold text-sm ${discountPrice && 'line-through'}`}>
           {currencyFormat(totalPrice)}
         </span>
       </div>
@@ -115,17 +115,17 @@ const CartSumary: React.FC<{
       <button className='bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase'>
         Apply
       </button> */}
-      <div className='py-2'>
+      <div className='py-1'>
         <label
           htmlFor='customerPrice'
-          className='font-semibold inline-block mb-3 text-sm uppercase'>
+          className='font-semibold inline-block mb-1 text-sm uppercase'>
           Tiền khách đưa
         </label>
         <input
           type='text'
           id='customerPrice'
           placeholder='Nhập số tiền khách đưa'
-          className='p-2 text-sm w-full bg-gray-200'
+          className='p-2 text-sm w-full border border-black rounded bg-gray-100'
           value={customerCash || ''}
           onChange={e => setCustomerCash(Number(e.target.value))}
           autoComplete='off'
@@ -155,39 +155,21 @@ const CartSumary: React.FC<{
           </span>
         </div>
       )}
-      <div className='border-t'>
-        <div className='flex font-semibold justify-between py-3 text-xs uppercase'>
-          <span>Tổng tiền đã giảm</span>
-          <span>{currencyFormat(totalPrice - discountPrice)}</span>
-        </div>
-        <button
-          className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-2 text-sm text-white uppercase w-full flex justify-center item-center'
-          type='submit'
-          disabled={mutationPostOrder.isLoading || isPaid}>
-          {mutationPostOrder.isLoading && <LoaderIcon />}
-          Thanh toán
-        </button>
-      </div>
-      <div className='border-t mt-3'>
-        <div className='flex font-semibold justify-between py-3 text-sm uppercase'>
-          <span className='text-red-500'>Tiền thối</span>
-          <span className='text-red-500'>{totalPrice && currencyFormat(exchange)}</span>
-        </div>
-      </div>
-      <div className='border-t mt-2'>
+      <div className='mt-1'>
         <label
           htmlFor='discountPrice'
-          className='font-semibold inline-block mb-3 text-sm uppercase'>
-          Giảm giá
+          className='font-semibold inline-block mb-1 text-sm uppercase'>
+          Giảm giá (-)
         </label>
         <input
           type='text'
           id='discountPrice'
           placeholder='Nhập số tiền giảm giá'
-          className='p-2 text-sm w-full bg-gray-200'
+          className='p-2 text-sm w-full border border-black rounded bg-gray-100'
           autoComplete='off'
           value={discountPrice || ''}
           onChange={e => setDiscountPrice(Number(e.target.value))}
+          disabled={totalCart === 0}
         />
       </div>
       {discountPrice > 0 && discountPrice < 999 && (
@@ -214,6 +196,27 @@ const CartSumary: React.FC<{
           </span>
         </div>
       )}
+      <div className='border-t border-black mt-3'>
+        <div className='flex font-semibold justify-between py-2 text-xs uppercase'>
+          <span>Tổng tiền đã giảm</span>
+          <span>{currencyFormat(totalPrice - discountPrice)}</span>
+        </div>
+        <button
+          className='bg-blue-500 font-semibold hover:bg-blue-600 py-2 text-sm text-white uppercase w-full flex justify-center item-center'
+          type='submit'
+          disabled={mutationPostOrder.isLoading || isPaid}>
+          {mutationPostOrder.isLoading && <LoaderIcon />}
+          Thanh toán
+        </button>
+      </div>
+      <div className='border-t mt-3'>
+        <div className='flex font-semibold justify-between py-3 text-sm uppercase'>
+          <span className='text-red-500'>Tiền thối</span>
+          <span className='text-red-500 text-lg'>
+            {totalPrice && currencyFormat(exchange)}
+          </span>
+        </div>
+      </div>
     </form>
   )
 }
