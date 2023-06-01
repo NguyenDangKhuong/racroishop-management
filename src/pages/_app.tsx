@@ -38,7 +38,7 @@ function App({ Component, pageProps: { ...pageProps } }: any) {
       </Hydrate>
       <ToastContainer
         position='top-right'
-        autoClose={10000}
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
