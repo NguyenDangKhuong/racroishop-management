@@ -123,7 +123,7 @@ const Cart: NextPage = () => {
         <Html5QrcodePlugin
           isMobile={isMobile}
           fps={20}
-          qrbox={{ width: 250, height: 100 }}
+          qrbox={{ width: 300, height: 100 }}
           disableFlip={false}
           qrCodeSuccessCallback={onNewScanResult}
         />
