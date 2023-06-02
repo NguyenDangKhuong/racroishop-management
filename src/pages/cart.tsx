@@ -122,8 +122,8 @@ const Cart: NextPage = () => {
       <div className='container mx-auto md:mt-5 select-none'>
         <Html5QrcodePlugin
           isMobile={isMobile}
-          fps={10}
-          qrbox={250}
+          fps={20}
+          qrbox={{ width: 250, height: 100 }}
           disableFlip={false}
           qrCodeSuccessCallback={onNewScanResult}
         />
