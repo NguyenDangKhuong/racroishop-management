@@ -3,15 +3,15 @@ import Head from 'next/head'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 import CartListItem from '../components/Carts/CartListItem'
 import CartScanInput from '../components/Carts/CartScanInput'
-import CartSearchInput from '../components/Carts/CartSearchInput'
 import CartSumary from '../components/Carts/CartSumary'
+import Html5QrcodePlugin from '../components/Html5QrcodePlugin'
 import useDebounce from '../hooks/useDebounce'
 import { ProductCart } from '../models/ProductCart'
 import { get } from '../utils/api'
 import { currencyFormat } from './../utils/currencyFormat'
-import { isMobile } from 'react-device-detect';
 
 const Cart: NextPage = () => {
   const [scanValue, setScanValue] = useState('')
@@ -19,7 +19,7 @@ const Cart: NextPage = () => {
   const [discountPrice, setDiscountPrice] = useState(0)
   const [customerCash, setCustomerCash] = useState(0)
   const [cartList, setCartList] = useState<ProductCart[]>([])
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState('')
 
   const debounedScanValue = useDebounce(scanValue, isMobile ? 2000 : 0)
 
@@ -48,8 +48,8 @@ const Cart: NextPage = () => {
   )
 
   useEffect(() => {
-    setDate(format(new Date(), 'HH:mm - dd/MM/yyyy'));
-  }, []);
+    setDate(format(new Date(), 'HH:mm - dd/MM/yyyy'))
+  }, [])
 
   useEffect(() => {
     const newCartList = existedProduct
@@ -110,12 +110,21 @@ const Cart: NextPage = () => {
 
   const componentRef: any = useRef()
 
+  const onNewScanResult = (decodedText: any, decodedResult: any) => {}
+
   return (
     <>
       <Head>
         <title>Thanh toán</title>
       </Head>
-      <div className='container mx-auto mt-5 select-none'>
+      <div className='container mx-auto md:mt-5 select-none'>
+        <Html5QrcodePlugin
+          isMobile={isMobile}
+          fps={10}
+          qrbox={250}
+          disableFlip={false}
+          qrCodeSuccessCallback={onNewScanResult}
+        />
         <div className='flex justify-between'>
           <CartScanInput
             inputValue={scanValue}

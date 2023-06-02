@@ -33,7 +33,7 @@ function App({ Component, pageProps: { ...pageProps } }: any) {
           <meta charSet='utf-8' />
         </Head>
         <Component {...pageProps} />
-        <Script src='https://widget.Cloudinary.com/v2.0/global/all.js'></Script>
+        <Script src='https://widget.cloudinary.com/v2.0/global/all.js'></Script>
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
       <ToastContainer
