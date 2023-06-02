@@ -110,7 +110,9 @@ const Cart: NextPage = () => {
 
   const componentRef: any = useRef()
 
-  const onNewScanResult = (decodedText: any, decodedResult: any) => {}
+  const onNewScanResult = (decodedText: any, decodedResult: any) => {
+    setScanValue(decodedText)
+  }
 
   return (
     <>
