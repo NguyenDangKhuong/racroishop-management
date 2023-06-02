@@ -124,7 +124,8 @@ const Cart: NextPage = () => {
           isMobile={isMobile}
           fps={60}
           qrbox={{ width: 350, height: 100 }}
-          disableFlip={false}
+          disableFlip={true}
+          verbose={false}
           qrCodeSuccessCallback={onNewScanResult}
         />
         <div className='flex justify-between'>
