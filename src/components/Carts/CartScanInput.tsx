@@ -8,7 +8,7 @@ const CartScanInput = ({ handleSearchValue, inputValue, scanLoading, scanFetchin
     }
   }, [])
   return (
-    <div className='hidden md:flex md:w-2/3 relative'>
+    <div className='w-full px-5 md:px-0 md:flex relative'>
       <input
         className='appearance-none border border-black rounded bg-gray-100 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500'
         id='inline-full-name'

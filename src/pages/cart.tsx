@@ -11,6 +11,7 @@ import useDebounce from '../hooks/useDebounce'
 import { ProductCart } from '../models/ProductCart'
 import { get } from '../utils/api'
 import { currencyFormat } from './../utils/currencyFormat'
+import { isMobile } from 'react-device-detect';
 
 const Cart: NextPage = () => {
   const [scanValue, setScanValue] = useState('')
@@ -20,12 +21,13 @@ const Cart: NextPage = () => {
   const [cartList, setCartList] = useState<ProductCart[]>([])
   const [date, setDate] = useState('');
 
-  const debounedScanValue = useDebounce(scanValue, 100)
+  const debounedScanValue = useDebounce(scanValue, isMobile ? 2000 : 0)
 
   const {
     data: product,
     isLoading: scanLoading,
-    isFetching: scanFetching
+    isFetching: scanFetching,
+    refetch
   } = useQuery(
     ['searchProduct', debounedScanValue],
     () =>
@@ -33,7 +35,7 @@ const Cart: NextPage = () => {
         res => res.data
       ),
     {
-      enabled: debounedScanValue.length > 0 || searchValue.length > 4
+      enabled: debounedScanValue.length > (isMobile ? 4 : 0)
     }
   )
 
@@ -67,10 +69,10 @@ const Cart: NextPage = () => {
     [scanValue]
   )
 
-  const onChangeSearchInput = useCallback(
-    (e: any) => setSearchValue(e.target.value),
-    [searchValue]
-  )
+  // const onChangeSearchInput = useCallback(
+  //   (e: any) => setSearchValue(e.target.value),
+  //   [searchValue]
+  // )
 
   const totalCart: number = cartList.reduce(
     (acc, { quantity }) => acc + quantity!,
@@ -121,10 +123,11 @@ const Cart: NextPage = () => {
             scanLoading={scanLoading}
             scanFetching={scanFetching}
           />
-          <CartSearchInput
+          {/* <CartSearchInput
             inputValue={searchValue}
-            handleSearchValue={onChangeSearchInput}
-          />
+            handleChangeSearchValue={onChangeSearchInput}
+            handleClickSearchBtn={() => refetch()}
+          /> */}
         </div>
         <div className='flex-col md:flex-row flex shadow-md my-5'>
           {/* {renderResult()} */}
