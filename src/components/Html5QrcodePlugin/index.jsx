@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 
 const qrcodeRegionId = 'html5qr-code-full-region'
 
+//todo: not work with barcode, work with qr code
+
 // Creates the configuration object for Html5QrcodeScanner.
 const createConfig = props => {
   let config = {}

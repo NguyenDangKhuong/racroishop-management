@@ -20,6 +20,8 @@ const CartSumary: React.FC<{
   setCustomerCash: any
   exchange: number
   componentRef: any
+  addMoreList: number[]
+  setAddMoreList: (list: number[]) => void
 }> = ({
   totalCart,
   cartList,
@@ -29,7 +31,9 @@ const CartSumary: React.FC<{
   customerCash,
   setCustomerCash,
   exchange,
-  componentRef
+  componentRef,
+  addMoreList,
+  setAddMoreList
 }) => {
   const [isPaid, setIsPaid] = useState(false)
   const mutationPostOrder = useMutation(
@@ -79,18 +83,53 @@ const CartSumary: React.FC<{
   })
 
   return (
-    <form onSubmit={onSubmit} id='summary' className='w-full md:w-1/4 px-8 py-5'>
-      <h1 className='font-semibold text-sm uppercase border-b pb-5'>
-        Tổng quan đơn hàng
-      </h1>
+    <form
+      onSubmit={onSubmit}
+      id='summary'
+      className='w-full md:w-1/4 px-8 py-5'>
+      <div className='flex justify-between border-b pb-5'>
+        <h1 className='font-semibold text-sm uppercase'>Tổng quan đơn hàng</h1>
+        <div
+          className='btn btn-xs bg-blue-500 flex'
+          onClick={() => setAddMoreList([...addMoreList, 0])}>
+          <i className='fas fa-plus text-white'></i>
+        </div>
+      </div>
       <div className='flex justify-between mt-5 mb-2'>
         <span className='font-semibold text-sm uppercase'>
           {totalCart} sản phẩm
         </span>
-        <span className={`font-semibold text-sm ${discountPrice && 'line-through'}`}>
+        <span
+          className={`font-semibold text-sm ${
+            discountPrice && 'line-through'
+          }`}>
           {currencyFormat(totalPrice)}
         </span>
       </div>
+      {addMoreList.map((item, idx) => (
+        <div className='flex items-center mt-1' key={idx}>
+          <input
+            type='text'
+            id='customerPrice'
+            placeholder='Nhập số tiền thêm món'
+            className='p-2 text-sm w-full border border-black rounded bg-gray-100 mr-3'
+            value={item || ''}
+            onChange={e => {
+              setAddMoreList(
+                addMoreList.map((itemx, index) =>
+                  index === idx ? Number(e.target.value) : itemx
+                )
+              )
+            }}
+            autoComplete='off'
+          />
+          <i
+            className='fa fa-minus text-red-600 text-sm cursor-pointer'
+            onClick={() =>
+              setAddMoreList(addMoreList.filter((_, index) => index !== idx))
+            }></i>
+        </div>
+      ))}
       {/* <div>
         <label className='font-medium inline-block mb-3 text-sm uppercase'>
           Tiền ship
@@ -169,7 +208,6 @@ const CartSumary: React.FC<{
           autoComplete='off'
           value={discountPrice || ''}
           onChange={e => setDiscountPrice(Number(e.target.value))}
-          disabled={totalCart === 0}
         />
       </div>
       {discountPrice > 0 && discountPrice < 999 && (

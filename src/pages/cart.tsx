@@ -19,6 +19,7 @@ const Cart: NextPage = () => {
   const [discountPrice, setDiscountPrice] = useState(0)
   const [customerCash, setCustomerCash] = useState(0)
   const [cartList, setCartList] = useState<ProductCart[]>([])
+  const [addMoreList, setAddMoreList] = useState<number[]>([])
   const [date, setDate] = useState('')
 
   const debounedScanValue = useDebounce(scanValue, isMobile ? 2000 : 0)
@@ -77,12 +78,12 @@ const Cart: NextPage = () => {
   const totalCart: number = cartList.reduce(
     (acc, { quantity }) => acc + quantity!,
     0
-  )
+  ) + addMoreList.length
 
   const totalPrice: number = cartList.reduce(
     (acc, curr) => acc + curr.product?.price! * curr.quantity!,
     0
-  )
+  ) + addMoreList?.reduce((acc, curr) => acc + curr!, 0)
 
   const exchange =
     customerCash > 0 ? customerCash - totalPrice + discountPrice : 0
@@ -158,6 +159,8 @@ const Cart: NextPage = () => {
             setDiscountPrice={(price: number) => setDiscountPrice(price)}
             customerCash={customerCash}
             setCustomerCash={(cash: number) => setCustomerCash(cash)}
+            addMoreList={addMoreList}
+            setAddMoreList={(list: number[]) => setAddMoreList(list)}
             exchange={exchange}
             componentRef={componentRef}
           />
@@ -190,6 +193,22 @@ const Cart: NextPage = () => {
               </tr>
             </thead>
             <tbody>
+              {addMoreList.map((item, idx) => (
+                <tr key={idx}>
+                  <td className='border border-black text-left text-[10px]'>
+                    {`Sản phẩm ${idx + 1}`}
+                  </td>
+                  <td className='border border-black text-right text-[10px]'>
+                    1
+                  </td>
+                  <td className='border border-black text-right text-[10px]'>
+                    {currencyFormat(item)}
+                  </td>
+                  <td className='border border-black text-right text-[10px]'>
+                    {currencyFormat(item)}
+                  </td>
+                </tr>
+              ))}
               {cartList.map(item => (
                 <tr key={item.product?._id}>
                   <td className='border border-black text-left text-[10px]'>
