@@ -174,7 +174,7 @@ const Cart: NextPage = () => {
             Yumy shop
           </h1>
           <div className='mt-1 text-center'>
-            Đ/c: 223A Nguyễn Văn Khạ, ấp
+            Đ/c: 223A, Nguyễn Văn Khạ, ấp
             <br /> Cây Sộp, Tân An Hội, Củ Chi, TPHCM
             <br />
             SĐT: 0393.022.997
