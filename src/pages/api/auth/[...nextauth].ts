@@ -32,8 +32,6 @@ const authOptions: NextAuthOptions = {
         // perform you login logic
         // find out user from db
         const user = await UserModel.findOne({ email }).lean()
-
-        console.log('user', user)
         if (!user) {
           throw new Error('Không tìm thấy người dùng')
         }

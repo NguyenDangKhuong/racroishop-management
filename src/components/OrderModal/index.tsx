@@ -20,7 +20,6 @@ export default function CategoryModal({
   const handleCloseModal = () => {
     setShowModal(false)
   }
-  console.log(listProduct)
 
   return (
     <>
