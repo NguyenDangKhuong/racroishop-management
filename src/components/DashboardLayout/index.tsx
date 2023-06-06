@@ -1,4 +1,3 @@
-import useAuth from '../../hooks/useUser'
 import Footer from '../Footer'
 import Navbar from '../Navbar'
 import Sidebar from '../Sidebar'
