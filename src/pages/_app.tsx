@@ -7,6 +7,7 @@ import {
   QueryClientProvider
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { SessionProvider } from 'next-auth/react'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -32,7 +33,9 @@ function App({ Component, pageProps: { ...pageProps } }: any) {
           <link rel='icon' href='/favicon.ico' />
           <meta charSet='utf-8' />
         </Head>
-        <Component {...pageProps} />
+        <SessionProvider session={pageProps.session}>
+          <Component {...pageProps} />
+        </SessionProvider>
         <Script src='https://widget.cloudinary.com/v2.0/global/all.js'></Script>
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>

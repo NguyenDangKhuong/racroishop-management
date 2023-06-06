@@ -25,7 +25,7 @@ export const get = async (url: string, params?: object) => {
   } catch (err) {
     // if (e.response.status === 401) {
     //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/login'
+    //   window.location.href = '/signin'
     // }
     console.log(err)
     return Promise.reject(err)
@@ -40,7 +40,7 @@ export const post = async (url: string, data: object) => {
   } catch (err) {
     // if (e.response.status === 401) {
     //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/login'
+    //   window.location.href = '/signin'
     // }
     console.log(err)
     return Promise.reject(err)
@@ -55,7 +55,7 @@ export const put = async (url: string, data: object) => {
   } catch (err) {
     // if (e.response.status === 401) {
     //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/login'
+    //   window.location.href = '/signin'
     // }
     console.log(err)
     return Promise.reject(err)
@@ -70,7 +70,7 @@ export const remove = async (url: string, params?: object) => {
   } catch (err) {
     // if (e.response.status === 401) {
     //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/login'
+    //   window.location.href = '/signin'
     // }
     console.log(err)
     return Promise.reject(err)

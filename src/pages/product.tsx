@@ -1,9 +1,7 @@
 import DashboardLayout from '../components/DashboardLayout'
 import ProductTable from '../components/ProductTable'
-import useUser from '../hooks/useUser'
 
 const ProductPage = () => {
-  useUser()
   return (
     <DashboardLayout>
       <div className='flex flex-wrap mt-4'>
