@@ -5,7 +5,7 @@ const Header = () => {
         <div className='flex items-center lg:relative'>
           <div className='w-6/12 lg:w-2/12'>
             <div className='logo'>
-              <a href='/landing'>
+              {/* <a href='/landing'>
                 <img
                   src='/image/logo.png'
                   alt='logo'
@@ -13,18 +13,18 @@ const Header = () => {
                   width='125'
                   height='45'
                 />
-              </a>
+              </a> */}
             </div>
           </div>
           <div className='hidden lg:flex flex-1 xl:relative'>
             <nav className='main-menu'>
               <ul className='flex flex-wrap items-center'>
                 <li className='main-menu__item relative group'>
-                  <a
+                  {/* <a
                     className='block py-10 xl:pr-6 md:pr-5 capitalize font-normal text-md text-primary hover:text-orange transition-all'
                     href='/landing'>
                     Home
-                  </a>
+                  </a> */}
                   <ul className='submenu bg-white py-3 px-8 shadow transition-all absolute left-0 top-full opacity-0 group-hover:opacity-100 invisible group-hover:visible group-hover:-translate-y-3 transform z-10 min-w-max'>
                     <li className='my-3'>
                       <a
