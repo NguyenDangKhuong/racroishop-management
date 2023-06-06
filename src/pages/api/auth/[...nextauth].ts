@@ -2,6 +2,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import UserModel from '../../../models/User'
 import connectDb from '../../../utils/connectDb'
+import { NEXT_AUTH_SECRET } from '../../../helpers/constants'
 
 connectDb()
 
@@ -9,6 +10,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt'
   },
+  secret: NEXT_AUTH_SECRET,
   providers: [
     CredentialsProvider({
       type: 'credentials',
@@ -44,8 +46,8 @@ const authOptions: NextAuthOptions = {
     })
   ],
   pages: {
-    signIn: '/signin'
-    // error: '/error',
+    signIn: '/signin',
+    error: '/error',
     // signOut: '/signout'
   },
   // callbacks: {
