@@ -39,7 +39,6 @@ const authOptions: NextAuthOptions = {
           throw new Error('Sai mật khẩu')
         }
         // if everything is fine
-        console.log(user)
         return user
       }
     })
