@@ -203,7 +203,7 @@ const Sidebar = () => {
 
           <ul className='md:flex-col md:min-w-full flex flex-col list-none md:mb-4'>
             <li className='items-center'>
-              <Link href='/landing'>
+              <Link href='/'>
                 <a
                   href='#'
                   className='text-gray-700 hover:text-gray-500 text-xs uppercase py-3 font-bold block'>

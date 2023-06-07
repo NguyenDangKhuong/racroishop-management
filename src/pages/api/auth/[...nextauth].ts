@@ -15,7 +15,7 @@ const authOptions: NextAuthOptions = {
     CredentialsProvider({
       type: 'credentials',
       credentials: {
-        // fill object if you want automatically create fields inside of the hosted NextAuth.js authentication page!
+        // fill object if you want automatically create input fields inside of the hosted NextAuth.js authentication page!
         // username: {
         //   label: 'Username',
         //   type: 'text',

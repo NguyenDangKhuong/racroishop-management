@@ -1,11 +1,28 @@
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+
 const Header = () => {
+  const [isTop, setIsTop] = useState(true)
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [window.onscroll])
+
+  const handleScroll = () => {
+    window.scrollY > 0 ? setIsTop(false) : setIsTop(true)
+  }
+
   return (
-    <header id='sticky-header' className='fixed inset-x-0 top-0 w-full z-20'>
+    <header
+      id='sticky-header'
+      className={`fixed inset-x-0 top-0 w-full z-20 ${
+        isTop ? '' : 'is-sticky'
+      }`}>
       <div className='px-4 md:px-10 2xl:px-24 py-6 lg:py-0'>
         <div className='flex items-center lg:relative'>
           <div className='w-6/12 lg:w-2/12'>
             <div className='logo'>
-              {/* <a href='/landing'>
+              <Link href='/landing'>
                 <img
                   src='/image/logo.png'
                   alt='logo'
@@ -13,18 +30,16 @@ const Header = () => {
                   width='125'
                   height='45'
                 />
-              </a> */}
+              </Link>
             </div>
           </div>
           <div className='hidden lg:flex flex-1 xl:relative'>
             <nav className='main-menu'>
               <ul className='flex flex-wrap items-center'>
                 <li className='main-menu__item relative group'>
-                  {/* <a
-                    className='block py-10 xl:pr-6 md:pr-5 capitalize font-normal text-md text-primary hover:text-orange transition-all'
-                    href='/landing'>
-                    Home
-                  </a> */}
+                  <div className='block py-10 xl:pr-6 md:pr-5 capitalize font-normal text-md text-primary hover:text-orange transition-all'>
+                    <Link href='/'>Home</Link>
+                  </div>
                   <ul className='submenu bg-white py-3 px-8 shadow transition-all absolute left-0 top-full opacity-0 group-hover:opacity-100 invisible group-hover:visible group-hover:-translate-y-3 transform z-10 min-w-max'>
                     <li className='my-3'>
                       <a
@@ -342,7 +357,7 @@ const Header = () => {
                   className='search-toggle text-right text-primary text-md hover:text-orange transition-all'
                   aria-label='icon-settings'
                   data-ol-has-click-handler=''>
-                  <i className='icon-magnifier'></i>
+                  <i className='fa-solid fa-magnifying-glass'></i>
                 </button>
               </li>
               <li className='ml-6'>
@@ -353,67 +368,16 @@ const Header = () => {
                   <span className='w-5 h-5 bg-dark text-white text-sm rounded-full font-normal flex flex-wrap items-center justify-center absolute -top-3 left-2 leading-none'>
                     4
                   </span>
-                  <i className='icon-bag'></i>
-                  <span className='text-base leading-none text-dark'>$245</span>
+                  <i className='fa-solid fa-cart-shopping'></i>
                 </a>
               </li>
-              <li id='toggle-menu' className='ml-6 hidden lg:block relative'>
-                <button
-                  className='text-primary text-md hover:text-orange transition-all toggle-menu'
-                  aria-label='icon-settings'
+              <li className='ml-6'>
+                <a
+                  href='#signin'
+                  className='text-primary text-md hover:text-orange transition-all relative offcanvas-toggle'
                   data-ol-has-click-handler=''>
-                  <i className='icon-settings'></i>
-                </button>
-                <div
-                  id='settings-card'
-                  className='bg-white absolute right-0 px-8 py-5 shadow w-80 opacity-0 invisible transition-all duration-300 ease-in-out z-20'
-                  style={{ top: '70px', visibility: 'hidden', opacity: '0' }}>
-                  <h4 className='text-md text-dark font-normal capitalize tracking-wide pb-5 border-b border-solid border-gray-600 mb-5'>
-                    Currency
-                  </h4>
-                  <ul>
-                    <li className='my-4'>
-                      <a
-                        href='#'
-                        className='text-base text-dark hover:text-orange transition-all font-light capitalize tracking-wide'>
-                        USD - US Dollar
-                      </a>
-                    </li>
-                    <li className='my-4'>
-                      <a
-                        href='#'
-                        className='text-base text-dark hover:text-orange transition-all font-light capitalize tracking-wide'>
-                        EUR - Euro
-                      </a>
-                    </li>
-                    <li className='my-4'>
-                      <a
-                        href='#'
-                        className='text-base text-dark hover:text-orange transition-all font-light capitalize tracking-wide'>
-                        GBP - British Pound
-                      </a>
-                    </li>
-                  </ul>
-                  <h4 className='text-md text-dark font-normal capitalize tracking-wide pb-5 border-b border-solid border-gray-600 mb-5'>
-                    Account
-                  </h4>
-                  <ul>
-                    <li className='my-4'>
-                      <a
-                        href='login-register.html'
-                        className='text-base text-dark hover:text-orange transition-all font-light capitalize tracking-wide'>
-                        Login
-                      </a>
-                    </li>
-                    <li className='mt-4'>
-                      <a
-                        href='account.html'
-                        className='text-base text-dark hover:text-orange transition-all font-light capitalize tracking-wide'>
-                        Create Account
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                  Sign in
+                </a>
               </li>
               <li className='ml-6 lg:hidden'>
                 <a

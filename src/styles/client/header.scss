@@ -1,0 +1,8 @@
+.is-sticky {
+  animation: fadeInDown 0.7s ease-in-out 0s normal none 1 running;
+  background-color: #ffffff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+}

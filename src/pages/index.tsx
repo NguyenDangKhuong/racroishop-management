@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
-import Layout from '../components/Layout'
+import Carousel from '../components/client/Carousel'
+import Layout from '../components/client/Layout'
 
 const Index = () => {
   const { status, data } = useSession()
@@ -11,7 +12,11 @@ const Index = () => {
   }, [status])
 
   if (status === 'authenticated') {
-    return <Layout>loading...</Layout>
+    return (
+      <Layout>
+        <Carousel />
+      </Layout>
+    )
   }
 }
 
