@@ -75,15 +75,15 @@ const Cart: NextPage = () => {
   //   [searchValue]
   // )
 
-  const totalCart: number = cartList.reduce(
-    (acc, { quantity }) => acc + quantity!,
-    0
-  ) + addMoreList.length
+  const totalCart: number =
+    cartList.reduce((acc, { quantity }) => acc + quantity!, 0) +
+    addMoreList.length
 
-  const totalPrice: number = cartList.reduce(
-    (acc, curr) => acc + curr.product?.price! * curr.quantity!,
-    0
-  ) + addMoreList?.reduce((acc, curr) => acc + curr!, 0)
+  const totalPrice: number =
+    cartList.reduce(
+      (acc, curr) => acc + curr.product?.price! * curr.quantity!,
+      0
+    ) + addMoreList?.reduce((acc, curr) => acc + curr!, 0)
 
   const exchange =
     customerCash > 0 ? customerCash - totalPrice + discountPrice : 0

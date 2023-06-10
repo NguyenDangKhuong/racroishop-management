@@ -12,7 +12,7 @@ const CartScanInput = ({
   useEffect(() => {
     const interval = setInterval(() => {
       scanInput?.current?.focus()
-    }, 5000)
+    }, 15000)
     return () => clearInterval(interval)
   }, [])
 
