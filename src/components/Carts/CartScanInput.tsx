@@ -1,12 +1,21 @@
-import { memo, useCallback } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import LoaderIcon from '../LoaderIcon'
 
-const CartScanInput = ({ handleSearchValue, inputValue, scanLoading, scanFetching }: any) => {
-  const scanInput = useCallback((inputElement: any) => {
-    if (inputElement) {
-      inputElement.focus()
-    }
+const CartScanInput = ({
+  handleSearchValue,
+  inputValue,
+  scanLoading,
+  scanFetching
+}: any) => {
+  const scanInput = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scanInput?.current?.focus()
+    }, 5000)
+    return () => clearInterval(interval)
   }, [])
+
   return (
     <div className='w-full px-5 md:px-0 md:flex relative'>
       <input
@@ -20,7 +29,11 @@ const CartScanInput = ({ handleSearchValue, inputValue, scanLoading, scanFetchin
         autoFocus
         autoComplete='off'
       />
-      {scanLoading && scanFetching && <div className='absolute right-0 top-1'><LoaderIcon /></div>}
+      {scanLoading && scanFetching && (
+        <div className='absolute right-0 top-1'>
+          <LoaderIcon />
+        </div>
+      )}
     </div>
   )
 }
