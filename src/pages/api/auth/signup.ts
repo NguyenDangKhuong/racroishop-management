@@ -1,8 +1,8 @@
 // import argon2 from 'argon2'
 import { NextApiRequest, NextApiResponse } from 'next'
-import UserModel, { User } from '../../models/User'
-import connectDb from '../../utils/connectDb'
-import { validateRegisterInput } from '../../utils/validateRegisterInput'
+import UserModel, { User } from '../../../models/User'
+import connectDb from '../../../utils/connectDb'
+import { validateRegisterInput } from '../../../utils/validateRegisterInput'
 
 connectDb()
 

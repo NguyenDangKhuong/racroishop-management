@@ -1,23 +1,18 @@
-import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
 import DashboardLayout from '../components/DashboardLayout'
 import Header from '../components/Header'
+import LoaderIcon from '../components/LoaderIcon'
+import { useCheckAuth } from '../hooks/useCheckAuth'
 
 const Dashboard = () => {
-  const { status, data } = useSession()
-  const router = useRouter()
-  useEffect(() => {
-    if (status === 'unauthenticated') router.replace('/signin')
-  }, [status])
+  const { status } = useCheckAuth()
 
-  if (status === 'authenticated') {
-    return (
-      <DashboardLayout>
-        <Header />
-      </DashboardLayout>
-    )
-  }
+  return status === 'loading' || status === 'unauthenticated' ? (
+    <LoaderIcon />
+  ) : (
+    <DashboardLayout>
+      <Header />
+    </DashboardLayout>
+  )
 }
 
 export default Dashboard

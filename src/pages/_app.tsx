@@ -25,6 +25,15 @@ function App({ Component, pageProps: { ...pageProps } }: any) {
       })
   )
 
+  // đăng kí service worker.
+  // useEffect(() => {
+  //   if ('serviceWorker' in navigator) {
+  //     navigator.serviceWorker
+  //       .register('/service-worker.js')
+  //       .then((registration) => console.log('scope is: ', registration.scope));
+  //   }
+  // }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>

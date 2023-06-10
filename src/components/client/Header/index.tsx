@@ -155,12 +155,13 @@ const Header = () => {
                 </a>
               </li>
               <li className='ml-6'>
-                <a
-                  href='#signin'
-                  className='text-primary text-md hover:text-orange transition-all relative offcanvas-toggle'
-                  data-ol-has-click-handler=''>
-                  Sign in
-                </a>
+                <div className='text-primary text-md hover:text-orange transition-all relative offcanvas-toggle'>
+                  <Link
+                    href='/auth/signin'
+                    data-ol-has-click-handler=''>
+                    Sign in
+                  </Link>
+                </div>
               </li>
               <li className='ml-6 lg:hidden'>
                 <div

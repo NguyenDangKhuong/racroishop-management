@@ -1,27 +1,22 @@
-import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
 import DashboardLayout from '../components/DashboardLayout'
+import LoaderIcon from '../components/LoaderIcon'
 import OrderTable from '../components/OrderTable'
+import { useCheckAuth } from '../hooks/useCheckAuth'
 
 const ListPage = () => {
-  const { status, data } = useSession()
-  const router = useRouter()
-  useEffect(() => {
-    if (status === 'unauthenticated') router.replace('/signin')
-  }, [status])
+  const { status } = useCheckAuth()
 
-  if (status === 'authenticated') {
-    return (
-      <DashboardLayout>
-        <div className='flex flex-wrap mt-4'>
-          <div className='w-full mb-12 px-4'>
-            <OrderTable />
-          </div>
+  return status === 'loading' || status === 'unauthenticated' ? (
+    <LoaderIcon />
+  ) : (
+    <DashboardLayout>
+      <div className='flex flex-wrap mt-4'>
+        <div className='w-full mb-12 px-4'>
+          <OrderTable />
         </div>
-      </DashboardLayout>
-    )
-  }
+      </div>
+    </DashboardLayout>
+  )
 }
 
 export default ListPage

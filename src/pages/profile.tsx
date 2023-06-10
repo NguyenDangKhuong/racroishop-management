@@ -1,10 +1,9 @@
 import Link from 'next/link'
 import { getYear } from 'date-fns'
-import Layout from '../components/Layout'
 
 const ProfilePage = () => {
   return (
-    <Layout>
+    <>
       <main className='profile-page'>
         <section className='relative block h-[500px]'>
           <div
@@ -261,7 +260,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </footer>
-    </Layout>
+    </>
   )
 }
 
