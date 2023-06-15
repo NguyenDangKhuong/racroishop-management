@@ -15,7 +15,7 @@ export const useCheckAuth = () => {
         router.route === '/forgot-password' ||
         router.route === '/change-password')
     ) {
-      router.replace('/')
+      router.replace('/dashboard')
     } else if (
       status === 'unauthenticated' &&
       router.route !== '/auth/signin' &&

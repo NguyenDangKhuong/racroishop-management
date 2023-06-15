@@ -75,7 +75,7 @@ export default function ProductModal({
   } = useForm<Product>()
 
   const sku = useGenegateId(5)
-  const tempName = useGenegateId(5)
+  const tempName = useGenegateId(3)
 
   const onSubmit = handleSubmit(data =>
     isEditing
