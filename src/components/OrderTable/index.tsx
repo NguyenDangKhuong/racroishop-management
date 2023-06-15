@@ -17,6 +17,7 @@ const ListTable = () => {
   const [selectDate, setSelectDate] = useState(new Date())
   const [listProduct, setListProduct] = useState<ProductCart[]>([])
   const [showModal, setShowModal] = useState(false)
+  const [change, setChange] = useState(0)
   const {
     data: orders,
     mutate,
@@ -40,6 +41,14 @@ const ListTable = () => {
   return (
     <div>
       {/*body*/}
+      <div>
+        <div className='pb-3'>Nhập tiền thối đầu ngày:</div>
+        <input
+          type='number'
+          placeholder='Nhập tiền thối'
+          className='px-2 py-2 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-50'
+        />
+      </div>
       <div className='relative py-6 flex-auto'>
         <div className='mb-3 pt-0 flex items-center'>
           <div className='flex items-center justify-center'>
