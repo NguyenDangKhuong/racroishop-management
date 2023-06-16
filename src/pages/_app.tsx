@@ -7,6 +7,7 @@ import {
   QueryClientProvider
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Analytics } from '@vercel/analytics/react'
 import { SessionProvider } from 'next-auth/react'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
@@ -44,6 +45,7 @@ function App({ Component, pageProps: { ...pageProps } }: any) {
         </Head>
         <SessionProvider session={pageProps.session}>
           <Component {...pageProps} />
+          <Analytics />
         </SessionProvider>
         <Script src='https://widget.cloudinary.com/v2.0/global/all.js'></Script>
         <ReactQueryDevtools initialIsOpen={false} />
