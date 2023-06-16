@@ -9,6 +9,7 @@ export const useCheckAuth = () => {
 
   const isAdmin = data?.user.role === 0
   useEffect(() => {
+    // logged in but go to user modifier pages => redirect to internal page
     if (
       status === 'authenticated' &&
       (router.route === '/auth/signin' ||
@@ -18,6 +19,7 @@ export const useCheckAuth = () => {
     ) {
       isAdmin ? router.replace('/dashboard') : router.replace('/')
     } else if (
+      // not logged in and don't go to user modifier pages => if go to normal page => kick to signin page
       status === 'unauthenticated' &&
       router.route !== '/auth/signin' &&
       router.route !== '/register' &&
@@ -26,7 +28,13 @@ export const useCheckAuth = () => {
     ) {
       router.replace('/auth/signin')
     }
+
+    // protect admin page
+    if (status === 'authenticated' && !isAdmin) {
+      router.replace('/')
+    }
   }, [status])
+
   return {
     status,
     isAuthenticated: status === 'authenticated',

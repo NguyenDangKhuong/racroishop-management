@@ -37,11 +37,11 @@ export const Carousel = () => {
     // listen for Swiper events using addEventListener
     swiperElRef?.current?.addEventListener('progress', e => {
       const [swiper, progress] = (e as any).detail
-      console.log(swiper)
+      // console.log(swiper)
     })
 
     swiperElRef?.current?.addEventListener('slidechange', e => {
-      console.log('slide changed')
+      // console.log('slide changed')
     })
 
     const params = {

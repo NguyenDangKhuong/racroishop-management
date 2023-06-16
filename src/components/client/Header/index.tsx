@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import classNames from 'classnames'
+import { signOut } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { useCheckAuth } from '../../../hooks/useCheckAuth'
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside'
@@ -114,11 +115,9 @@ const Header = () => {
                     <ul className='submenu bg-white py-3 px-8 shadow transition-all absolute left-0 top-full opacity-0 group-hover:opacity-100 invisible group-hover:visible group-hover:-translate-y-3 transform z-10 min-w-max'>
                       {item.child.map(childItem => (
                         <li className='my-3' key={childItem.id}>
-                          <a
-                            className='text-dark font-normal text-base capitalize transition-all hover:text-orange'
-                            href={childItem.url}>
-                            {childItem.name}
-                          </a>
+                          <div className='text-dark font-normal text-base capitalize transition-all hover:text-orange'>
+                            <Link href={childItem.url}>{childItem.name}</Link>
+                          </div>
                         </li>
                       ))}
                     </ul>
@@ -162,9 +161,11 @@ const Header = () => {
                     <Link href='/dashboard' data-ol-has-click-handler=''>
                       Admin Dashboard
                     </Link>
+                  ) : isAuthenticated ? (
+                    <div className='cursor-pointer' onClick={() => signOut()}>Đăng xuất</div>
                   ) : (
                     <Link href='/auth/signin' data-ol-has-click-handler=''>
-                      Sign in
+                      Đăng nhập
                     </Link>
                   )}
                 </div>
