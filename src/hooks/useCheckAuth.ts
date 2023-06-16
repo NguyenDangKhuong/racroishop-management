@@ -8,6 +8,8 @@ export const useCheckAuth = () => {
   const { status, data } = useSession()
 
   const role = (data as any)?.user.role || 1
+  console.log('data', data)
+  console.log('role', role)
 
   useEffect(() => {
     if (
