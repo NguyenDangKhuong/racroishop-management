@@ -10,7 +10,7 @@ const ProductList = () => {
         {[1, 2, 3, 4, 5, 1, 2, 3].map((item, index) => (
           <div
             key={index}
-            className='group box-border overflow-hidden flex rounded-md cursor-pointer ltr:pr-0 rtl:pl-0 pb-2 lg:pb-3 flex-col items-start transition duration-200 ease-in-out transform hover:-translate-y-1 md:hover:-translate-y-1.5 hover:shadow-md bg-white'
+            className='group box-border overflow-hidden flex rounded-md cursor-pointer ltr:pr-0 rtl:pl-0 pb-2 lg:pb-3 flex-col items-start transition duration-200 ease-in-out transform hover:-translate-y-1 md:hover:-translate-y-1.5 hover:shadow-2xl bg-white'
             role='button'
             title='Nike Black'>
             <div className='flex mb-3 md:mb-3.5'>
