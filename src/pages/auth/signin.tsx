@@ -8,7 +8,7 @@ import LoaderIcon from '../../components/LoaderIcon'
 const Login = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-  const { status, data } = useSession()
+  const { status, data: session } = useSession()
 
   const { register, handleSubmit } = useForm<{
     email: string
@@ -16,7 +16,10 @@ const Login = () => {
   }>()
 
   useEffect(() => {
-    if (status === 'authenticated') router.replace('/dashboard')
+    if (status === 'authenticated')
+      session?.user.role === 0
+        ? router.replace('/dashboard')
+        : router.replace('/')
   }, [status])
 
   //submit next-auth
@@ -26,7 +29,7 @@ const Login = () => {
       const res = await signIn('credentials', {
         email: data.email,
         password: data.password,
-        callbackUrl: '/dashboard',
+        callbackUrl: session?.user.role === 0 ? '/dashboard' : '/',
         redirect: false
       })
       res?.ok
