@@ -218,10 +218,10 @@ const ListTable = () => {
             </tr>
           )}
           {orderLoading && (
-            <div className='w-full text-center py-5 border-t'>
-              <i className='fas fa-spinner fa-spin animate-spin text-xl mr-2'></i>
-              Đang tải...
-            </div>
+            <tr className='w-full text-center py-5 border-t'>
+              <td><i className='fas fa-spinner fa-spin animate-spin text-xl mr-2'></i></td>
+              <td>Đang tải...</td>
+            </tr>
           )}
         </tbody>
       </table>
