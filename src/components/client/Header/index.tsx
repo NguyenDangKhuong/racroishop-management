@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
+import { useCheckAuth } from '../../../hooks/useCheckAuth'
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside'
 
 const headerLinks = [
@@ -73,6 +74,7 @@ const headerLinks = [
 ]
 
 const Header = () => {
+  const { isAuthenticated, isAdmin } = useCheckAuth()
   const [isTop, setIsTop] = useState(true)
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   useEffect(() => {
@@ -89,12 +91,12 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 w-full z-20 ${
-        isTop ? '' : 'is-sticky'
-      }`}>
-      <div className='px-4 md:px-10 2xl:px-24 py-6 lg:py-0'>
-        <div className='flex items-center lg:relative'>
-          <div className='w-6/12 lg:w-2/12'>
+      className={classNames('fixed inset-x-0 top-0 w-full z-20', {
+        'is-sticky': !isTop
+      })}>
+      <div className='px-4 md:px-10 2xl:px-24 lg:py-0'>
+        <div className='flex items-center justify-between lg:relative h-20'>
+          <div className='w-1/4 lg:w-1/12 lg:mr-5 cursor-pointer'>
             <div className='logo'>
               <Link href='/'>
                 <img src='/image/logo.png' alt='logo' loading='lazy' />
@@ -106,7 +108,7 @@ const Header = () => {
               <ul className='flex flex-wrap items-center'>
                 {headerLinks.map(item => (
                   <li className='main-menu__item relative group' key={item.id}>
-                    <div className='block py-10 xl:pr-8 md:pr-5 capitalize font-normal text-md text-primary hover:text-orange transition-all'>
+                    <div className='block py-10 xl:pr-8 md:pr-5 capitalize font-normal text-md hover:text-orange transition-all'>
                       <Link href={item.url}>{item.name}</Link>
                     </div>
                     <ul className='submenu bg-white py-3 px-8 shadow transition-all absolute left-0 top-full opacity-0 group-hover:opacity-100 invisible group-hover:visible group-hover:-translate-y-3 transform z-10 min-w-max'>
@@ -124,7 +126,7 @@ const Header = () => {
                 ))}
                 <li className='main-menu__item'>
                   <a
-                    className='block py-10 xl:pr-8 md:pr-5 capitalize font-normal text-md text-primary hover:text-orange transition-all'
+                    className='block py-10 xl:pr-8 md:pr-5 capitalize font-normal text-md hover:text-orange transition-all'
                     href='contact-us.html'>
                     Contact
                   </a>
@@ -137,7 +139,7 @@ const Header = () => {
             <ul className='flex items-center justify-end'>
               <li className='ml-6 hidden lg:block'>
                 <button
-                  className='search-toggle text-right text-primary text-md hover:text-orange transition-all'
+                  className='search-toggle text-right text-md hover:text-orange transition-all'
                   aria-label='icon-settings'
                   data-ol-has-click-handler=''>
                   <i className='fa-solid fa-magnifying-glass'></i>
@@ -146,7 +148,7 @@ const Header = () => {
               <li className='ml-6'>
                 <a
                   href='#offcanvas-cart'
-                  className='text-primary text-md hover:text-orange transition-all relative offcanvas-toggle'
+                  className='text-md hover:text-orange transition-all relative offcanvas-toggle'
                   data-ol-has-click-handler=''>
                   <span className='w-5 h-5 bg-dark text-white text-sm rounded-full font-normal flex flex-wrap items-center justify-center absolute -top-3 left-2 leading-none'>
                     4
@@ -155,17 +157,21 @@ const Header = () => {
                 </a>
               </li>
               <li className='ml-6'>
-                <div className='text-primary text-md hover:text-orange transition-all relative offcanvas-toggle'>
-                  <Link
-                    href='/auth/signin'
-                    data-ol-has-click-handler=''>
-                    Sign in
-                  </Link>
+                <div className='text-xs md:text-md hover:text-orange transition-all relative offcanvas-toggle'>
+                  {isAuthenticated && isAdmin ? (
+                    <Link href='/dashboard' data-ol-has-click-handler=''>
+                      Admin Dashboard
+                    </Link>
+                  ) : (
+                    <Link href='/auth/signin' data-ol-has-click-handler=''>
+                      Sign in
+                    </Link>
+                  )}
                 </div>
               </li>
               <li className='ml-6 lg:hidden'>
                 <div
-                  className='text-primary text-lg'
+                  className='text-lg'
                   data-ol-has-click-handler=''
                   onClick={() => setIsOpenMenu(true)}>
                   <i className='fa-solid fa-bars'></i>
@@ -221,9 +227,7 @@ const Header = () => {
                   <li className='relative block' key={item.id}>
                     <span className='menu-expand'></span>
                     <div className='block capitalize font-normal text-base my-2 py-1 font-roboto'>
-                      <Link href={item.url}>
-                        {item.name}
-                      </Link>
+                      <Link href={item.url}>{item.name}</Link>
                     </div>
                     <ul className='offcanvas-submenu static top-auto hidden w-full visible opacity-100'>
                       {item.child.map(childItem => (

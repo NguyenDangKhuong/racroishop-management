@@ -1,8 +1,8 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { NEXT_AUTH_SECRET } from '../../../helpers/constants'
 import UserModel from '../../../models/User'
 import connectDb from '../../../utils/connectDb'
-import { NEXT_AUTH_SECRET } from '../../../helpers/constants'
 
 connectDb()
 
@@ -39,25 +39,25 @@ const authOptions: NextAuthOptions = {
           throw new Error('Sai mật khẩu')
         }
         // if everything is fine
-        return user
+        return { ...user }
       }
     })
   ],
   pages: {
     signIn: '/auth/signin',
-    error: '/error',
+    error: '/error'
     // signOut: '/signout'
   },
-  // callbacks: {
-  //   jwt(params) {
-      // // update token
-      // if (params.user?.role) {
-      //   params.token.role = params.user.role
-      // }
-      // // return final_token
-      // return params.token
-    // }
-  // }
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user)
+      return token
+    },
+    session: async ({ session, token }) => {
+      ;(session as any).user = token.user // Setting token in session
+      return session
+    }
+  }
 }
 
 export default NextAuth(authOptions)

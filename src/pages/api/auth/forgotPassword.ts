@@ -12,11 +12,10 @@ const forgotPassword = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!user)
     return res.status(404).send('Không tìm thấy người dùng khớp với email')
 
-
   // send reset password link to user via email
   await sendEmail(
     email,
-    'test ahihi' 
+    'test ahihi'
 
     // `<a href="http://localhost:3001/change-password?token=${resetToken}&userId=${user.id}">Bấm vào đây để sửa mật khẩu của bạn</a>`
   )

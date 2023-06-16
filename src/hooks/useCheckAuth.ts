@@ -26,6 +26,10 @@ export const useCheckAuth = () => {
       router.replace('/auth/signin')
     }
   }, [status])
-
-  return { data, status }
+  return {
+    role: (data as any)?.user.role,
+    status,
+    isAuthenticated: status === 'authenticated',
+    isAdmin: (data as any)?.user.role === 0
+  }
 }

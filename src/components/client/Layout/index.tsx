@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../Header'
+
 // import './Layout.css'
 
 // Importing all created components
@@ -12,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       {/* Attaching all file components */}
       <Header />
-      {children}
+      <div className='mt-20'>{children}</div>
       {/* <Footer /> Attach if necessary */}
     </>
   )

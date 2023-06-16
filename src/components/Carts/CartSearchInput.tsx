@@ -1,6 +1,10 @@
 import { memo } from 'react'
 
-const CartSearchInput = ({ handleChangeSearchValue, inputValue, handleClickSearchBtn }: any) => {
+const CartSearchInput = ({
+  handleChangeSearchValue,
+  inputValue,
+  handleClickSearchBtn
+}: any) => {
   return (
     <div className='w-full md:w-80 flex join'>
       <input

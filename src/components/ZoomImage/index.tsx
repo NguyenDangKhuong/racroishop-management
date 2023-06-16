@@ -32,7 +32,7 @@ const ZoomImageModal = ({
             </div>
             {/*body*/}
             <div>
-              <img src={imageSelected} />
+              <img alt='' src={imageSelected} />
             </div>
             {/*footer*/}
             <div className='flex items-center justify-end p-6 border-t border-solid border-gray-200 rounded-b'>

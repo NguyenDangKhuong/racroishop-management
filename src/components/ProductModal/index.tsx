@@ -176,10 +176,16 @@ export default function ProductModal({
                       />
                       <div
                         className='btn ml-1'
-                        onClick={() => getValues('categoryId') &&
-                          setValue('name', `${String(categories.find(
-                            ({ _id }) => _id === getValues('categoryId')
-                          )?.name)} ${tempName}`)
+                        onClick={() =>
+                          getValues('categoryId') &&
+                          setValue(
+                            'name',
+                            `${String(
+                              categories.find(
+                                ({ _id }) => _id === getValues('categoryId')
+                              )?.name
+                            )} ${tempName}`
+                          )
                         }>
                         Tạo tên
                       </div>

@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/BarcodeModal/index.jsx",
-    "src/components/Html5QrcodePlugin/index.jsx"
+    "src/components/Html5QrcodePlugin/index.jsx",
+    "src/types/swiper.d.ts"
   ],
   "exclude": [
     "node_modules"
