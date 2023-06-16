@@ -1,11 +1,16 @@
-import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 export const useCheckAuth = () => {
   const router = useRouter()
 
   const { status, data } = useSession()
+  
+  useEffect(() => {
+    if(status === 'unauthenticated' || data?.user.role) 
+      router.replace('/auth/signin')
+  }, [])
 
   const isAdmin = data?.user.role === 0
   useEffect(() => {
