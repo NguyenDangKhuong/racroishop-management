@@ -6,13 +6,8 @@ export const useCheckAuth = () => {
   const router = useRouter()
 
   const { status, data } = useSession()
-  
-  useEffect(() => {
-    if(status === 'unauthenticated' || data?.user.role) 
-      router.replace('/auth/signin')
-  }, [])
 
-  const isAdmin = data?.user.role === 0
+  const isAdmin = (data?.user && data?.user.role === 0) || false
   useEffect(() => {
     // logged in but go to user modifier pages => redirect to internal page
     if (
