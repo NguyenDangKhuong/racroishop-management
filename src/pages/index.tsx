@@ -12,7 +12,9 @@ const Index = () => {
   ) : (
     <Layout>
       <Carousel />
-      <ProductList />
+      <div className='px-4 md:px-10 2xl:px-24 lg:py-0'>
+        <ProductList />
+      </div>
     </Layout>
   )
 }
