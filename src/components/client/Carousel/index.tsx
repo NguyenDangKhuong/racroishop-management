@@ -52,7 +52,7 @@ export const Carousel = () => {
         delay: 1000,
         pauseOnMouseEnter: true
       },
-      speed: 4000
+      speed: 3000
     }
 
     //@ts-ignore

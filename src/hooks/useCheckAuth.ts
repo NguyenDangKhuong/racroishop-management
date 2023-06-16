@@ -7,6 +7,8 @@ export const useCheckAuth = () => {
 
   const { status, data } = useSession()
 
+  const role = (data as any)?.user.role || 1
+
   useEffect(() => {
     if (
       status === 'authenticated' &&
@@ -15,7 +17,7 @@ export const useCheckAuth = () => {
         router.route === '/forgot-password' ||
         router.route === '/change-password')
     ) {
-      router.replace('/dashboard')
+      role === 0 ? router.replace('/dashboard') : router.replace('/')
     } else if (
       status === 'unauthenticated' &&
       router.route !== '/auth/signin' &&
@@ -27,9 +29,9 @@ export const useCheckAuth = () => {
     }
   }, [status])
   return {
-    role: (data as any)?.user.role,
+    role,
     status,
     isAuthenticated: status === 'authenticated',
-    isAdmin: (data as any)?.user.role === 0
+    isAdmin: role === 0
   }
 }
