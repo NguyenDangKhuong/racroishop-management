@@ -29,7 +29,7 @@ const CartScanInput = ({
         autoComplete='off'
       />
       {scanLoading && scanFetching && (
-        <div className='absolute right-0 top-1'>
+        <div className='absolute top-1'>
           <LoaderIcon />
         </div>
       )}
