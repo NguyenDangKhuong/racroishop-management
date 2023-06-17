@@ -157,7 +157,7 @@ const CartSumary: React.FC<{
       <div className='py-1'>
         <label
           htmlFor='customerPrice'
-          className='font-semibold inline-block mb-1 text-sm uppercase'>
+          className='font-semibold inline-block mb-1 text-sm uppercase text-blue-800'>
           Tiền khách đưa
         </label>
         <input
@@ -197,7 +197,7 @@ const CartSumary: React.FC<{
       <div className='mt-1'>
         <label
           htmlFor='discountPrice'
-          className='font-semibold inline-block mb-1 text-sm uppercase'>
+          className='font-semibold inline-block mb-1 text-sm uppercase text-red-600'>
           Giảm giá (-)
         </label>
         <input
