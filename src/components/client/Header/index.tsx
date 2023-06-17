@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import classNames from 'classnames'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
-import { useCheckAuth } from '../../../hooks/useCheckAuth'
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside'
 
 const headerLinks = [
@@ -75,16 +74,17 @@ const headerLinks = [
 ]
 
 const Header = () => {
-  const { isAuthenticated, isAdmin } = useCheckAuth()
+  const { status, data: session } = useSession()
   const [isTop, setIsTop] = useState(true)
   const [isOpenMenu, setIsOpenMenu] = useState(false)
+  const hasWindow = typeof window !== 'undefined'
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+    hasWindow && window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [window.onscroll])
+  }, [hasWindow && window.onscroll])
 
   const handleScroll = () => {
-    window.scrollY > 0 ? setIsTop(false) : setIsTop(true)
+    hasWindow && window.scrollY > 0 ? setIsTop(false) : setIsTop(true)
   }
 
   const ref = useRef<HTMLDivElement>(null)
@@ -157,12 +157,14 @@ const Header = () => {
               </li>
               <li className='ml-6'>
                 <div className='text-xs md:text-md hover:text-orange transition-all relative offcanvas-toggle'>
-                  {isAuthenticated && isAdmin ? (
+                  {status === 'authenticated' && session?.user.isAdmin ? (
                     <Link href='/dashboard' data-ol-has-click-handler=''>
                       Admin Dashboard
                     </Link>
-                  ) : isAuthenticated ? (
-                    <div className='cursor-pointer' onClick={() => signOut()}>Đăng xuất</div>
+                  ) : status === 'authenticated' ? (
+                    <div className='cursor-pointer' onClick={() => signOut()}>
+                      Đăng xuất
+                    </div>
                   ) : (
                     <Link href='/auth/signin' data-ol-has-click-handler=''>
                       Đăng nhập

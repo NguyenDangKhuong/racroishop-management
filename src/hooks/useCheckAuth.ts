@@ -1,13 +1,13 @@
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 
 export const useCheckAuth = () => {
   const router = useRouter()
 
   const { status, data } = useSession()
+  const isAdmin = data?.user.isAdmin || false
 
-  const isAdmin = (data?.user && data?.user.role === 0) || false
   useEffect(() => {
     // logged in but go to user modifier pages => redirect to internal page
     if (

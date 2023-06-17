@@ -39,7 +39,7 @@ const authOptions: NextAuthOptions = {
           throw new Error('Sai mật khẩu')
         }
         // if everything is fine
-        return { ...user }
+        return { ...user, isAdmin: user?.role === 0 }
       }
     })
   ],
