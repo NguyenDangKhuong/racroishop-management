@@ -1,4 +1,5 @@
-import { memo, useEffect, useRef } from 'react'
+import { memo, useRef } from 'react'
+import { useIdleTimer } from 'react-idle-timer'
 import LoaderIcon from '../LoaderIcon'
 
 const CartScanInput = ({
@@ -8,13 +9,11 @@ const CartScanInput = ({
   scanFetching
 }: any) => {
   const scanInput = useRef<HTMLInputElement>(null)
+  const onIdle = () => {
+    scanInput?.current?.focus()
+  }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      scanInput?.current?.focus()
-    }, 15000)
-    return () => clearInterval(interval)
-  }, [])
+  useIdleTimer({ onIdle, timeout: 10_000 })
 
   return (
     <div className='w-full px-5 md:px-0 md:flex relative'>
