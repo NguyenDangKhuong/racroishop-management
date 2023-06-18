@@ -270,7 +270,7 @@ const Footer = () => {
             <li className='mb-2 transition md:mb-0 hover:opacity-80'>
               <Link href='/' target='_blank'>
                 <img
-                  src='/image/payment/mastercard.svg'
+                  src='/svg/payment/mastercard.svg'
                   alt='Master Card'
                   height='20'
                   width='34'
@@ -280,7 +280,7 @@ const Footer = () => {
             <li className='mb-2 transition md:mb-0 hover:opacity-80'>
               <Link href='/' target='_blank'>
                 <img
-                  src='/image/payment/visa.svg'
+                  src='/svg/payment/visa.svg'
                   alt='Visa'
                   height='20'
                   width='50'
@@ -290,7 +290,7 @@ const Footer = () => {
             <li className='mb-2 transition md:mb-0 hover:opacity-80'>
               <Link href='/' target='_blank'>
                 <img
-                  src='/image/payment/paypal.svg'
+                  src='/svg/payment/paypal.svg'
                   alt='Paypal'
                   height='20'
                   width='76'
@@ -300,7 +300,7 @@ const Footer = () => {
             <li className='mb-2 transition md:mb-0 hover:opacity-80'>
               <Link href='/' target='_blank'>
                 <img
-                  src='/image/payment/jcb.svg'
+                  src='/svg/payment/jcb.svg'
                   alt='JCB'
                   height='20'
                   width='26'
@@ -310,7 +310,7 @@ const Footer = () => {
             <li className='mb-2 transition md:mb-0 hover:opacity-80'>
               <Link href='/' target='_blank'>
                 <img
-                  src='image/payment/skrill.svg'
+                  src='svg/payment/skrill.svg'
                   alt='Skrill'
                   height='20'
                   width='39'

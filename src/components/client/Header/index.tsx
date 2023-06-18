@@ -1,82 +1,88 @@
 import Link from 'next/link'
-import classNames from 'classnames'
+import { useRouter } from 'next/router'
+import { default as classNames, default as classnames } from 'classnames'
 import { signOut, useSession } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside'
-
-const headerLinks = [
-  {
-    id: 0,
-    name: 'Home',
-    url: '#',
-    child: [
-      {
-        id: 0,
-        name: 'Smartwatch',
-        url: '#'
-      },
-      {
-        id: 1,
-        name: 'Drone',
-        url: '#'
-      },
-      {
-        id: 2,
-        name: 'Airpod',
-        url: '#'
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'About',
-    url: '#',
-    child: [
-      {
-        id: 0,
-        name: 'Smartwatch',
-        url: '#'
-      },
-      {
-        id: 1,
-        name: 'Drone',
-        url: '#'
-      },
-      {
-        id: 2,
-        name: 'Airpod',
-        url: '#'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Home',
-    url: '#',
-    child: [
-      {
-        id: 0,
-        name: 'Smartwatch',
-        url: '#'
-      },
-      {
-        id: 1,
-        name: 'Drone',
-        url: '#'
-      },
-      {
-        id: 2,
-        name: 'Airpod',
-        url: '#'
-      }
-    ]
-  }
-]
+import { EnglishFlagIcon, SelectIcon, VietNamFlagIcon } from '../Icons'
 
 const Header = () => {
+  const router = useRouter()
+  const { t, i18n } = useTranslation('index')
+
+  const headerLinks = [
+    {
+      id: 0,
+      name: t('header.home'),
+      url: '#',
+      child: [
+        {
+          id: 0,
+          name: 'Smartwatch',
+          url: '#'
+        },
+        {
+          id: 1,
+          name: 'Drone',
+          url: '#'
+        },
+        {
+          id: 2,
+          name: 'Airpod',
+          url: '#'
+        }
+      ]
+    },
+    {
+      id: 1,
+      name: 'About',
+      url: '#',
+      child: [
+        {
+          id: 0,
+          name: 'Smartwatch',
+          url: '#'
+        },
+        {
+          id: 1,
+          name: 'Drone',
+          url: '#'
+        },
+        {
+          id: 2,
+          name: 'Airpod',
+          url: '#'
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Home',
+      url: '#',
+      child: [
+        {
+          id: 0,
+          name: 'Smartwatch',
+          url: '#'
+        },
+        {
+          id: 1,
+          name: 'Drone',
+          url: '#'
+        },
+        {
+          id: 2,
+          name: 'Airpod',
+          url: '#'
+        }
+      ]
+    }
+  ]
   const { status, data: session } = useSession()
   const [isTop, setIsTop] = useState(true)
   const [isOpenMenu, setIsOpenMenu] = useState(false)
+  const [isShowLocale, setIsShowLocale] = useState(false)
   const hasWindow = typeof window !== 'undefined'
   useEffect(() => {
     hasWindow && window.addEventListener('scroll', handleScroll)
@@ -89,6 +95,13 @@ const Header = () => {
 
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => setIsOpenMenu(false))
+
+  const changeLocale = (locale: string ) => {
+    router.push({
+        route: router.pathname,
+        query: router.query
+    }, router.asPath, { locale });
+}
 
   return (
     <header
@@ -133,7 +146,6 @@ const Header = () => {
               </ul>
             </nav>
           </div>
-
           <div className='w-6/12 lg:w-3/12'>
             <ul className='flex items-center justify-end'>
               <li className='ml-6 hidden lg:block'>
@@ -157,7 +169,89 @@ const Header = () => {
                   </>
                 </Link>
               </li>
-              <li className='ml-6'>
+              <li className='relative select-none'>
+                <div
+                  onClick={() => setIsShowLocale(!isShowLocale)}
+                  className='flex-shrink-0 ml-auto lg:mr-2 xl:mr-2  2xl:mr-5'>
+                  <div className='relative ml-2 ltr:lg:ml-0 z-10 w-[140px] sm:w-[150px] lg:w-[130px] xl:w-[150px]'>
+                    <div
+                      className='border border-gray-300 text-heading text-[13px] xl:text-sm font-semibold relative w-full p-2 pl-3 pr-7 text-left bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 cursor-pointer'
+                      aria-haspopup='listbox'
+                      aria-expanded='false'
+                      data-headlessui-state=''>
+                      <span className='flex truncate items-center'>
+                        <span className='mr-1.5'>
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: EnglishFlagIcon()
+                            }}></span>
+                        </span>
+                        English - EN
+                      </span>
+                      <span className='absolute inset-y-0 right-0 pr-1 flex items-center pointer-events-none'>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: SelectIcon()
+                          }}></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <ul
+                  className={classnames(
+                    'hidden absolute left-2 py-1 mt-1 overflow-auto bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none text-sm',
+                    {
+                      '!block': isShowLocale
+                    }
+                  )}
+                  aria-labelledby='headlessui-listbox-button-:R36jm:'
+                  aria-orientation='vertical'
+                  role='listbox'
+                  tabIndex={0}
+                  data-headlessui-state='open'>
+                  <li
+                    className='text-gray-900
+												cursor-pointer select-none relative py-2 px-3 hover:bg-gray-200'
+                    role='option'
+                    tabIndex={0}
+                    aria-selected='true'
+                    data-headlessui-state='selected'>
+                    <Link href={router.pathname} locale='en'>
+                      <span className='flex items-center'>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: EnglishFlagIcon()
+                          }}></span>
+                        <span className='font-medium block truncate ml-1.5'>
+                          English - EN
+                        </span>
+                        <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
+                      </span>
+                    </Link>
+                  </li>
+                  <li
+                    className='text-gray-900
+												cursor-pointer select-none relative py-2 px-3 hover:bg-gray-200'
+                    role='option'
+                    tabIndex={0}
+                    aria-selected='true'
+                    data-headlessui-state='selected'>
+                    <Link href={router.pathname} locale='vi'>
+                      <span className='flex items-center'>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: VietNamFlagIcon()
+                          }}></span>
+                        <span className='font-medium block truncate ml-1.5'>
+                          Vietnam - VI
+                        </span>
+                        <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li className='ml-2'>
                 <div className='text-xs md:text-md hover:text-orange transition-all relative offcanvas-toggle'>
                   {status === 'authenticated' && session?.user.isAdmin ? (
                     <Link href='/dashboard' data-ol-has-click-handler=''>
