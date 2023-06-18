@@ -96,12 +96,17 @@ const Header = () => {
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => setIsOpenMenu(false))
 
-  const changeLocale = (locale: string ) => {
-    router.push({
+  const changeLocale = (locale: string) => {
+    router.push(
+      {
+        //@ts-ignore
         route: router.pathname,
         query: router.query
-    }, router.asPath, { locale });
-}
+      },
+      router.asPath,
+      { locale }
+    )
+  }
 
   return (
     <header
@@ -216,7 +221,7 @@ const Header = () => {
                     tabIndex={0}
                     aria-selected='true'
                     data-headlessui-state='selected'>
-                    <Link href={router.pathname} locale='en'>
+                    <div onClick={() => changeLocale('en')}>
                       <span className='flex items-center'>
                         <span
                           dangerouslySetInnerHTML={{
@@ -227,7 +232,7 @@ const Header = () => {
                         </span>
                         <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
                       </span>
-                    </Link>
+                    </div>
                   </li>
                   <li
                     className='text-gray-900
@@ -236,7 +241,7 @@ const Header = () => {
                     tabIndex={0}
                     aria-selected='true'
                     data-headlessui-state='selected'>
-                    <Link href={router.pathname} locale='vi'>
+                    <div onClick={() => changeLocale('vi')}>
                       <span className='flex items-center'>
                         <span
                           dangerouslySetInnerHTML={{
@@ -247,7 +252,7 @@ const Header = () => {
                         </span>
                         <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
                       </span>
-                    </Link>
+                    </div>
                   </li>
                 </ul>
               </li>
