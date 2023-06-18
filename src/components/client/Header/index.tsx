@@ -124,11 +124,11 @@ const Header = () => {
                   </li>
                 ))}
                 <li className='main-menu__item'>
-                  <a
+                  <Link
                     className='block py-10 xl:pr-8 md:pr-5 capitalize font-normal text-md hover:text-orange transition-all'
                     href='contact-us.html'>
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -145,15 +145,17 @@ const Header = () => {
                 </button>
               </li>
               <li className='ml-6'>
-                <a
-                  href='#offcanvas-cart'
+                <Link
+                  href='/cart'
                   className='text-md hover:text-orange transition-all relative offcanvas-toggle'
                   data-ol-has-click-handler=''>
-                  <span className='w-5 h-5 bg-dark text-white text-sm rounded-full font-normal flex flex-wrap items-center justify-center absolute -top-3 left-2 leading-none'>
-                    4
-                  </span>
-                  <i className='fa-solid fa-cart-shopping'></i>
-                </a>
+                  <>
+                    <span className='w-5 h-5 bg-dark text-white text-sm rounded-full font-normal flex flex-wrap items-center justify-center absolute -top-3 left-2 leading-none'>
+                      4
+                    </span>
+                    <i className='fa-solid fa-cart-shopping'></i>
+                  </>
+                </Link>
               </li>
               <li className='ml-6'>
                 <div className='text-xs md:text-md hover:text-orange transition-all relative offcanvas-toggle'>
@@ -235,11 +237,11 @@ const Header = () => {
                     <ul className='offcanvas-submenu static top-auto hidden w-full visible opacity-100'>
                       {item.child.map(childItem => (
                         <li key={childItem.id}>
-                          <a
+                          <Link
                             className='text-sm py-2 px-4 text-dark font-light block font-roboto transition-all hover:text-orange'
                             href={childItem.url}>
                             {childItem.name}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -250,54 +252,58 @@ const Header = () => {
             <nav>
               <ul>
                 <li className='block mb-3'>
-                  <a
+                  <Link
                     className='flex flex-wrap justify-between mb-3 text-base text-dark hover:text-orange'
                     href='javascript:void(0)'
                     data-ol-has-click-handler=''>
-                    Currency <i className='icon-arrow-down'></i>
-                  </a>
+                    <>
+                      Currency <i className='icon-arrow-down'></i>
+                    </>
+                  </Link>
                   <ul className='sub-category hidden py-5 px-6 shadow'>
                     <li className='my-2 block'>
-                      <a
+                      <Link
                         className='font-light text-sm tracking-wide text-dark block hover:text-orange'
                         href='#'
                         data-ol-has-click-handler=''>
                         EUR €
-                      </a>
+                      </Link>
                     </li>
                     <li className='my-2 block'>
-                      <a
+                      <Link
                         className='font-light text-sm tracking-wide text-dark block hover:text-orange'
                         href='#'
                         data-ol-has-click-handler=''>
                         USD $
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
                 <li className='block mb-3'>
-                  <a
+                  <Link
                     className='flex flex-wrap justify-between mb-3 text-base text-dark hover:text-orange'
                     href='javascript:void(0)'
                     data-ol-has-click-handler=''>
-                    Account <i className='icon-arrow-down'></i>
-                  </a>
+                    <>
+                      Account <i className='icon-arrow-down'></i>
+                    </>
+                  </Link>
                   <ul className='sub-category hidden py-5 px-6 shadow'>
                     <li className='my-2 block'>
-                      <a
+                      <Link
                         className='font-light text-sm tracking-wide text-dark block hover:text-orange'
                         href='#'
                         data-ol-has-click-handler=''>
                         English
-                      </a>
+                      </Link>
                     </li>
                     <li className='my-2 block'>
-                      <a
+                      <Link
                         className='font-light text-sm tracking-wide text-dark block hover:text-orange'
                         href='#'
                         data-ol-has-click-handler=''>
                         Français
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
