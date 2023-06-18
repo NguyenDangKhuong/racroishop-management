@@ -9,6 +9,7 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Analytics } from '@vercel/analytics/react'
 import { SessionProvider } from 'next-auth/react'
+import { appWithTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -65,7 +66,7 @@ function App({ Component, pageProps: { ...pageProps } }: any) {
   )
 }
 
-export default App
+export default appWithTranslation(App)
 
 // QueryClient that allows the queries to interact with the cache.
 // And for your QueryClient to be globally available for your application,

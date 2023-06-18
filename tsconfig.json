@@ -29,7 +29,9 @@
     "**/*.tsx",
     "src/components/BarcodeModal/index.jsx",
     "src/components/Html5QrcodePlugin/index.jsx",
-    "src/types/swiper.d.ts"
+    "src/types/swiper.d.ts",
+    "next.config.js",
+    "next-i18next.config.js"
   ],
   "exclude": [
     "node_modules"

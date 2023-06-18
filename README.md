@@ -1,6 +1,6 @@
-## Usage
+### Usage
 
-**use notus nextjs theme
+## use notus nextjs theme - daisy-ui -tailwind
 
 **run development**
 
@@ -19,6 +19,12 @@ The `pages/api` directory is mapped to `/api/*`.
 - before deploy run cmd:
 
 > `yarn build`
+
+**Use webpack-bundle-analyzer in your Next.js project:**
+
+> `yarn build-ananalyzer`
+
+- When enabled two HTML files (client.html and server.html) will be outputted to <distDir>/analyze/. One will be for the server bundle, one for the browser bundle.
 
 #### Auto deploy with `vecel` when push on branch `master`
 
