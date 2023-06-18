@@ -1,9 +1,10 @@
-import { NextPage } from 'next'
-import Head from 'next/head'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
+import { NextPage } from 'next'
+import Head from 'next/head'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { isMobile } from 'react-device-detect'
+import { toast } from 'react-toastify'
 import CartListItem from '../components/Carts/CartListItem'
 import CartScanInput from '../components/Carts/CartScanInput'
 import CartSumary from '../components/Carts/CartSumary'
@@ -33,7 +34,10 @@ const Cart: NextPage = () => {
     ['searchProduct', debounedScanValue],
     () =>
       get(`/api/product/sku/${debounedScanValue || searchValue}`).then(
-        res => res.data
+        res => {
+          !res.data && toast.error('Hết hàng hoặc không tìm thấy, vui lòng thêm bằng tay') 
+          return res.data
+        }
       ),
     {
       enabled: debounedScanValue.length > (isMobile ? 4 : 0)
