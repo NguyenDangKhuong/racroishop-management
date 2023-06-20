@@ -96,18 +96,6 @@ const Header = () => {
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => setIsOpenMenu(false))
 
-  const changeLocale = (locale: string) => {
-    router.push(
-      {
-        //@ts-ignore
-        route: router.pathname,
-        query: router.query
-      },
-      router.asPath,
-      { locale }
-    )
-  }
-
   return (
     <header
       className={classNames('fixed inset-x-0 top-0 w-full z-20', {
@@ -221,7 +209,7 @@ const Header = () => {
                     tabIndex={0}
                     aria-selected='true'
                     data-headlessui-state='selected'>
-                    <div onClick={() => changeLocale('en')}>
+                    <Link href={router.pathname} locale='en'>
                       <span className='flex items-center'>
                         <span
                           dangerouslySetInnerHTML={{
@@ -232,7 +220,7 @@ const Header = () => {
                         </span>
                         <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
                       </span>
-                    </div>
+                    </Link>
                   </li>
                   <li
                     className='text-gray-900
@@ -241,7 +229,7 @@ const Header = () => {
                     tabIndex={0}
                     aria-selected='true'
                     data-headlessui-state='selected'>
-                    <div onClick={() => changeLocale('vi')}>
+                    <Link href={router.pathname} locale='vi'>
                       <span className='flex items-center'>
                         <span
                           dangerouslySetInnerHTML={{
@@ -252,7 +240,7 @@ const Header = () => {
                         </span>
                         <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
                       </span>
-                    </div>
+                    </Link>
                   </li>
                 </ul>
               </li>

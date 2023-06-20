@@ -41,6 +41,6 @@ const nextConfig = {
   }
 }
 
-module.exports = withBundleAnalyzer({ nextConfig })
+module.exports = withBundleAnalyzer({ ...nextConfig })
 // todo: if you have 2 plugin an more, use next-compose-plugins
 // Ex: module.exports = withPlugins([...plugins, withBundleAnalyzer], nextConfiguration);
