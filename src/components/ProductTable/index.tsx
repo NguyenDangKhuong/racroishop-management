@@ -107,78 +107,26 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     }
     if (isSuccess) {
       return (
-        <table className='items-center w-full bg-transparent border-collapse select-text'>
+        <table className='table table-xs table-pin-rows table-pin-cols w-full'>
           <thead>
             <tr>
-              <th
-                className={
-                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                  (color === 'light'
-                    ? 'bg-gray-50 text-gray-500 border-gray-100'
-                    : 'bg-gray-600 text-gray-200 border-gray-500')
-                }>
-                Ảnh
-              </th>
-              <th
-                className={
-                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                  (color === 'light'
-                    ? 'bg-gray-50 text-gray-500 border-gray-100'
-                    : 'bg-gray-600 text-gray-200 border-gray-500')
-                }>
-                Tên
-              </th>
-              <th
-                className={
-                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                  (color === 'light'
-                    ? 'bg-gray-50 text-gray-500 border-gray-100'
-                    : 'bg-gray-600 text-gray-200 border-gray-500')
-                }>
-                Đơn giá
-              </th>
-              <th
-                className={
-                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                  (color === 'light'
-                    ? 'bg-gray-50 text-gray-500 border-gray-100'
-                    : 'bg-gray-600 text-gray-200 border-gray-500')
-                }>
-                Số lượng
-              </th>
-              <th
-                className={
-                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                  (color === 'light'
-                    ? 'bg-gray-50 text-gray-500 border-gray-100'
-                    : 'bg-gray-600 text-gray-200 border-gray-500')
-                }>
-                Danh mục
-              </th>
-              <th
-                className={
-                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                  (color === 'light'
-                    ? 'bg-gray-50 text-gray-500 border-gray-100'
-                    : 'bg-gray-600 text-gray-200 border-gray-500')
-                }>
-                Mã số
-              </th>
-              <th
-                className={
-                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                  (color === 'light'
-                    ? 'bg-gray-50 text-gray-500 border-gray-100'
-                    : 'bg-gray-600 text-gray-200 border-gray-500')
-                }>
-                Sửa/Xóa
-              </th>
+              <th>Hiển thị</th>
+              <th>Ảnh</th>
+              <th>Tên</th>
+              <th>Đơn giá</th>
+              <th>Số lượng</th>
+              <th>Danh mục</th>
+              <th>Mã số</th>
+              <th>Sửa/Xóa</th>
             </tr>
           </thead>
           <tbody>
             {products?.map((item: Product) => (
               <tr key={item.sku} className='border-t'>
-                <td className='pl-6 align-middle text-xs whitespace-nowrap py-4 text-left'>
+                <td>
+                  <input type='checkbox' checked className='checkbox' />
+                </td>
+                <td>
                   <img
                     className='h-24 w-auto'
                     src={item.imageUrl || '/image/product-placeholder.png'}
@@ -191,13 +139,11 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     }}
                   />
                 </td>
-                <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
+                <td>
                   <span>{item.name}</span>
                 </td>
-                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
-                  {currencyFormat(item.price)}
-                </td>
-                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                <td>{currencyFormat(item.price)}</td>
+                <td>
                   <i
                     className='fas fa-minus text-lg text-emerald-500 cursor-pointer'
                     onClick={() =>
@@ -218,14 +164,14 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                       })
                     }></i>
                 </td>
-                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                <td>
                   {String(
                     categories?.find(
                       (category: Category) => item.categoryId === category._id
                     )?.name
                   )}
                 </td>
-                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                <td>
                   <div
                     className='flex items-center text-blue-500 font-bold cursor-pointer'
                     onClick={() => {
@@ -235,7 +181,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     {item.sku}
                   </div>
                 </td>
-                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
+                <td>
                   <i
                     className='fas fa-edit text-lg text-emerald-500 mr-4 cursor-pointer'
                     onClick={() => {

@@ -36,7 +36,7 @@ const Header = () => {
     },
     {
       id: 1,
-      name: 'About',
+      name: t('header.about'),
       url: '#',
       child: [
         {
@@ -58,7 +58,7 @@ const Header = () => {
     },
     {
       id: 2,
-      name: 'Home',
+      name: t('header.products'),
       url: '#',
       child: [
         {
@@ -95,6 +95,19 @@ const Header = () => {
 
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => setIsOpenMenu(false))
+  const changeLangRef = useRef<HTMLLIElement>(null)
+  useOnClickOutside(changeLangRef, () => setIsShowLocale(false))
+
+  const changeLocale = (locale: string) => {
+    router.push(
+      {
+        pathname: router.pathname,
+        query: router.query
+      },
+      router.asPath,
+      { locale }
+    )
+  }
 
   return (
     <header
@@ -133,7 +146,7 @@ const Header = () => {
                   <Link
                     className='block py-10 xl:pr-8 md:pr-5 capitalize font-normal text-md hover:text-orange transition-all'
                     href='contact-us.html'>
-                    Contact
+                    {t('header.contact')}
                   </Link>
                 </li>
               </ul>
@@ -162,11 +175,28 @@ const Header = () => {
                   </>
                 </Link>
               </li>
-              <li className='relative select-none'>
+              <li className='ml-2'>
+                <div className='text-xs md:text-md hover:text-orange transition-all relative offcanvas-toggle'>
+                  {status === 'authenticated' && session?.user.isAdmin ? (
+                    <Link href='/dashboard' data-ol-has-click-handler=''>
+                      {t('adminDashboard')}
+                    </Link>
+                  ) : status === 'authenticated' ? (
+                    <div className='cursor-pointer' onClick={() => signOut()}>
+                      {t('signput')}
+                    </div>
+                  ) : (
+                    <Link href='/auth/signin' data-ol-has-click-handler=''>
+                      {t('login')}
+                    </Link>
+                  )}
+                </div>
+              </li>
+              <li className='relative select-none' ref={changeLangRef}>
                 <div
                   onClick={() => setIsShowLocale(!isShowLocale)}
                   className='flex-shrink-0 ml-auto lg:mr-2 xl:mr-2  2xl:mr-5'>
-                  <div className='relative ml-2 ltr:lg:ml-0 z-10 w-[140px] sm:w-[150px] lg:w-[130px] xl:w-[150px]'>
+                  <div className='relative ml-2 ltr:lg:ml-0 z-10'>
                     <div
                       className='border border-gray-300 text-heading text-[13px] xl:text-sm font-semibold relative w-full p-2 pl-3 pr-7 text-left bg-white rounded-lg shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 cursor-pointer'
                       aria-haspopup='listbox'
@@ -174,12 +204,19 @@ const Header = () => {
                       data-headlessui-state=''>
                       <span className='flex truncate items-center'>
                         <span className='mr-1.5'>
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html: EnglishFlagIcon()
-                            }}></span>
+                          {i18n.language === 'en' ? (
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: EnglishFlagIcon()
+                              }}></span>
+                          ) : (
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: VietNamFlagIcon()
+                              }}></span>
+                          )}
                         </span>
-                        English - EN
+                        {`${i18n.language.toUpperCase()}`}
                       </span>
                       <span className='absolute inset-y-0 right-0 pr-1 flex items-center pointer-events-none'>
                         <span
@@ -209,18 +246,22 @@ const Header = () => {
                     tabIndex={0}
                     aria-selected='true'
                     data-headlessui-state='selected'>
-                    <Link href={router.pathname} locale='en'>
+                    <div
+                      onClick={() => {
+                        changeLocale('en')
+                        setIsShowLocale(false)
+                      }}>
                       <span className='flex items-center'>
                         <span
                           dangerouslySetInnerHTML={{
                             __html: EnglishFlagIcon()
                           }}></span>
                         <span className='font-medium block truncate ml-1.5'>
-                          English - EN
+                          {`${t('english')}`}
                         </span>
                         <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
                       </span>
-                    </Link>
+                    </div>
                   </li>
                   <li
                     className='text-gray-900
@@ -229,37 +270,24 @@ const Header = () => {
                     tabIndex={0}
                     aria-selected='true'
                     data-headlessui-state='selected'>
-                    <Link href={router.pathname} locale='vi'>
+                    <div
+                      onClick={() => {
+                        changeLocale('vi')
+                        setIsShowLocale(false)
+                      }}>
                       <span className='flex items-center'>
                         <span
                           dangerouslySetInnerHTML={{
                             __html: VietNamFlagIcon()
                           }}></span>
                         <span className='font-medium block truncate ml-1.5'>
-                          Vietnam - VI
+                          {`${t('vietnamese')}`}
                         </span>
                         <span className='false absolute inset-y-0 left-0 flex items-center pl-3'></span>
                       </span>
-                    </Link>
+                    </div>
                   </li>
                 </ul>
-              </li>
-              <li className='ml-2'>
-                <div className='text-xs md:text-md hover:text-orange transition-all relative offcanvas-toggle'>
-                  {status === 'authenticated' && session?.user.isAdmin ? (
-                    <Link href='/dashboard' data-ol-has-click-handler=''>
-                      Admin Dashboard
-                    </Link>
-                  ) : status === 'authenticated' ? (
-                    <div className='cursor-pointer' onClick={() => signOut()}>
-                      Đăng xuất
-                    </div>
-                  ) : (
-                    <Link href='/auth/signin' data-ol-has-click-handler=''>
-                      Đăng nhập
-                    </Link>
-                  )}
-                </div>
               </li>
               <li className='ml-6 lg:hidden'>
                 <div
