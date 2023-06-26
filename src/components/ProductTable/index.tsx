@@ -173,7 +173,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 </td>
                 <td>
                   <div
-                    className='flex items-center text-blue-500 font-bold cursor-pointer'
+                    className='flex items-center text-blue-500 font-bold cursor-pointer select-text'
                     onClick={() => {
                       setProductSelected(item)
                       setShowBarcodeModal(true)

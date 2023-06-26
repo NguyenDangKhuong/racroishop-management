@@ -3,7 +3,7 @@ import {
   API_KEY_CLOUDINARY,
   API_SECRET_CLOUDINARY,
   CLOUD_NAME_CLOUDINARY
-} from '../helpers/constants'
+} from './constants'
 
 const removeImage = (publicId: string) => {
   try {

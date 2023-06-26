@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BACKEND_HOST } from '../helpers/constants'
+import { BACKEND_HOST } from './constants'
 
 const instance = axios.create({
   baseURL: BACKEND_HOST

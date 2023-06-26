@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
-import { format } from 'date-fns'
 import { NextPage } from 'next'
 import Head from 'next/head'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { format } from 'date-fns'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { toast } from 'react-toastify'
@@ -33,15 +33,19 @@ const Cart: NextPage = () => {
   } = useQuery(
     ['searchProduct', debounedScanValue],
     () =>
-      get(`/api/product/sku/${debounedScanValue || searchValue}`).then(
-        res => {
-          !res.data && toast.error('Hết hàng hoặc không tìm thấy, vui lòng thêm bằng tay') 
-          return res.data
-        }
-      ),
+      get(`/api/product/sku/${debounedScanValue || searchValue}`).then(res => {
+        !res.data &&
+          toast.error('Hết hàng hoặc không tìm thấy, vui lòng thêm bằng tay')
+        return res.data
+      }),
     {
       enabled: debounedScanValue.length > (isMobile ? 4 : 0)
     }
+  )
+
+  const { mutate: mutateCheckConnection } = useMutation(
+    ['checkConnection'],
+    () => get(`/api/check-connection`)
   )
 
   const existedProduct = useMemo(
@@ -54,6 +58,7 @@ const Cart: NextPage = () => {
 
   useEffect(() => {
     setDate(format(new Date(), 'HH:mm - dd/MM/yyyy'))
+    mutateCheckConnection()
   }, [])
 
   useEffect(() => {

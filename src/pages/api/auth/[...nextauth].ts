@@ -1,8 +1,8 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { NEXT_AUTH_SECRET } from '../../../helpers/constants'
 import UserModel from '../../../models/User'
 import connectDb from '../../../utils/connectDb'
+import { NEXT_AUTH_SECRET } from '../../../utils/constants'
 
 connectDb()
 
