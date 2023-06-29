@@ -6,7 +6,6 @@ type ProductListProp = {
 }
 
 const ProductList: React.FC<ProductListProp> = ({ products }) => {
-  console.log(products)
   return (
     <div className='mt-9 md:mt-10 xl:mt-12'>
       <div className='flex items-center justify-between -mt-2 pb-0.5 mb-4 md:mb-5 lg:mb-6 2xl:mb-7 3xl:mb-8'>

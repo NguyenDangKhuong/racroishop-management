@@ -22,14 +22,26 @@ const Index = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-  const products = await get(
-    `/api/products?page=${1}&size=${30}&name=&isPublic=${true}`
-  ).then(res => res.data.products)
+  try {
+    const products = await get(
+      `/api/products?page=${1}&size=${30}&name=&isPublic=${true}`
+    )
+      .then(res => res.data.products || [])
+      .catch(errror => console.log(errror))
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', ['index', 'common'])),
-      products
+    return {
+      props: {
+        ...(await serverSideTranslations(locale ?? 'en', ['index', 'common'])),
+        products
+      }
+    }
+  } catch (err) {
+    console.log(err)
+    return {
+      props: {
+        ...(await serverSideTranslations(locale ?? 'en', ['index', 'common'])),
+        products: []
+      }
     }
   }
 }
