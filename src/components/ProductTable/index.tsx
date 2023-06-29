@@ -124,7 +124,16 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
             {products?.map((item: Product) => (
               <tr key={item.sku} className='border-t'>
                 <td>
-                  <input type='checkbox' checked className='checkbox' />
+                  <input
+                    type='checkbox'
+                    checked={item.isPublic}
+                    onChange={e =>
+                      mutationPutProduct.mutate({
+                        ...item,
+                        isPublic: e.target.checked
+                      })
+                    }
+                  />
                 </td>
                 <td>
                   <img

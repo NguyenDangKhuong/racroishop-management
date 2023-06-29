@@ -5,7 +5,7 @@ import connectDb from '../../utils/connectDb'
 connectDb()
 
 const products = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { page, size, name } = req.query
+  const { page, size, name, isPublic } = req.query
   // Convert querystring values to number
   const pageNum = Number(page)
   const pageSize = Number(size)
@@ -20,7 +20,7 @@ const products = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({ products, totalPages, totalDocs })
   }
   if (pageNum === 1) {
-    const products = await ProductModel.find()
+    const products = await ProductModel.find({ isPublic })
       .limit(pageSize)
       .sort({ createdAt: -1 })
       .lean()

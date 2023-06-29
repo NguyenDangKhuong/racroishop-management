@@ -23,6 +23,9 @@ export class Product {
   @prop({ type: () => String })
   imagePublicId?: string
 
+  @prop({ type: () => Boolean })
+  isPublic?: boolean
+
   @prop({ type: () => Date })
   createdAt?: Date
 
