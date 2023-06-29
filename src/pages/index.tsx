@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
   try {
     const products = await get(
       `/api/products?page=${1}&size=${30}&name=&isPublic=${true}`
-    ).then(res => res.data.products || [])
+    ).then(res => res.data.products)
 
     return {
       props: {
