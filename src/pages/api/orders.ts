@@ -29,7 +29,7 @@ const orderRoute = async (req: NextApiRequest, res: NextApiResponse) => {
         }).lean()
     res.status(200).json({ orders })
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }

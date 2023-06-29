@@ -27,7 +27,7 @@ const ForgotPassword = () => {
     try {
       mutationForgotPassword.mutate(data.email)
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   })
   return (

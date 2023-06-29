@@ -16,7 +16,7 @@ const removeImage = (publicId: string) => {
       console.log(result, error)
     })
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 

@@ -42,7 +42,7 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
     // req.session.userId = newUser.id
     return res.status(201).send('Đã đăng kí tài khoản thành công')
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }

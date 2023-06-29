@@ -27,7 +27,7 @@ export const get = async (url: string, params?: object) => {
     //   window.localStorage.removeItem(USER_KEY)
     //   window.location.href = '/signin'
     // }
-    console.log(err)
+    console.error(err)
     return Promise.reject(err)
   }
 }
@@ -42,7 +42,7 @@ export const post = async (url: string, data: object) => {
     //   window.localStorage.removeItem(USER_KEY)
     //   window.location.href = '/signin'
     // }
-    console.log(err)
+    console.error(err)
     return Promise.reject(err)
   }
 }
@@ -57,7 +57,7 @@ export const put = async (url: string, data: object) => {
     //   window.localStorage.removeItem(USER_KEY)
     //   window.location.href = '/signin'
     // }
-    console.log(err)
+    console.error(err)
     return Promise.reject(err)
   }
 }
@@ -72,7 +72,7 @@ export const remove = async (url: string, params?: object) => {
     //   window.localStorage.removeItem(USER_KEY)
     //   window.location.href = '/signin'
     // }
-    console.log(err)
+    console.error(err)
     return Promise.reject(err)
   }
 }

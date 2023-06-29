@@ -52,7 +52,7 @@ async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
     await CategoryModel.findByIdAndUpdate(_id, req.body, { new: true })
     res.status(200).send(`Danh mục đã được cập nhật!`)
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }

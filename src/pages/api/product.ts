@@ -67,7 +67,7 @@ async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).send(`Sản phẩm đã được cập nhật!`)
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }

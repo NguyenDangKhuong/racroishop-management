@@ -44,6 +44,6 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
     return res.status(201).send('Đã thêm đơn vào hệ thống!')
   } catch (err) {
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
-    console.log(err)
+    console.error(err)
   }
 }

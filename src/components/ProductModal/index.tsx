@@ -106,7 +106,7 @@ export default function ProductModal({
       },
       (error: any, res: any) => {
         if (error) {
-          console.log(error)
+          console.error(error)
           return
         }
         if (res.event === 'success' && res.info.resource_type === 'image') {

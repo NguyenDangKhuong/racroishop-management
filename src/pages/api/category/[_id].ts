@@ -26,7 +26,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
     const category: Category | null = await CategoryModel.findById(_id)
     return res.status(200).json(category)
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }
@@ -41,7 +41,7 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
       }).lean()
     return res.status(200).json(deletedCategory)
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }
