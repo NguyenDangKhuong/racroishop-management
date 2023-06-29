@@ -144,6 +144,7 @@ const Cart: NextPage = () => {
             handleSearchValue={onChangeScanInput}
             scanLoading={scanLoading}
             scanFetching={scanFetching}
+            mutateCheckConnection={mutateCheckConnection}
           />
           {/* <CartSearchInput
             inputValue={searchValue}

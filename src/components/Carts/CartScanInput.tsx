@@ -6,11 +6,13 @@ const CartScanInput = ({
   handleSearchValue,
   inputValue,
   scanLoading,
-  scanFetching
+  scanFetching,
+  mutateCheckConnection
 }: any) => {
   const scanInput = useRef<HTMLInputElement>(null)
   const onIdle = () => {
     scanInput?.current?.focus()
+    mutateCheckConnection()
   }
 
   useIdleTimer({ onIdle, timeout: 10_000 })
