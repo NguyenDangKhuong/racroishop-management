@@ -178,7 +178,7 @@ const CartSumary: React.FC<{
               isPaidOnline ? setCustomerCash(Number(0)) : setCustomerCash(Number(totalPrice - discountPrice))
             }}
           />
-          <span className='text-sm'>Khach chuyen khoan</span>
+          <span className='text-sm'>Khách chuyển khoản</span>
         </div>
         {customerCash > 0 && customerCash < 999 && (
           <div className='py-1'>
