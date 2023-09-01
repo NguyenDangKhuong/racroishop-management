@@ -1,7 +1,7 @@
-import { NextPage } from 'next'
-import Head from 'next/head'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
+import { NextPage } from 'next'
+import Head from 'next/head'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { toast } from 'react-toastify'
@@ -64,10 +64,10 @@ const Cart: NextPage = () => {
   useEffect(() => {
     const newCartList = existedProduct
       ? cartList.map(item =>
-          item.product?._id === product._id
-            ? { ...item, quantity: item.quantity! + 1 }
-            : item
-        )
+        item.product?._id === product._id
+          ? { ...item, quantity: item.quantity! + 1 }
+          : item
+      )
       : [...cartList, { product, quantity: 1 }]
     product && setCartList(newCartList)
     setScanValue('')
