@@ -18,60 +18,40 @@ instance.interceptors.request.use(
 )
 
 export const get = async (url: string, params?: object) => {
-  // await reloadUserAuth()
   try {
     const res = await instance.get(url, params)
     return res
   } catch (err) {
-    // if (e.response.status === 401) {
-    //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/signin'
-    // }
     console.error(err)
     return Promise.reject(err)
   }
 }
 
 export const post = async (url: string, data: object) => {
-  // await reloadUserAuth()
   try {
     const res = await instance.post(url, data)
     return res
   } catch (err) {
-    // if (e.response.status === 401) {
-    //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/signin'
-    // }
     console.error(err)
     return Promise.reject(err)
   }
 }
 
 export const put = async (url: string, data: object) => {
-  // await reloadUserAuth()
   try {
     const res = await instance.put(url, data)
     return res
   } catch (err) {
-    // if (e.response.status === 401) {
-    //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/signin'
-    // }
     console.error(err)
     return Promise.reject(err)
   }
 }
 
 export const remove = async (url: string, params?: object) => {
-  // await reloadUserAuth()
   try {
     const res = await instance.delete(url, { params })
     return res
   } catch (err) {
-    // if (e.response.status === 401) {
-    //   window.localStorage.removeItem(USER_KEY)
-    //   window.location.href = '/signin'
-    // }
     console.error(err)
     return Promise.reject(err)
   }

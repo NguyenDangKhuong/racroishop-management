@@ -35,9 +35,7 @@ const ProductList: React.FC<ProductListProp> = ({ products }) => {
                 {item.name}
               </h2>
               <p className='text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate'>
-                Casual wear (casual attire or clothing) may be a Western code
-                that’s relaxed, occasional, spontaneous and fitted to everyday
-                use. Casual wear became popular within the Western world
+                Sản phẩm cao cấp, hàng quảng châu, vải mịn và bền màu
               </p>
               <div className='font-semibold text-sm sm:text-base mt-1.5 flex flex-wrap gap-x-2 lg:text-lg lg:mt-2.5 text-heading'>
                 <span className='inline-block false'>
