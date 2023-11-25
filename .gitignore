@@ -17,3 +17,6 @@ out/
 .vercel
 
 node_modules/
+
+racroishop-management-v2/node_modules/
+racroishop-management-v2/.next/
