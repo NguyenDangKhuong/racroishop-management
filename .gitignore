@@ -1,8 +1,8 @@
 #CLIENT
 
 # production
-app
-build
+./app
+./build
 
 # debug
 npm-debug.log*
@@ -15,8 +15,4 @@ out/
 
 # vercel
 .vercel
-
 node_modules/
-
-racroishop-management-v2/node_modules/
-racroishop-management-v2/.next/
