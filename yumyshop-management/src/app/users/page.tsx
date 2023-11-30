@@ -1,5 +1,3 @@
-import UsersTable from '@/components/users/users.table'
-
 const UsersPage = async (props: any) => {
   const LIMIT = 5
   const page = props?.searchParams?.page ?? 1
@@ -16,6 +14,7 @@ const UsersPage = async (props: any) => {
 
   return (
     <div>
+      User table
       {/* <UsersTable
         users={data ? data : []}
         meta={{
