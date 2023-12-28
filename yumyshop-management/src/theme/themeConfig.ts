@@ -1,10 +1,10 @@
 import type { ThemeConfig } from 'antd'
 
 const theme: ThemeConfig = {
-  // cssVar: true,
+  cssVar: true,
   token: {
     fontSize: 16,
-    colorPrimary: 'blue',
+    // colorPrimary: 'blue',
   }
 }
 

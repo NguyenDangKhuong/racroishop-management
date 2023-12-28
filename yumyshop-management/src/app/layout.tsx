@@ -22,13 +22,13 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className} suppressHydrationWarning={true}>
-        <ConfigProvider theme={theme}>
-          <StyledComponentsRegistry>
+        <StyledComponentsRegistry>
+          <ConfigProvider theme={theme}>
             <DashboardLayout>
               {children}
             </DashboardLayout>
-          </StyledComponentsRegistry>
-        </ConfigProvider>
+          </ConfigProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   )

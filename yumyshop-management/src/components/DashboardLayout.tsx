@@ -1,6 +1,7 @@
 'use client';
 import { Layout, theme } from 'antd';
 import { useState } from 'react';
+import DashboardFooter from './DashboardFooter';
 import DashboardHeader from './DashboardHeader';
 import DashboardSider from './DashboardSider';
 
@@ -28,6 +29,7 @@ const DashboardLayout = ({ children }: any) => {
         >
           {children}
         </Content>
+        <DashboardFooter />
       </Layout>
     </Layout>
   );
