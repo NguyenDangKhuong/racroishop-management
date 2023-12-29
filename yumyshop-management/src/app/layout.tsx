@@ -1,4 +1,4 @@
-import DashboardLayout from '@/components/DashboardLayout';
+import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import StyledComponentsRegistry from '@/lib/antd.registry';
 import theme from '@/theme/themeConfig';
 import type { Metadata } from 'next';

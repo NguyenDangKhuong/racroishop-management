@@ -1,40 +1,40 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
-export class Product {
-  _id!: string
+// import { getModelForClass, prop } from '@typegoose/typegoose'
+// export class Product {
+//   _id!: string
 
-  @prop({ type: () => String, required: true, sparse: true })
-  name!: string
+//   @prop({ type: () => String, required: true, sparse: true })
+//   name!: string
 
-  @prop({ type: () => String, required: true, unique: true, sparse: true  })
-  sku!: string
+//   @prop({ type: () => String, required: true, unique: true, sparse: true  })
+//   sku!: string
 
-  @prop({ type: () => Number, required: true })
-  price!: number
+//   @prop({ type: () => Number, required: true })
+//   price!: number
 
-  @prop({ type: () => Number, required: true })
-  storage!: number
+//   @prop({ type: () => Number, required: true })
+//   storage!: number
 
-  @prop({ type: () => String })
-  categoryId?: string
+//   @prop({ type: () => String })
+//   categoryId?: string
 
-  @prop({ type: () => String })
-  imageUrl?: string
+//   @prop({ type: () => String })
+//   imageUrl?: string
 
-  @prop({ type: () => String })
-  imagePublicId?: string
+//   @prop({ type: () => String })
+//   imagePublicId?: string
 
-  @prop({ type: () => Boolean })
-  isPublic?: boolean
+//   @prop({ type: () => Boolean })
+//   isPublic?: boolean
 
-  @prop({ type: () => Date })
-  createdAt?: Date
+//   @prop({ type: () => Date })
+//   createdAt?: Date
 
-  @prop({ type: () => Date })
-  updatedAt?: Date
-}
+//   @prop({ type: () => Date })
+//   updatedAt?: Date
+// }
 
-const ProductModel = getModelForClass(Product, {
-  schemaOptions: { timestamps: true }
-})
+// const ProductModel = getModelForClass(Product, {
+//   schemaOptions: { timestamps: true }
+// })
 
-export default ProductModel
+// export default ProductModel
