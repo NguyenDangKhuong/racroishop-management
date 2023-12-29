@@ -9,10 +9,13 @@
   "semi": false,
   "importOrder": [
     "^(next/(.*)$)|^(next$)",
+    "^(react/(.*)$)|^(react$)",
     "<THIRD_PARTY_MODULES>",
     "next-seo.config",
     "^src/components/(.*)$",
     "^src/utils/(.*)$",
-    "^[./]"
-  ]
+    "^[./]",
+    "^(@)(/.*|$)"
+  ],
+  "importOrderSeparation": true
 }

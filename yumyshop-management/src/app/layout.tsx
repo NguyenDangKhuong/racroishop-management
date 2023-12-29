@@ -1,11 +1,13 @@
-import DashboardLayout from '@/components/dashboard/DashboardLayout';
-import StyledComponentsRegistry from '@/lib/antd.registry';
-import theme from '@/theme/themeConfig';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 
-import { ConfigProvider } from 'antd';
-import './globals.css';
+import { ConfigProvider } from 'antd'
+
+import './globals.css'
+
+import DashboardLayout from '@/components/dashboard/DashboardLayout'
+import StyledComponentsRegistry from '@/lib/antdRegistry'
+import theme from '@/theme/themeConfig'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,9 +26,7 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning={true}>
         <StyledComponentsRegistry>
           <ConfigProvider theme={theme}>
-            <DashboardLayout>
-              {children}
-            </DashboardLayout>
+            <DashboardLayout>{children}</DashboardLayout>
           </ConfigProvider>
         </StyledComponentsRegistry>
       </body>

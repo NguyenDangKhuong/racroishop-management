@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, mongoose, prop } from '@typegoose/typegoose'
 
 export class Category {
   _id!: string
@@ -13,7 +13,7 @@ export class Category {
   updatedAt?: Date
 }
 
-const CategoryModel = getModelForClass(Category, {
+const CategoryModel = mongoose.models.Category || getModelForClass(Category, {
   schemaOptions: { timestamps: true }
 })
 

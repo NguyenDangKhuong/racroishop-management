@@ -1,11 +1,11 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, mongoose, prop } from '@typegoose/typegoose'
 export class Product {
   _id!: string
 
   @prop({ type: () => String, required: true, sparse: true })
   name!: string
 
-  @prop({ type: () => String, required: true, unique: true, sparse: true  })
+  @prop({ type: () => String, required: true, unique: true, sparse: true })
   sku!: string
 
   @prop({ type: () => Number, required: true })
@@ -33,7 +33,7 @@ export class Product {
   updatedAt?: Date
 }
 
-const ProductModel = getModelForClass(Product, {
+const ProductModel = mongoose.models.Product || getModelForClass(Product, {
   schemaOptions: { timestamps: true }
 })
 

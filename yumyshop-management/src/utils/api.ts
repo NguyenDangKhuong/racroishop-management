@@ -2,14 +2,16 @@ import { BACKEND_HOST } from './constants'
 
 export const get = async (url: string, params?: object) => {
   try {
-    const res = await fetch(`${BACKEND_HOST}/${url}`,
+    const res = await fetch(
+      `${BACKEND_HOST}/${url}?${new URLSearchParams({
+        ...params
+      })}`,
       {
-        method: "GET",
+        method: 'GET'
         // next: { tags: ['list-users'] }
       }
     )
-    console.log(`${BACKEND_HOST}/${url}`)
-    return res
+    return await res.json()
   } catch (err) {
     console.error(err)
     return Promise.reject(err)

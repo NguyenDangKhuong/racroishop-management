@@ -1,14 +1,18 @@
-'use client';
+'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import { useEffect, useState } from 'react'
-import { handleDeleteUserAction } from '@/actions'
-import { IUser } from '@/types/backend'
+
 import { DeleteTwoTone, EditTwoTone, PlusOutlined } from '@ant-design/icons'
 import { Button, Popconfirm, Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
+
 import CreateUser from './create.user'
 import UpdateUser from './update.user'
+
+import { handleDeleteUserAction } from '@/actions'
+import { IUser } from '@/types/backend'
 
 interface IProps {
   users: IUser[] | []
