@@ -1,21 +1,23 @@
+import DashboardTitle from '@/components/dashboard/DashboardTitle'
 import ProductTable from '@/components/dashboard/products/ProductTable'
-import ProductTitle from '@/components/dashboard/products/ProductTitle'
 import { get } from '@/utils/api'
+import { LIMIT_PAGE_NUMBER } from '@/utils/constants'
 
-const ProductPage = async () => {
-  const dataProducts = await get(`api/products`, {
-    page: '1',
-    size: '20',
-    name: '',
-    isPublic: 'true'
-  })
-  const dataCategories = await get(`api/categories`)
+const ProductPage = async (props: any) => {
+  //fetch product data following search param
+  const page = props?.searchParams?.page ?? 1
+  const { totalDocs, products } = await get(`api/products`, {
+    page,
+    size: LIMIT_PAGE_NUMBER,
+  }, ['products'])
+  const { categories } = await get(`api/categories`)
   return (
     <>
-      <ProductTitle totalDocs={dataProducts.totalDocs} />
+      <DashboardTitle pageName='sản phẩm' totalDocs={totalDocs} />
       <ProductTable
-        products={dataProducts.products}
-        categories={dataCategories.categories}
+        totalDocs={totalDocs}
+        products={products}
+        categories={categories}
       />
     </>
   )

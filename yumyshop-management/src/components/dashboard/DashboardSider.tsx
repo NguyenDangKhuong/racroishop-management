@@ -32,7 +32,7 @@ const DashboardSider = ({ collapsed }: any) => {
           {
             key: '2',
             icon: <BarChartOutlined />,
-            label: <Link href='/cart'>Thống kê</Link>
+            label: <Link href='/order'>Thống kê</Link>
           },
           {
             key: '3',
@@ -42,7 +42,7 @@ const DashboardSider = ({ collapsed }: any) => {
           {
             key: '4',
             icon: <BookOutlined />,
-            label: 'Danh mục'
+            label: <Link href='/categories'>Danh mục</Link>
           }
         ]}
       />

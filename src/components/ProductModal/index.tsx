@@ -80,21 +80,21 @@ export default function ProductModal({
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutProduct.mutate({
-          ...data,
-          _id: editingProduct._id,
-          price: Number(data.price),
-          storage: Number(data.storage),
-          imageUrl,
-          imagePublicId
-        })
+        ...data,
+        _id: editingProduct._id,
+        price: Number(data.price),
+        storage: Number(data.storage),
+        imageUrl,
+        imagePublicId
+      })
       : mutationPostProduct.mutate({
-          ...data,
-          sku,
-          price: Number(data.price),
-          storage: Number(data.storage),
-          imageUrl,
-          imagePublicId
-        })
+        ...data,
+        sku,
+        price: Number(data.price),
+        storage: Number(data.storage),
+        imageUrl,
+        imagePublicId
+      })
   )
 
   const openWidget = () => {
@@ -153,9 +153,8 @@ export default function ProductModal({
                 className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                 {/*header*/}
                 <div className='flex items-start justify-between p-5 border-b border-solid border-gray-200 rounded-t'>
-                  <h3 className='text-3xl font-semibold'>{`${
-                    isEditing ? 'Sửa' : 'Thêm'
-                  } sản phẩm`}</h3>
+                  <h3 className='text-3xl font-semibold'>{`${isEditing ? 'Sửa' : 'Thêm'
+                    } sản phẩm`}</h3>
                   <button
                     className='p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none'
                     onClick={() => handleCloseModal()}>

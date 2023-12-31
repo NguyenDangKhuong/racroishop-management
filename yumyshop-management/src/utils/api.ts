@@ -1,49 +1,86 @@
+'use server'
+import { revalidateTag } from 'next/cache'
 import { BACKEND_HOST } from './constants'
 
-export const get = async (url: string, params?: object) => {
+export interface PostResponse {
+  data?: any,
+  message: string,
+  status: number
+}
+
+export const get = async (url: string, params?: object, tags?: string[]) => {
   try {
     const res = await fetch(
       `${BACKEND_HOST}/${url}?${new URLSearchParams({
         ...params
       })}`,
       {
-        method: 'GET'
-        // next: { tags: ['list-users'] }
+        method: 'GET',
+        next: { tags }
       }
     )
     return await res.json()
   } catch (err) {
     console.error(err)
-    return Promise.reject(err)
   }
 }
 
-// export const post = async (url: string, data: object) => {
-//   try {
-//     const res = await instance.post(url, data)
-//     return res
-//   } catch (err) {
-//     console.error(err)
-//     return Promise.reject(err)
-//   }
-// }
+export const post = async (url: string, bodyParam?: object, revalidateName = '') => {
+  try {
+    const res = await fetch(
+      `${BACKEND_HOST}/${url}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(bodyParam),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    revalidateName && revalidateTag(revalidateName)
+    const data: any = await res.json()
+    return {
+      data,
+      success: data.success,
+      message: data.message,
+      status: await res.status
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
 
-// export const put = async (url: string, data: object) => {
-//   try {
-//     const res = await instance.put(url, data)
-//     return res
-//   } catch (err) {
-//     console.error(err)
-//     return Promise.reject(err)
-//   }
-// }
+export const put = async (url: string, bodyParam?: object, revalidateName = '') => {
+  try {
+    const res = await fetch(
+      `${BACKEND_HOST}/${url}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(bodyParam),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    revalidateName && revalidateTag(revalidateName)
+    const data: any = await res.json()
+    return {
+      data,
+      success: data.success,
+      message: data.message,
+      status: await res.status
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
 
-// export const remove = async (url: string, params?: object) => {
-//   try {
-//     const res = await instance.delete(url, { params })
-//     return res
-//   } catch (err) {
-//     console.error(err)
-//     return Promise.reject(err)
-//   }
-// }
+export const remove = async (url: string, params?: object) => {
+  try {
+    const res = await instance.delete(url, { params })
+    return res
+  } catch (err) {
+    console.error(err)
+    return Promise.reject(err)
+  }
+}

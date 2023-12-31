@@ -5,5 +5,6 @@ connectDb()
 
 export const GET = async () => {
   const categories = await CategoryModel.find().lean()
-  return Response.json({ categories }, { status: 200 })
+  const totalDocs = await CategoryModel.countDocuments()
+  return Response.json({ categories, totalDocs }, { status: 200 })
 }

@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, mongoose, prop } from '@typegoose/typegoose'
 
 export class User {
   _id!: string
@@ -22,7 +22,7 @@ export class User {
   updateAt?: Date
 }
 
-const UserModel = getModelForClass(User, {
+const UserModel = mongoose.models.User || getModelForClass(User, {
   schemaOptions: { timestamps: true }
 })
 

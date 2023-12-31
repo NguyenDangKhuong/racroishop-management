@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, mongoose, prop } from '@typegoose/typegoose'
 import { ProductCart } from './ProductCart'
 
 export class Order {
@@ -32,7 +32,7 @@ export class Order {
   updatedAt?: Date
 }
 
-const OrderModel = getModelForClass(Order, {
+const OrderModel = mongoose.models.Order || getModelForClass(Order, {
   schemaOptions: { timestamps: true }
 })
 
