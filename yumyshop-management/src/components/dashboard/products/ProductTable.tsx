@@ -8,15 +8,18 @@ import {
   MinusOutlined,
   PlusOutlined
 } from '@ant-design/icons'
-import { Button, Checkbox, Divider, Flex, Image, Table } from 'antd'
+import { Button, Checkbox, Divider, Flex, Image, Popconfirm, Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 
 import { Category } from '@/models/Category'
 import { Product } from '@/models/Product'
-import { currencyFormat } from '@/utils/currencyFormat'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import ProductModal from './ProductModal'
+import { remove } from '@/utils/api'
 import { LIMIT_PAGE_NUMBER } from '@/utils/constants'
+import { currencyFormat } from '@/utils/currencyFormat'
+import pushNotification from '@/utils/pushNotification'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import BarcodeModal from './BarcodeModal'
+import ProductModal from './ProductModal'
 
 export const initialProduct: Product = {
   _id: '',
@@ -44,6 +47,7 @@ const ProductTable = ({
   const { replace } = useRouter();
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenBarcode, setIsOpenBarcode] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
   const columns: ColumnsType<Product> = [
     {
@@ -98,9 +102,12 @@ const ProductTable = ({
     {
       title: 'Mã số',
       dataIndex: 'sku',
-      render: (_, { sku }) => (
-        <Button type='primary'>
-          {sku}
+      render: (_, record) => (
+        <Button type='primary' onClick={() => {
+          setEditingProduct(record)
+          setIsOpenBarcode(true)
+        }}>
+          {record.sku}
         </Button>
       )
     },
@@ -112,10 +119,20 @@ const ProductTable = ({
             setEditingProduct(record)
             setIsOpen(true)
           }} />
-          <Divider type='vertical' />
-          <DeleteTwoTone className='cursor-pointer' twoToneColor='#ff1500' onClick={() => {
-            setEditingProduct(record)
-          }} />
+          <Divider className='mx-2' type='vertical' />
+          <Popconfirm
+            placement="leftTop"
+            title={"Xác nhận xóa sản phẩm?"}
+            description={"Bạn có chắc chắn muốn xóa sản phẩm này ?"}
+            onConfirm={async () => {
+              const { message, success }: any = await remove('api/product', record, 'products')
+              pushNotification(message, success)
+            }}
+            okText="Xác nhận"
+            cancelText="Hủy"
+          >
+            <DeleteTwoTone className='cursor-pointer' twoToneColor='#ff1500' />
+          </Popconfirm>
         </>
       )
     }
@@ -135,7 +152,7 @@ const ProductTable = ({
         dataSource={products}
         scroll={{ x: 800, y: 600 }}
         pagination={{
-          current: Number(params.get('page')),
+          current: Number(params.get('page')) || 1,
           pageSize: LIMIT_PAGE_NUMBER,
           hideOnSinglePage: true,
           total: totalDocs,
@@ -150,6 +167,8 @@ const ProductTable = ({
       <ProductModal isOpen={isOpen} setIsOpen={(value) => setIsOpen(value)}
         editingProduct={editingProduct} setEditingProduct={(val) => setEditingProduct(val)} categories={categories}
       />
+      <BarcodeModal isOpen={isOpenBarcode} setIsOpen={(value) => setIsOpenBarcode(value)}
+        editingProduct={editingProduct} setEditingProduct={(val) => setEditingProduct(val)} />
     </>
   )
 }

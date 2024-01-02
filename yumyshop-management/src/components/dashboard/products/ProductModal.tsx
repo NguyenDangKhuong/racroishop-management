@@ -1,8 +1,12 @@
+import { useGenegateId } from '@/hooks/useGenegateId';
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
-import { post } from "@/utils/api";
+import { post, put } from "@/utils/api";
 import numberWithCommas from "@/utils/numberWithCommas";
 import pushNotification from "@/utils/pushNotification";
+import {
+  UploadOutlined
+} from '@ant-design/icons';
 import { AutoComplete, Button, Flex, Form, Input, InputNumber, Modal, Select } from "antd";
 import { useEffect, useState } from "react";
 import { initialProduct } from "./ProductTable";
@@ -16,17 +20,21 @@ const ProductModal = ({ isOpen, setIsOpen, editingProduct, setEditingProduct, ca
   setEditingProduct: (val: any) => void
   categories: Category[]
 }) => {
+  const isEdit = !!editingProduct._id
   //auto complete price
   const [options, setOptions] = useState<{ value: number }[]>([]);
   const getPanelValue = (price: number) =>
     !price && price > 0 && price < 999 ? [] : [
-      { label: numberWithCommas(price * 1000), value: price * 1000 },
-      { label: numberWithCommas(price * 10000), value: price * 10000 },
-      { label: numberWithCommas(price * 100000), value: price * 100000 }];
+      { label: String(numberWithCommas(price * 1000)), value: price * 1000 },
+      { label: String(numberWithCommas(price * 10000)), value: price * 10000 },
+      { label: String(numberWithCommas(price * 100000)), value: price * 100000 }];
 
   const [isLoading, setIsLoading] = useState(false)
   const [form] = Form.useForm()
   useEffect(() => form.setFieldsValue(editingProduct), [form, editingProduct])
+  const sku = useGenegateId(5)
+  const tempName = useGenegateId(3)
+  const { imagePublicId, categoryId } = editingProduct
   return <Modal
     title={`${editingProduct._id ? 'Sửa' : 'Thêm'} sản phẩm`}
     open={isOpen}
@@ -45,7 +53,9 @@ const ProductModal = ({ isOpen, setIsOpen, editingProduct, setEditingProduct, ca
       onFinish={async () => {
         const { _id, ...editingProductRemoveId } = editingProduct
         setIsLoading(true)
-        const { message, success }: any = await post('api/product', editingProductRemoveId)
+        const { message, success }: any = isEdit
+          ? await put('api/product', editingProduct, 'products')
+          : await post('api/product', { ...editingProductRemoveId, sku }, 'products')
         setIsLoading(false)
         pushNotification(message, success)
         if (!success) return
@@ -58,10 +68,23 @@ const ProductModal = ({ isOpen, setIsOpen, editingProduct, setEditingProduct, ca
         name="name"
         rules={[{ required: true, message: 'Vui lòng nhập tên sản phẩm' }]}
       >
-        <Input onChange={(e) => setEditingProduct({
-          ...editingProduct,
-          name: e.target.value
-        })} />
+        <Flex>
+
+          <Input value={editingProduct.name} onChange={(e) => setEditingProduct({
+            ...editingProduct,
+            name: e.target.value
+          })} />
+          {!isEdit ? <Button className='ml-2' type='primary' onClick={() => {
+            categoryId && setEditingProduct({
+              ...editingProduct,
+              name: `${String(
+                categories.find(
+                  ({ _id }) => _id === categoryId
+                )?.name
+              )} ${tempName}`
+            })
+          }}>Tạo tên</Button> : null}
+        </Flex>
       </Form.Item>
       <Form.Item<Product>
         label="Giá"
@@ -115,9 +138,32 @@ const ProductModal = ({ isOpen, setIsOpen, editingProduct, setEditingProduct, ca
         name="imageUrl"
         rules={[{ required: true, message: 'Vui lòng up hình sản phẩm' }]}
       >
-        <Input />
+        <Button icon={!!!imagePublicId && <UploadOutlined />} onClick={() => {
+          const widget = window.cloudinary.createUploadWidget(
+            {
+              cloudName: 'ndk',
+              uploadPreset: 'yumyshop',
+              folder: 'yumyshop/products'
+            },
+            (error: any, res: any) => {
+              if (error) {
+                console.error(error)
+                return
+              }
+              if (res.event === 'success' && res.info.resource_type === 'image') {
+                setEditingProduct({
+                  ...editingProduct,
+                  imageUrl: res.info.url, imagePublicId: res.info.public_id
+                })
+                form.setFieldsValue({ imageUrl: res.info.url });
+              }
+            }
+          )
+          widget.open()
+        }}>{imagePublicId || 'Chọn ảnh'}</Button>
+
       </Form.Item>
-      <Flex justify="flex-end">
+      <Flex justify="flex-end" className="mt-5">
         <Form.Item>
           <Flex>
             <Button className="mr-2" onClick={() => {

@@ -7,10 +7,12 @@ import {
   TableOutlined
 } from '@ant-design/icons'
 import { Layout, Menu } from 'antd'
+import { usePathname } from 'next/navigation'
 
 const { Sider } = Layout
 
 const DashboardSider = ({ collapsed }: any) => {
+  const pathname = usePathname()
   return (
     <Sider
       trigger={null}
@@ -18,31 +20,31 @@ const DashboardSider = ({ collapsed }: any) => {
       breakpoint='lg'
       collapsible
       collapsed={collapsed}>
-      <div className='demo-logo-vertical' />
+      <img className='bg-white mb-5 h-[65px] m-auto' src='/image/logo.png' />
       <Menu
         theme='dark'
         mode='inline'
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={[pathname]}
         items={[
           {
-            key: '1',
+            key: '/carts',
             icon: <ShoppingCartOutlined />,
-            label: <Link href='/cart'>Thanh toán</Link>
+            label: <Link href='/carts'>Thanh toán</Link>
           },
           {
-            key: '2',
-            icon: <BarChartOutlined />,
-            label: <Link href='/order'>Thống kê</Link>
-          },
-          {
-            key: '3',
+            key: '/products',
             icon: <TableOutlined />,
             label: <Link href='/products'>Sản phẩm</Link>
           },
           {
-            key: '4',
+            key: '/categories',
             icon: <BookOutlined />,
             label: <Link href='/categories'>Danh mục</Link>
+          },
+          {
+            key: '/orders',
+            icon: <BarChartOutlined />,
+            label: <Link href='/orders'>Thống kê</Link>
           }
         ]}
       />

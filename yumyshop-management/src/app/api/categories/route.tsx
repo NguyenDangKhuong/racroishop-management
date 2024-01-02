@@ -1,10 +1,11 @@
 import CategoryModel from '@/models/Category'
 import connectDb from '@/utils/connectDb'
+import { NextResponse } from 'next/server'
 
 connectDb()
 
 export const GET = async () => {
-  const categories = await CategoryModel.find().lean()
+  const categories = await CategoryModel.find().sort().lean()
   const totalDocs = await CategoryModel.countDocuments()
-  return Response.json({ categories, totalDocs }, { status: 200 })
+  return NextResponse.json({ categories, totalDocs }, { status: 200 })
 }

@@ -75,12 +75,27 @@ export const put = async (url: string, bodyParam?: object, revalidateName = '') 
   }
 }
 
-export const remove = async (url: string, params?: object) => {
+export const remove = async (url: string, bodyParam?: object, revalidateName = '') => {
   try {
-    const res = await instance.delete(url, { params })
-    return res
+    const res = await fetch(
+      `${BACKEND_HOST}/${url}`,
+      {
+        method: 'DELETE',
+        body: JSON.stringify(bodyParam),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    revalidateName && revalidateTag(revalidateName)
+    const data: any = await res.json()
+    return {
+      data,
+      success: data.success,
+      message: data.message,
+      status: await res.status
+    }
   } catch (err) {
     console.error(err)
-    return Promise.reject(err)
   }
 }

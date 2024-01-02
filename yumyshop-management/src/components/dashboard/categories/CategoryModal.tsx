@@ -1,11 +1,9 @@
 import { Category } from "@/models/Category";
 import { post, put } from "@/utils/api";
 import pushNotification from "@/utils/pushNotification";
-import { Button, Flex, Form, Input, Modal, Select } from "antd";
+import { Button, Flex, Form, Input, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { initialCategory } from "./CategoryTable";
-
-const { Option } = Select;
 
 const CategoryModal = ({ isOpen, setIsOpen, editingCategory, setEditingCategory, categories }: {
   isOpen: boolean
@@ -56,7 +54,7 @@ const CategoryModal = ({ isOpen, setIsOpen, editingCategory, setEditingCategory,
           name: e.target.value
         })} />
       </Form.Item>
-      <Flex justify="flex-end">
+      <Flex justify="flex-end" className="mt-5">
         <Form.Item>
           <Flex>
             <Button className="mr-2" onClick={() => {
@@ -72,7 +70,7 @@ const CategoryModal = ({ isOpen, setIsOpen, editingCategory, setEditingCategory,
         </Form.Item>
       </Flex>
     </Form>
-  </Modal >
+  </Modal>
 }
 
 export default CategoryModal

@@ -6,11 +6,13 @@ import {
   DeleteTwoTone,
   EditTwoTone
 } from '@ant-design/icons'
-import { Button, Divider, Flex, Table } from 'antd'
+import { Button, Divider, Flex, Popconfirm, Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 
 import { Category } from '@/models/Category'
+import { remove } from '@/utils/api'
 import { LIMIT_PAGE_NUMBER } from '@/utils/constants'
+import pushNotification from '@/utils/pushNotification'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import CategoryModal from './CategoryModal'
 
@@ -53,9 +55,19 @@ const CategoryTable = ({
             setIsOpen(true)
           }} />
           <Divider type='vertical' />
-          <DeleteTwoTone className='cursor-pointer' twoToneColor='#ff1500' onClick={() => {
-            setEditingCategory(record)
-          }} />
+          <Popconfirm
+            placement="leftTop"
+            title={"Xác nhận xóa danh mục?"}
+            description={"Bạn có chắc chắn muốn xóa danh mục này ?"}
+            onConfirm={async () => {
+              const { message, success }: any = await remove('api/category', record, 'categories')
+              pushNotification(message, success)
+            }}
+            okText="Xác nhận"
+            cancelText="Hủy"
+          >
+            <DeleteTwoTone className='cursor-pointer' twoToneColor='#ff4d4f' />
+          </Popconfirm>
         </>
       )
     }

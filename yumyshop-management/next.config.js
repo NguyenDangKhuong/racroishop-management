@@ -14,7 +14,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')]
   },
   images: {
-    domains: ['res.cloudinary.com', 'demos.creative-tim.com'],
+    domains: ['res.cloudinary.com'],
     unoptimized: true
   },
   i18n,

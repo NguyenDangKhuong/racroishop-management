@@ -23,7 +23,7 @@ export const GET = async (req: NextRequest) => {
       })
         .sort({ createdAt: -1 })
         .lean()
-      return Response.json({ products, totalPages, totalDocs }, { status: 200 })
+      return NextResponse.json({ products, totalPages, totalDocs }, { status: 200 })
     }
     if (pageNum === 1) {
       const products = await ProductModel.find({
@@ -32,7 +32,7 @@ export const GET = async (req: NextRequest) => {
         .limit(pageSize)
         .sort({ createdAt: -1 })
         .lean()
-      return Response.json({ products, totalPages, totalDocs }, { status: 200 })
+      return NextResponse.json({ products, totalPages, totalDocs }, { status: 200 })
     }
     const skip = pageSize * (pageNum - 1)
     const products = await ProductModel.find()
@@ -41,7 +41,7 @@ export const GET = async (req: NextRequest) => {
       .sort({ createdAt: -1 })
       .lean()
 
-    return Response.json({ products, totalPages, totalDocs }, { status: 200 })
+    return NextResponse.json({ products, totalPages, totalDocs }, { status: 200 })
   } catch (err) {
     console.error(err)
     return NextResponse.json({
