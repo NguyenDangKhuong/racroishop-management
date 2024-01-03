@@ -7,7 +7,7 @@ connectDb()
 
 export const GET = async (req: NextRequest) => {
   try {
-    const { searchParams } = new URL(String(req.url))
+    const searchParams = req.nextUrl.searchParams
     const date = searchParams.get('date')
     const isMonth = Boolean(searchParams.get('isMonth')) ?? false
     const orders = isMonth
@@ -23,7 +23,7 @@ export const GET = async (req: NextRequest) => {
           $lte: endOfDay(subHours(new Date(String(date)), 7))
         }
       }).lean()
-    return NextResponse.json({ orders }, { status: 200 })
+    return NextResponse.json({ orders, success: true }, { status: 200 })
   } catch (err) {
     console.error(err)
     return NextResponse.json({

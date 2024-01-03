@@ -95,12 +95,13 @@ const ProductModal = ({ isOpen, setIsOpen, editingProduct, setEditingProduct, ca
           className='w-full'
           allowClear
           options={options}
-          onSelect={(val) =>
+          onSelect={(val) => {
             setEditingProduct({
               ...editingProduct,
               price: val
             })
-          }
+            setOptions([])
+          }}
           onSearch={(val) =>
             setOptions(val ? getPanelValue(Number(val)) : [])
           }

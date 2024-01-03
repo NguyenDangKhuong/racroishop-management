@@ -47,7 +47,7 @@ const BarcodeModal = ({
               height={20}
               fontSize={8}
               margin={2}
-              value={editingProduct.sku}
+              value={editingProduct.sku || ''}
             />
             <div className='text-[8px]'>
               {currencyFormat(editingProduct.price)}

@@ -10,13 +10,13 @@ const OrderModal = ({
   setIsOpen: (val: any) => void,
   products: ProductCart[],
 }) => {
-  const newProduct = products.map(item => {
-    return {
+  const newProduct = products.map(item => (
+    {
       name: item.product.name,
       price: item.product.price,
       quantity: item.quantity
     }
-  })
+  ))
   return (
     <Modal
       title={`Chi tiết sản phẩm đơn hàng`}

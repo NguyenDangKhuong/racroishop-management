@@ -8,7 +8,7 @@ connectDb()
 
 export const GET = async (req: NextRequest) => {
   try {
-    const { searchParams } = new URL(String(req.url))
+    const searchParams = req.nextUrl.searchParams
     // Convert querystring values to number
     const pageNum = Number(searchParams.get('page')) || 1
     const pageSize = Number(searchParams.get('size')) || LIMIT_PAGE_NUMBER
@@ -41,7 +41,7 @@ export const GET = async (req: NextRequest) => {
       .sort({ createdAt: -1 })
       .lean()
 
-    return NextResponse.json({ products, totalPages, totalDocs }, { status: 200 })
+    return NextResponse.json({ products, totalPages, totalDocs, success: true }, { status: 200 })
   } catch (err) {
     console.error(err)
     return NextResponse.json({

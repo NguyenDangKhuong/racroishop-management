@@ -7,7 +7,7 @@ const pushNotification = (message: string, success: boolean) => {
   }) : notification.error({
     message: 'Lỗi',
     description: message,
-    duration: 10
+    duration: 15
   })
 }
 

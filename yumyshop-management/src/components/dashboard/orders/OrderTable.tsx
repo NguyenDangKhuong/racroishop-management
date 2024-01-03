@@ -118,7 +118,7 @@ const OrderTable = ({
         }}
         footer={() => `Tổng tiền: ${currencyFormat(
           orders?.reduce(
-            (acc: number, curr: Order) => acc + curr.totalPrice,
+            (acc: number, curr: Order) => acc + Number(curr.totalPrice),
             0
           )
         )}`}

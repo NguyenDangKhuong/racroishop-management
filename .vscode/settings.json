@@ -1,8 +1,8 @@
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   },
-  "editor.wordWrap": "off",
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on"
 }
