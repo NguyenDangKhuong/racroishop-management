@@ -2,7 +2,7 @@ const XPage = () => {
   return (
     <>
       <a className='twitter-timeline' href='https://twitter.com/Vccuchi'>
-        Tweets by Vccuchi
+        Ahihi đồ ngok
       </a>
       <script
         async

@@ -8,7 +8,7 @@ export interface PostResponse {
   status: number
 }
 
-export const get = async (url: string, params?: object, tags?: string[]) => {
+export const get = async (url: string, params?: object, tags?: string[], revalidate?: number) => {
   try {
     const res = await fetch(
       `${BACKEND_HOST}/${url}?${new URLSearchParams({
@@ -16,7 +16,7 @@ export const get = async (url: string, params?: object, tags?: string[]) => {
       })}`,
       {
         method: 'GET',
-        next: { tags }
+        next: { tags, revalidate }
       }
     )
     return await res.json()

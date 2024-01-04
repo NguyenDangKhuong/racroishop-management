@@ -36,11 +36,14 @@ const CartPage = () => {
       if (!debounedScanValue) return
       setIsFetching(true)
       const { product, message, success } = await get(`/api/product/${debounedScanValue}`, {}, ['productsCart'])
+
+      const { _id } = product
+
       if (!success) {
         pushNotification(message, success)
         return
       }
-      const existedProduct = cartList?.find(item => item.product?._id === product._id)
+      const existedProduct = await cartList?.find(item => item.product?._id === _id)
       const newCartList = existedProduct
         ? cartList.map(item =>
           item.product?._id === product._id

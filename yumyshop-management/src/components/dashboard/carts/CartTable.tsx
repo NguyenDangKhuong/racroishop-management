@@ -121,7 +121,7 @@ const CartListItem = ({
         bordered
         columns={columns}
         dataSource={tableCartList}
-        scroll={{ y: 600 }}
+        scroll={{ y: 800 }}
         pagination={false}
       />
     </>
